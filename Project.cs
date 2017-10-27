@@ -42,6 +42,7 @@ namespace OpenXP
             //MapInfos.rxdata
             Maps = new MapInfos();
             Ruby.PopulateMapInfos(Maps);
+            Maps.FinishedLoading();
 
             return null;
         }

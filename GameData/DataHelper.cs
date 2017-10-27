@@ -27,7 +27,13 @@ namespace OpenXP.GameData
 
         public static byte[] Deflate(string s)
         {
+            //Vanilla RMXP uses a different configuration for
+            //Deflate, with version header and adler32 footer.
+
+            //we need interoperability, so we're going to manually
+            //tweak what Ionic.Zlib produces to match.
             List<byte> result = new List<byte>();
+
             //RMXP-compatible format header bytes
             result.Add(120);
             result.Add(156);
@@ -36,36 +42,27 @@ namespace OpenXP.GameData
             result.AddRange(DeflateStream.CompressString(s));
 
             //adler32, last 4 bytes
-            result.AddRange(GenerateAdlerFrame(s));
+            result.AddRange(adler32(Encoding.UTF8.GetBytes(s)));
 
             return result.ToArray();
         }
 
-        //returns a 4 byte frame
-        private static byte[] GenerateAdlerFrame(string data)
+        private static byte[] adler32(byte[] data)
         {
-            long s1 = 1;
-            long s2 = 0;
-            byte[] raw = Encoding.UTF8.GetBytes(data);
-            foreach(byte b in raw)
+            UInt32 a = 1, b = 0;
+            int index;
+            for (index = 0; index < data.Length; ++index)
             {
-                s1 += b;
-                s2 += s1;
+                a = (a + data[index]) % 65521;
+                b = (b + a) % 65521;
             }
-            s1 %= 65536;
-            s2 %= 65536;
-            int r = (int)(s2 * 65536 + s1);
-            byte[] result = BitConverter.GetBytes(r);
+
+            byte[] result = BitConverter.GetBytes((b << 16) | a);
             if (BitConverter.IsLittleEndian)
             {
                 result = result.Reverse().ToArray();
             }
             return result;
         }
-    }
-
-    public class MarshalContainer
-    {
-        public List<dynamic> objects = new List<dynamic>();
     }
 }

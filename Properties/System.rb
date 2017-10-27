@@ -971,102 +971,100 @@ module Kernel
 		}
 	end
 
-	def save_data(filename)
+	def save_data(obj, filename)
 		File.open(filename, "wb") { |f|
 		  Marshal.dump(obj, f)
 		}
 	end
 end
 
-# Script loader
-def load_scripts
-	filePath = $RGSS_SCRIPTS_PATH
-    $RGSS_SCRIPTS = []
-    unknownScript = 0
-   
-    # Open the script file
-	begin
-		script = File.new(filePath, 'r')
-	rescue StandardError => error
-		p "Script file IO failed: " + $!
-	end
-
-    # Gets the array of scripts
-	rawData = Marshal.load(script)
-	
-    # inflate each script
-    rawData.each do |dataArray|
-        data = ""
-        begin
-            data = Zlib::Inflate.inflate(dataArray[2])
-        rescue StandardError => error
-            data = ""
-        end
-        
-        unless(data.strip.length == 0)
-            # Fix up the name
-            if(dataArray[1].strip.length == 0)
-                dataArray[1] = ""
-                unknownScript += 1
-            end
-        end
-		if(data.strip.length > 0)
-			#puts "Loaded script: " + dataArray[1]
-			#dataArray[2].each_byte {|c| 
-			#	print c, ' ' 
-			#}
-			#puts "\r\n\r\n"
-			$RGSS_SCRIPTS.push([dataArray[0], dataArray[1], dataArray[2], data])
-		end
-    end
-end
-
-#load script utility methods
-def get_script_count
-	return $RGSS_SCRIPTS.length
-end
-
-def get_script_magic(index)
-	return $RGSS_SCRIPTS[index][0]
-end
-
-def get_script_name(index)
-	return $RGSS_SCRIPTS[index][1]
-end
-
-def get_script_contents(index)
-	return $RGSS_SCRIPTS[index][3]
-end
-
-#save script utility methods
-def save_scripts_start
-	$RGSS_SCRIPTS = []
-end
-
-def install_script
-	magicnumber = File.open('script0.tmp', 'rb') { |f| f.read }
-	magicnumber = magicnumber.to_i
-	name = File.open('script1.tmp', 'rb') { |f| f.read }
-	script = File.open('script2.tmp', 'rb') { |f| f.read }
-	$RGSS_SCRIPTS.push([magicnumber, name, script.to_s])
-end
-
-def save_scripts_end
-	filePath = $RGSS_SCRIPTS_PATH
-    # write the script file
-	begin
-		File.open(filePath, "wb") {|f| Marshal::dump($RGSS_SCRIPTS, f)}
-	rescue StandardError => error
-		p "Script file IO failed: " + $!
-	end
-end
-
 #data helper class
 class RbDataHelper
+
+	def load_scripts
+		filePath = $RGSS_SCRIPTS_PATH
+		$RGSS_SCRIPTS = []
+   
+		# Open the script file
+		begin
+			script = File.new(filePath, 'r')
+		rescue StandardError => error
+			p "Script file IO failed: " + $!
+		end
+
+		# Gets the array of scripts
+		rawData = Marshal.load(script)
+	
+		# inflate each script
+		rawData.each do |dataArray|
+			data = ""
+			begin
+				data = Zlib::Inflate.inflate(dataArray[2])
+			rescue StandardError => error
+				puts error
+				data = ""
+			end
+			if(data.strip.length > 0)
+				#test print the script name
+				sd = "Loaded script: " + dataArray[1] + " ("
+				dataArray[2].each_byte {|c| 
+					sd +=  c.to_i.to_s + ' '
+				}
+				sd = sd.chop!
+				sd += ")"
+				puts sd + "\r\n"
+				#end test print
+				$RGSS_SCRIPTS.push([dataArray[0], dataArray[1], dataArray[2], data])
+			end
+		end
+		return $RGSS_SCRIPTS
+	end
+
+	# scripts =====================================================================
+	def save_scripts(data)
+		$RGSS_SCRIPTS = [] #clear old data
+		data.each do |d|
+			$RGSS_SCRIPTS.push([d[0].to_i, d[1].to_s, String.new(d[2])])
+		end
+		begin
+			File.open($RGSS_SCRIPTS_PATH, "wb") {|f| Marshal::dump($RGSS_SCRIPTS, f)}
+		rescue StandardError => error
+			p "Script file IO failed: " + $!
+		end
+	end
+
+
+	def save_scripts_start
+		$RGSS_SCRIPTS = []
+	end
+
+	def install_script(number, name, data)
+		#test print the script name and bytes
+		sd = "Saving script: " + name + " ("
+		String.new(data).each_byte {|c| 
+			sd +=  c.to_i.to_s + ' '
+		}
+		sd = sd.chop!
+		sd += ")"
+		puts sd + "\r\n"
+		#end test print
+		$RGSS_SCRIPTS.push([number.to_i, name.to_s, String.new(data)])
+	end
+
+	def save_scripts_end
+		filePath = $RGSS_SCRIPTS_PATH
+		# write the script file
+		begin
+			File.open(filePath, "wb") {|f| Marshal::dump($RGSS_SCRIPTS, f)}
+		rescue StandardError => error
+			p "Script file IO failed: " + $!
+		end
+	end
+
+	# MapInfos =========================================================================
 	def load_map_infos
 		# this uses the RPG structure
 		$MAPINFOS = load_data("Data/MapInfos.rxdata")
-
 		# pack a custom array of just the mapinfo data without object headers
 		ret = []
 		$MAPINFOS.each { |k, v|
@@ -1074,6 +1072,18 @@ class RbDataHelper
 		} 
 		return ret
 	end
+
 	def save_map_infos(infos)
+		$MAPINFOS = {} #clear old data
+		infos.each do |i|
+			$MAPINFOS[i[0].to_i] = RPG::MapInfo.new
+			$MAPINFOS[i[0].to_i].name = i[1].to_s
+			$MAPINFOS[i[0].to_i].parent_id = i[2]
+			$MAPINFOS[i[0].to_i].order = i[3]
+			$MAPINFOS[i[0].to_i].expanded = i[4]
+			$MAPINFOS[i[0].to_i].scroll_x = i[5]
+			$MAPINFOS[i[0].to_i].scroll_y = i[6]
+		end
+		save_data($MAPINFOS, "Data/MapInfos.rxdata")
 	end
 end

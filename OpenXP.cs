@@ -23,7 +23,23 @@ namespace OpenXP
             Editor.ActiveDrawTool = DrawToolType.SELECT;
             Editor.ChangeDrawTool(DrawToolType.PENCIL);
 
+            treeViewMaps.TreeViewNodeSorter = new NodeSorter();
+            treeViewMaps.AfterExpand += TreeViewMaps_AfterExpand;
+            treeViewMaps.AfterCollapse += TreeViewMaps_AfterCollapse;
+
             FormClosed += OpenXP_FormClosed;
+        }
+
+        private void TreeViewMaps_AfterCollapse(object sender, TreeViewEventArgs e)
+        {
+            MapInfo map = Editor.Project.Maps.GetMapByTreeNode(e.Node);
+            if (map != null) map.Expanded = false;
+        }
+
+        private void TreeViewMaps_AfterExpand(object sender, TreeViewEventArgs e)
+        {
+            MapInfo map = Editor.Project.Maps.GetMapByTreeNode(e.Node);
+            if (map != null) map.Expanded = true;
         }
 
         private void OpenXP_FormClosed(object sender, FormClosedEventArgs e)
@@ -215,6 +231,8 @@ namespace OpenXP
 
         public void enableControls()
         {
+            treeViewMaps.Nodes.Clear();
+            treeViewMaps.Nodes.Add(Editor.Project.Maps.TreeNode);
             tableLayoutPanel.Visible = true;
             toolbarSaveProjectItem.Enabled = true;
             toolbarLayer1Item.Enabled = true;
@@ -254,6 +272,7 @@ namespace OpenXP
 
         public void disableControls()
         {
+            treeViewMaps.Nodes.Clear();
             tableLayoutPanel.Visible = false;
             toolbarSaveProjectItem.Enabled = false;
             toolbarLayer1Item.Enabled = false;

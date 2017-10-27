@@ -52,7 +52,6 @@ namespace OpenXP
 
         public void PopulateMapInfos(MapInfos infos)
         {
-            //Load rxdata
             try
             {
                 //read a List from MapInfos.rxdata
@@ -61,7 +60,6 @@ namespace OpenXP
                 {
                     List<dynamic> entry = ToList(d);
                     infos.AddMap((int) entry[0], entry[1].ToString(), (int) entry[2], (int) entry[3], (bool) entry[4], (int) entry[5], (int)entry[6]);
-                    Console.WriteLine("Loaded mapinfo for map id " + entry[0].ToString() + ": " + entry[1].ToString());
                     //todo: load the accompanying map rxdata here
                 }
             }
@@ -78,6 +76,7 @@ namespace OpenXP
             {
                 IronRuby.Builtins.RubyArray ra = new IronRuby.Builtins.RubyArray();
                 ra.Add(info.Id);
+                ra.Add(info.Name);
                 ra.Add(info.ParentId);
                 ra.Add(info.Order);
                 ra.Add(info.Expanded);
@@ -85,25 +84,17 @@ namespace OpenXP
                 ra.Add(info.ScrollY);
                 maps.Add(ra);
             }
-            datahelper.save_map_infos(infos);
+            datahelper.save_map_infos(maps);
         }
 
         public void PopulateScriptHive(ScriptHive hive)
         {
-            //Load rxdata
             try
             {
-                engine.Execute(@"load_scripts", scope);
-                int scriptCount = (int)engine.Execute("get_script_count", scope);
-                if(scriptCount > 0)
+                List<dynamic> scrArray = ToList(datahelper.load_scripts());
+                foreach(dynamic scr in scrArray)
                 {
-                    for(int i = 0; i < scriptCount; i++)
-                    {
-                        int scriptMagic = (int)engine.Execute(@"get_script_magic(" + i + ")", scope);
-                        string scriptName = (string) engine.Execute(@"get_script_name(" + i + ")", scope);
-                        string scriptContents = (string) engine.Execute(@"get_script_contents(" + i + ")", scope);
-                        hive.AddScript(new Script(scriptMagic, scriptName, scriptContents));
-                    }
+                    hive.AddScript(new Script((int)scr[0], scr[1].ToString(), GameData.DataHelper.Inflate(((IronRuby.Builtins.MutableString)scr[2]).ConvertToBytes())));
                 }
             }
             catch (Exception e)
@@ -114,21 +105,21 @@ namespace OpenXP
 
         public void WriteScriptHive(ScriptHive hive)
         {
-            //Save rxdata
             try
             {
-                engine.Execute(@"save_scripts_start", scope);
+                IronRuby.Builtins.RubyArray ra = new IronRuby.Builtins.RubyArray();
                 foreach(Script s in hive.Scripts)
                 {
-                    System.IO.File.WriteAllText(System.IO.Path.Combine(Editor.Project.Directory, "script0.tmp"), s.MagicNumber.ToString());
-                    System.IO.File.WriteAllText(System.IO.Path.Combine(Editor.Project.Directory, "script1.tmp"), s.Name);
-                    System.IO.File.WriteAllBytes(System.IO.Path.Combine(Editor.Project.Directory, "script2.tmp"), GameData.DataHelper.Deflate(s.Contents));
-                    engine.Execute(@"install_script", scope);
-                    System.IO.File.Delete(System.IO.Path.Combine(Editor.Project.Directory, "script0.tmp"));
-                    System.IO.File.Delete(System.IO.Path.Combine(Editor.Project.Directory, "script1.tmp"));
-                    System.IO.File.Delete(System.IO.Path.Combine(Editor.Project.Directory, "script2.tmp"));
+                    IronRuby.Builtins.RubyArray ra_entry = new IronRuby.Builtins.RubyArray();
+                    ra_entry.Add(s.MagicNumber);
+                    ra_entry.Add(s.Name);
+                    var ms = new IronRuby.Builtins.MutableString();
+                    ms = ms.ChangeEncoding(IronRuby.Builtins.RubyEncoding.Binary, true);
+                    ms.Append(GameData.DataHelper.Deflate(s.Contents));
+                    ra_entry.Add(ms);
+                    ra.Add(ra_entry);
                 }
-                engine.Execute(@"save_scripts_end", scope);
+                datahelper.save_scripts(ra);
             }
             catch (Exception e)
             {
