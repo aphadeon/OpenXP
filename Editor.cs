@@ -16,6 +16,9 @@ namespace OpenXP
         public static LayerType ActiveLayer { get; set; }
         public static DrawToolType ActiveDrawTool { get; set; }
 
+        public static bool DimOtherLayers = true;
+        public static bool ViewAllLayers = true;
+
         public static void Exit()
         {
             Application.Exit();
@@ -137,6 +140,18 @@ namespace OpenXP
             }
         }
 
+        public static void ToggleDimOtherLayers()
+        {
+            DimOtherLayers = !DimOtherLayers;
+            //toggle the checked state of the menu item
+            Form.SetDimOtherLayersChecked(DimOtherLayers);
+        }
+
+        public static void SetViewAllLayers(bool state)
+        {
+            ViewAllLayers = state;
+        }
+
         public static void ChangeLayer(LayerType newLayer)
         {
             if(newLayer != ActiveLayer)
@@ -152,7 +167,20 @@ namespace OpenXP
                 }
                 //update editor selection display
                 Form.updateSelectedLayer(ActiveLayer);
+                //force a repaint on the map
+                Form.RepaintMap();
             }
+        }
+
+        public static void Playtest()
+        {
+            string command = Path.Combine(Project.Directory, @"Game.exe");
+            string args = "debug";
+
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            process.StartInfo.FileName = command;
+            process.StartInfo.Arguments = args;
+            process.Start();
         }
 
         //call when a project is loaded/enabled to enable toolbars/menus

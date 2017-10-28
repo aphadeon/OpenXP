@@ -14,8 +14,9 @@ namespace OpenXP
     {
         public MapInfo SelectedMap { get {return _selectedMap; } set
             {
-                if (value != _selectedMap) OnSelectedMapChange();
+                var oldmap = _selectedMap;
                  _selectedMap = value;
+                if (value != oldmap) OnSelectedMapChange(oldmap);
             }
         }
         public MapInfo _selectedMap = null;
@@ -33,22 +34,24 @@ namespace OpenXP
             treeViewMaps.TreeViewNodeSorter = new NodeSorter();
             treeViewMaps.AfterExpand += TreeViewMaps_AfterExpand;
             treeViewMaps.AfterCollapse += TreeViewMaps_AfterCollapse;
-            //todo, use beforeselect to apply last map changes
             treeViewMaps.AfterSelect += TreeViewMaps_AfterSelect;
 
             panelMap.Paint += PanelMap_Paint;
+            panelTilemapContainer.HorizontalScroll.Enabled = true;
+            panelTilemapContainer.VerticalScroll.Enabled = true;
 
             FormClosed += OpenXP_FormClosed;
         }
 
-        public void OnSelectedMapChange()
+        public void OnSelectedMapChange(MapInfo lastMap)
         {
-
+            if(SelectedMap != null) SelectedMap.Map.FirstDraw();
         }
 
         private void PanelMap_Paint(object sender, PaintEventArgs e)
         {
-            //throw new NotImplementedException();
+            base.OnPaint(e);
+            if (SelectedMap != null) SelectedMap.Map.PaintEditor(this.panelMap, e);
         }
 
         private void TreeViewMaps_AfterSelect(object sender, TreeViewEventArgs e)
@@ -189,6 +192,11 @@ namespace OpenXP
                     toolbarSelectItem.Checked = true;
                     break;
             }
+        }
+
+        internal void RepaintMap()
+        {
+            panelMap.Invalidate();
         }
 
         public void updateSelectedLayer(LayerType layer)
@@ -349,8 +357,14 @@ namespace OpenXP
             gameMenuRTPItem.Enabled = false;
         }
 
+        public void SetDimOtherLayersChecked(bool state)
+        {
+            viewMenuDimLayersItem.Checked = state;
+        }
+
         public void SelectMap(int id)
         {
+            MapInfo lastMap = SelectedMap;
             if(id == 0)
             {
                 //select the root
@@ -486,6 +500,48 @@ namespace OpenXP
             {
                 dse.ShowDialog();
             }
+        }
+
+        private void viewMenuDimLayersItem_Click(object sender, EventArgs e)
+        {
+            Editor.ToggleDimOtherLayers();
+            RepaintMap();
+        }
+
+        private void viewMenuCurrentLayerItem_Click(object sender, EventArgs e)
+        {
+            Editor.SetViewAllLayers(false);
+            viewMenuCurrentLayerItem.Checked = true;
+            viewMenuAllLayersItem.Checked = false;
+            RepaintMap();
+        }
+
+        private void viewMenuAllLayersItem_Click(object sender, EventArgs e)
+        {
+            Editor.SetViewAllLayers(true);
+            viewMenuCurrentLayerItem.Checked = false;
+            viewMenuAllLayersItem.Checked = true;
+            RepaintMap();
+        }
+
+        private void gameMenuOpenFolderItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+            {
+                FileName = Editor.Project.Directory,
+                UseShellExecute = true,
+                Verb = "open"
+            });
+        }
+
+        private void toolbarPlaytestItem_Click(object sender, EventArgs e)
+        {
+            Editor.Playtest();
+        }
+
+        private void gameMenuPlaytestItem_Click(object sender, EventArgs e)
+        {
+            Editor.Playtest();
         }
     }
 }

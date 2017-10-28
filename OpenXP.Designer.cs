@@ -150,7 +150,7 @@
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Padding = new System.Windows.Forms.Padding(0);
             this.mainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.mainMenu.Size = new System.Drawing.Size(1264, 24);
+            this.mainMenu.Size = new System.Drawing.Size(1199, 24);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -281,14 +281,18 @@
             this.viewMenuCurrentLayerItem.Name = "viewMenuCurrentLayerItem";
             this.viewMenuCurrentLayerItem.Size = new System.Drawing.Size(203, 22);
             this.viewMenuCurrentLayerItem.Text = "Current Layer and Below";
+            this.viewMenuCurrentLayerItem.Click += new System.EventHandler(this.viewMenuCurrentLayerItem_Click);
             // 
             // viewMenuAllLayersItem
             // 
+            this.viewMenuAllLayersItem.Checked = true;
+            this.viewMenuAllLayersItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.viewMenuAllLayersItem.Enabled = false;
             this.viewMenuAllLayersItem.Image = ((System.Drawing.Image)(resources.GetObject("viewMenuAllLayersItem.Image")));
             this.viewMenuAllLayersItem.Name = "viewMenuAllLayersItem";
             this.viewMenuAllLayersItem.Size = new System.Drawing.Size(203, 22);
             this.viewMenuAllLayersItem.Text = "All Layers";
+            this.viewMenuAllLayersItem.Click += new System.EventHandler(this.viewMenuAllLayersItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -297,11 +301,14 @@
             // 
             // viewMenuDimLayersItem
             // 
+            this.viewMenuDimLayersItem.Checked = true;
+            this.viewMenuDimLayersItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.viewMenuDimLayersItem.Enabled = false;
             this.viewMenuDimLayersItem.Image = ((System.Drawing.Image)(resources.GetObject("viewMenuDimLayersItem.Image")));
             this.viewMenuDimLayersItem.Name = "viewMenuDimLayersItem";
             this.viewMenuDimLayersItem.Size = new System.Drawing.Size(203, 22);
             this.viewMenuDimLayersItem.Text = "Dim other layers";
+            this.viewMenuDimLayersItem.Click += new System.EventHandler(this.viewMenuDimLayersItem_Click);
             // 
             // modeMenu
             // 
@@ -520,6 +527,7 @@
             this.gameMenuPlaytestItem.Name = "gameMenuPlaytestItem";
             this.gameMenuPlaytestItem.Size = new System.Drawing.Size(173, 22);
             this.gameMenuPlaytestItem.Text = "Playtest";
+            this.gameMenuPlaytestItem.Click += new System.EventHandler(this.gameMenuPlaytestItem_Click);
             // 
             // toolStripSeparator5
             // 
@@ -555,6 +563,7 @@
             this.gameMenuOpenFolderItem.Name = "gameMenuOpenFolderItem";
             this.gameMenuOpenFolderItem.Size = new System.Drawing.Size(173, 22);
             this.gameMenuOpenFolderItem.Text = "Open Game Folder";
+            this.gameMenuOpenFolderItem.Click += new System.EventHandler(this.gameMenuOpenFolderItem_Click);
             // 
             // helpMenu
             // 
@@ -626,7 +635,7 @@
             this.toolbar.Name = "toolbar";
             this.toolbar.Padding = new System.Windows.Forms.Padding(3);
             this.toolbar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolbar.Size = new System.Drawing.Size(1264, 29);
+            this.toolbar.Size = new System.Drawing.Size(1199, 29);
             this.toolbar.TabIndex = 1;
             this.toolbar.Text = "toolStrip";
             // 
@@ -925,14 +934,15 @@
             this.toolbarPlaytestItem.Name = "toolbarPlaytestItem";
             this.toolbarPlaytestItem.Size = new System.Drawing.Size(23, 20);
             this.toolbarPlaytestItem.Text = "PlayTest";
+            this.toolbarPlaytestItem.Click += new System.EventHandler(this.toolbarPlaytestItem_Click);
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 739);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 656);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1264, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1199, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -956,7 +966,7 @@
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 1;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(1264, 686);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(1199, 603);
             this.tableLayoutPanel.TabIndex = 4;
             this.tableLayoutPanel.Visible = false;
             // 
@@ -981,8 +991,8 @@
             // 
             this.splitContainer.Panel2.AutoScroll = true;
             this.splitContainer.Panel2.Controls.Add(this.treeViewMaps);
-            this.splitContainer.Size = new System.Drawing.Size(280, 686);
-            this.splitContainer.SplitterDistance = 425;
+            this.splitContainer.Size = new System.Drawing.Size(280, 603);
+            this.splitContainer.SplitterDistance = 373;
             this.splitContainer.SplitterWidth = 6;
             this.splitContainer.TabIndex = 0;
             // 
@@ -1003,23 +1013,26 @@
             this.treeViewMaps.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewMaps.Location = new System.Drawing.Point(0, 0);
             this.treeViewMaps.Name = "treeViewMaps";
-            this.treeViewMaps.Size = new System.Drawing.Size(276, 251);
+            this.treeViewMaps.Size = new System.Drawing.Size(276, 220);
             this.treeViewMaps.TabIndex = 0;
             // 
             // panelTilemapContainer
             // 
             this.panelTilemapContainer.AutoScroll = true;
+            this.panelTilemapContainer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelTilemapContainer.Controls.Add(this.panelMap);
             this.panelTilemapContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelTilemapContainer.Location = new System.Drawing.Point(280, 0);
             this.panelTilemapContainer.Margin = new System.Windows.Forms.Padding(0);
             this.panelTilemapContainer.Name = "panelTilemapContainer";
-            this.panelTilemapContainer.Size = new System.Drawing.Size(984, 686);
+            this.panelTilemapContainer.Size = new System.Drawing.Size(919, 603);
             this.panelTilemapContainer.TabIndex = 1;
             // 
             // panelMap
             // 
+            this.panelMap.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panelMap.Location = new System.Drawing.Point(0, 0);
+            this.panelMap.Margin = new System.Windows.Forms.Padding(0);
             this.panelMap.Name = "panelMap";
             this.panelMap.Size = new System.Drawing.Size(200, 100);
             this.panelMap.TabIndex = 0;
@@ -1029,13 +1042,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(1264, 761);
+            this.ClientSize = new System.Drawing.Size(1199, 678);
             this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolbar);
             this.Controls.Add(this.mainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu;
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "OpenXP";
             this.Text = "OpenXP";
             this.mainMenu.ResumeLayout(false);
@@ -1150,8 +1164,8 @@
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.TreeView treeViewMaps;
         private System.Windows.Forms.PictureBox pictureBoxTileset;
-        private System.Windows.Forms.Panel panelTilemapContainer;
         private System.Windows.Forms.Panel panelMap;
+        private System.Windows.Forms.Panel panelTilemapContainer;
     }
 }
 

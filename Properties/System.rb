@@ -1028,22 +1028,24 @@ class RxDataHelper
 		save_data($MAPINFOS, "Data/MapInfos.rxdata")
 	end
 
-	#todo: VERY TEMPORARY - last map id
+	#todo: VERY TEMPORARY STUFF
 	def get_last_map_id
 		return load_data("Data/System.rxdata").edit_map_id
 	end
+
 	def set_last_map_id(i)
 		obj = load_data("Data/System.rxdata")
 		obj.edit_map_id = i.to_i
 		save_data(obj, "Data/System.rxdata")
 	end
 
+	def grab_tileset(id)
+		return $tilesets[id]
+	end
+	#end temp todo stuff
+
 	# we totally cheat maps and leave them ruby-side
 	def grab_map(id)
 		return load_data(sprintf("Data/Map%03d.rxdata", @map_id))
-	end
-
-	def grab_tileset(id)
-		return $tilesets[id]
 	end
 end
