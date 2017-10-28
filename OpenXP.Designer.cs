@@ -118,14 +118,20 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.pictureBoxTileset = new System.Windows.Forms.PictureBox();
             this.treeViewMaps = new System.Windows.Forms.TreeView();
+            this.panelTilemapContainer = new System.Windows.Forms.Panel();
+            this.panelMap = new System.Windows.Forms.Panel();
             this.mainMenu.SuspendLayout();
             this.toolbar.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTileset)).BeginInit();
+            this.panelTilemapContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -940,15 +946,16 @@
             // tableLayoutPanel
             // 
             this.tableLayoutPanel.ColumnCount = 2;
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 256F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 280F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel.Controls.Add(this.splitContainer, 0, 0);
+            this.tableLayoutPanel.Controls.Add(this.panelTilemapContainer, 1, 0);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 53);
+            this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 1;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(1264, 686);
             this.tableLayoutPanel.TabIndex = 4;
             this.tableLayoutPanel.Visible = false;
@@ -956,25 +963,66 @@
             // splitContainer
             // 
             this.splitContainer.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer.Margin = new System.Windows.Forms.Padding(0);
             this.splitContainer.Name = "splitContainer";
             this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
+            // splitContainer.Panel1
+            // 
+            this.splitContainer.Panel1.AutoScroll = true;
+            this.splitContainer.Panel1.AutoScrollMinSize = new System.Drawing.Size(256, 0);
+            this.splitContainer.Panel1.BackColor = System.Drawing.Color.White;
+            this.splitContainer.Panel1.Controls.Add(this.pictureBoxTileset);
+            // 
             // splitContainer.Panel2
             // 
+            this.splitContainer.Panel2.AutoScroll = true;
             this.splitContainer.Panel2.Controls.Add(this.treeViewMaps);
-            this.splitContainer.Size = new System.Drawing.Size(250, 680);
-            this.splitContainer.SplitterDistance = 422;
+            this.splitContainer.Size = new System.Drawing.Size(280, 686);
+            this.splitContainer.SplitterDistance = 425;
+            this.splitContainer.SplitterWidth = 6;
             this.splitContainer.TabIndex = 0;
+            // 
+            // pictureBoxTileset
+            // 
+            this.pictureBoxTileset.BackColor = System.Drawing.Color.White;
+            this.pictureBoxTileset.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxTileset.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBoxTileset.Name = "pictureBoxTileset";
+            this.pictureBoxTileset.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.pictureBoxTileset.Size = new System.Drawing.Size(256, 421);
+            this.pictureBoxTileset.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxTileset.TabIndex = 0;
+            this.pictureBoxTileset.TabStop = false;
             // 
             // treeViewMaps
             // 
             this.treeViewMaps.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewMaps.Location = new System.Drawing.Point(0, 0);
             this.treeViewMaps.Name = "treeViewMaps";
-            this.treeViewMaps.Size = new System.Drawing.Size(250, 254);
+            this.treeViewMaps.Size = new System.Drawing.Size(276, 251);
             this.treeViewMaps.TabIndex = 0;
+            // 
+            // panelTilemapContainer
+            // 
+            this.panelTilemapContainer.AutoScroll = true;
+            this.panelTilemapContainer.Controls.Add(this.panelMap);
+            this.panelTilemapContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTilemapContainer.Location = new System.Drawing.Point(280, 0);
+            this.panelTilemapContainer.Margin = new System.Windows.Forms.Padding(0);
+            this.panelTilemapContainer.Name = "panelTilemapContainer";
+            this.panelTilemapContainer.Size = new System.Drawing.Size(984, 686);
+            this.panelTilemapContainer.TabIndex = 1;
+            // 
+            // panelMap
+            // 
+            this.panelMap.Location = new System.Drawing.Point(0, 0);
+            this.panelMap.Name = "panelMap";
+            this.panelMap.Size = new System.Drawing.Size(200, 100);
+            this.panelMap.TabIndex = 0;
             // 
             // OpenXP
             // 
@@ -997,9 +1045,13 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tableLayoutPanel.ResumeLayout(false);
+            this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel1.PerformLayout();
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTileset)).EndInit();
+            this.panelTilemapContainer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1097,6 +1149,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.TreeView treeViewMaps;
+        private System.Windows.Forms.PictureBox pictureBoxTileset;
+        private System.Windows.Forms.Panel panelTilemapContainer;
+        private System.Windows.Forms.Panel panelMap;
     }
 }
 

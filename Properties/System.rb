@@ -1,15 +1,5 @@
-﻿load_assembly 'IronRuby.Libraries', 'IronRuby.StandardLibrary.Zlib'
-load_assembly 'IronRuby.Libraries', 'IronRuby.StandardLibrary.Threading'
-#require './OpenXP.exe'
-
-# Set the cwd to the game data path
+﻿# Set the cwd to the game data path
 Dir.chdir($GAME_DIRECTORY)
-
-# fix for interop generic instanciation
-class System::Object
-  def initialize
-  end
-end
 
 #RPG Data Modules
 module RPG
@@ -963,7 +953,7 @@ class Table # by vgvgf
   end
 end
 
-# Data handling shortcut methods
+# Data handling shortcuts
 module Kernel
 	def load_data(filename)
 		File.open(filename, "rb") { |f|
@@ -978,97 +968,48 @@ module Kernel
 	end
 end
 
+# Fix for interop instanciations
+class System::Object
+  def initialize
+  end
+end
+
 #data helper class
-class RbDataHelper
+class RxDataHelper
+	def initialize
+		#todo, this is pretty much just temporary solutions to things.
+		$tilesets = load_data("Data/Tilesets.rxdata")
+	end
 
+    # scripts ==============================================================================
 	def load_scripts
-		filePath = $RGSS_SCRIPTS_PATH
-		$RGSS_SCRIPTS = []
-   
-		# Open the script file
 		begin
-			script = File.new(filePath, 'r')
+			File.open($RGSS_SCRIPTS_PATH, 'r') {|f| return Marshal::load(f)}
 		rescue StandardError => error
 			p "Script file IO failed: " + $!
 		end
-
-		# Gets the array of scripts
-		rawData = Marshal.load(script)
-	
-		# inflate each script
-		rawData.each do |dataArray|
-			data = ""
-			begin
-				data = Zlib::Inflate.inflate(dataArray[2])
-			rescue StandardError => error
-				puts error
-				data = ""
-			end
-			if(data.strip.length > 0)
-				#test print the script name
-				sd = "Loaded script: " + dataArray[1] + " ("
-				dataArray[2].each_byte {|c| 
-					sd +=  c.to_i.to_s + ' '
-				}
-				sd = sd.chop!
-				sd += ")"
-				puts sd + "\r\n"
-				#end test print
-				$RGSS_SCRIPTS.push([dataArray[0], dataArray[1], dataArray[2], data])
-			end
-		end
-		return $RGSS_SCRIPTS
 	end
 
-	# scripts =====================================================================
 	def save_scripts(data)
-		$RGSS_SCRIPTS = [] #clear old data
+		scripts = []
 		data.each do |d|
-			$RGSS_SCRIPTS.push([d[0].to_i, d[1].to_s, String.new(d[2])])
+			scripts.push([d[0].to_i, d[1].to_s, String.new(d[2])])
 		end
 		begin
-			File.open($RGSS_SCRIPTS_PATH, "wb") {|f| Marshal::dump($RGSS_SCRIPTS, f)}
+			File.open($RGSS_SCRIPTS_PATH, "wb") {|f| Marshal::dump(scripts, f)}
 		rescue StandardError => error
 			p "Script file IO failed: " + $!
 		end
 	end
-
-
-	def save_scripts_start
-		$RGSS_SCRIPTS = []
-	end
-
-	def install_script(number, name, data)
-		#test print the script name and bytes
-		sd = "Saving script: " + name + " ("
-		String.new(data).each_byte {|c| 
-			sd +=  c.to_i.to_s + ' '
-		}
-		sd = sd.chop!
-		sd += ")"
-		puts sd + "\r\n"
-		#end test print
-		$RGSS_SCRIPTS.push([number.to_i, name.to_s, String.new(data)])
-	end
-
-	def save_scripts_end
-		filePath = $RGSS_SCRIPTS_PATH
-		# write the script file
-		begin
-			File.open(filePath, "wb") {|f| Marshal::dump($RGSS_SCRIPTS, f)}
-		rescue StandardError => error
-			p "Script file IO failed: " + $!
-		end
-	end
-
-	# MapInfos =========================================================================
+	# Maps ==============================================================================
 	def load_map_infos
 		# this uses the RPG structure
 		$MAPINFOS = load_data("Data/MapInfos.rxdata")
 		# pack a custom array of just the mapinfo data without object headers
 		ret = []
 		$MAPINFOS.each { |k, v|
-			ret << [k, v.name, v.parent_id, v.order, v.expanded, v.scroll_x, v.scroll_y]
+			map = load_data(sprintf("Data/Map%03d.rxdata", k))
+			ret << [k, v.name, v.parent_id, v.order, v.expanded, v.scroll_x, v.scroll_y, map]
 		} 
 		return ret
 	end
@@ -1085,5 +1026,24 @@ class RbDataHelper
 			$MAPINFOS[i[0].to_i].scroll_y = i[6]
 		end
 		save_data($MAPINFOS, "Data/MapInfos.rxdata")
+	end
+
+	#todo: VERY TEMPORARY - last map id
+	def get_last_map_id
+		return load_data("Data/System.rxdata").edit_map_id
+	end
+	def set_last_map_id(i)
+		obj = load_data("Data/System.rxdata")
+		obj.edit_map_id = i.to_i
+		save_data(obj, "Data/System.rxdata")
+	end
+
+	# we totally cheat maps and leave them ruby-side
+	def grab_map(id)
+		return load_data(sprintf("Data/Map%03d.rxdata", @map_id))
+	end
+
+	def grab_tileset(id)
+		return $tilesets[id]
 	end
 end

@@ -13,7 +13,7 @@ namespace OpenXP
         private static ScriptRuntime runtime;
         private static ScriptEngine engine;
         private static ScriptScope scope;
-        private static dynamic datahelper;
+        public static dynamic rbhelper;
 
         public Ruby()
         {
@@ -47,7 +47,7 @@ namespace OpenXP
             Eval(script);
 
             //Create our datahelper instance
-            datahelper = engine.Execute(@"RbDataHelper.new", scope);
+            rbhelper = engine.Execute(@"RxDataHelper.new", scope);
         }
 
         public void PopulateMapInfos(MapInfos infos)
@@ -55,13 +55,15 @@ namespace OpenXP
             try
             {
                 //read a List from MapInfos.rxdata
-                List<dynamic> mapInfoList = ToList(datahelper.load_map_infos());
+                List<dynamic> mapInfoList = ToList(rbhelper.load_map_infos());
                 foreach(dynamic d in mapInfoList)
                 {
                     List<dynamic> entry = ToList(d);
-                    infos.AddMap((int) entry[0], entry[1].ToString(), (int) entry[2], (int) entry[3], (bool) entry[4], (int) entry[5], (int)entry[6]);
-                    //todo: load the accompanying map rxdata here
+                    infos.AddMap((int) entry[0], entry[1].ToString(), (int) entry[2], (int) entry[3], (bool) entry[4], (int) entry[5], (int)entry[6], entry[7]);
                 }
+                //todo: temporary, last editor map id
+                int lastMap = rbhelper.get_last_map_id();
+                Editor.SelectMap(lastMap);
             }
             catch (Exception e)
             {
@@ -84,14 +86,17 @@ namespace OpenXP
                 ra.Add(info.ScrollY);
                 maps.Add(ra);
             }
-            datahelper.save_map_infos(maps);
+            rbhelper.save_map_infos(maps);
+            //todo: temporary, last editor map id
+            rbhelper.set_last_map_id(Editor.GetSelectedMapId());
+
         }
 
         public void PopulateScriptHive(ScriptHive hive)
         {
             try
             {
-                List<dynamic> scrArray = ToList(datahelper.load_scripts());
+                List<dynamic> scrArray = ToList(rbhelper.load_scripts());
                 foreach(dynamic scr in scrArray)
                 {
                     hive.AddScript(new Script((int)scr[0], scr[1].ToString(), GameData.DataHelper.Inflate(((IronRuby.Builtins.MutableString)scr[2]).ConvertToBytes())));
@@ -119,7 +124,7 @@ namespace OpenXP
                     ra_entry.Add(ms);
                     ra.Add(ra_entry);
                 }
-                datahelper.save_scripts(ra);
+                rbhelper.save_scripts(ra);
             }
             catch (Exception e)
             {

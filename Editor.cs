@@ -166,5 +166,15 @@ namespace OpenXP
         {
             Form.disableControls();
         }
+
+        public static void SelectMap(int id)
+        {
+            Form.SelectMap(id);
+        }
+
+        public static int GetSelectedMapId()
+        {
+            return Form.GetMapId();
+        }
     }
 }

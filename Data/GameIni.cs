@@ -8,6 +8,8 @@ namespace OpenXP
 {
     public class GameIni
     {
+        //TODO: preserve any unused data in Game.ini (atm this is very destructive and overwrites the whole file with just known settings)
+
         public string Library = "RGSS104E.dll";
         public string Scripts = "Data\\Scripts.rxdata";
         public string Title = "Project1";

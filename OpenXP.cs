@@ -12,6 +12,13 @@ namespace OpenXP
 {
     public partial class OpenXP : Form
     {
+        public MapInfo SelectedMap { get {return _selectedMap; } set
+            {
+                if (value != _selectedMap) OnSelectedMapChange();
+                 _selectedMap = value;
+            }
+        }
+        public MapInfo _selectedMap = null;
 
         public OpenXP()
         {
@@ -26,8 +33,38 @@ namespace OpenXP
             treeViewMaps.TreeViewNodeSorter = new NodeSorter();
             treeViewMaps.AfterExpand += TreeViewMaps_AfterExpand;
             treeViewMaps.AfterCollapse += TreeViewMaps_AfterCollapse;
+            //todo, use beforeselect to apply last map changes
+            treeViewMaps.AfterSelect += TreeViewMaps_AfterSelect;
+
+            panelMap.Paint += PanelMap_Paint;
 
             FormClosed += OpenXP_FormClosed;
+        }
+
+        public void OnSelectedMapChange()
+        {
+
+        }
+
+        private void PanelMap_Paint(object sender, PaintEventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void TreeViewMaps_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            MapInfo mapInfo = Editor.Project.Maps.GetMapByTreeNode(e.Node);
+            if (mapInfo != null)
+            {
+                pictureBoxTileset.Image = mapInfo.Map.TilesetBitmap;
+                pictureBoxTileset.Visible = true;
+                SelectedMap = mapInfo;
+            }
+            else
+            {
+                pictureBoxTileset.Visible = false;
+                SelectedMap = null;
+            }
         }
 
         private void TreeViewMaps_AfterCollapse(object sender, TreeViewEventArgs e)
@@ -268,6 +305,8 @@ namespace OpenXP
             gameMenuOpenFolderItem.Enabled = true;
             gameMenuPlaytestItem.Enabled = true;
             gameMenuRTPItem.Enabled = true;
+            treeViewMaps.Select();
+            treeViewMaps.Focus();
         }
 
         public void disableControls()
@@ -308,6 +347,31 @@ namespace OpenXP
             gameMenuOpenFolderItem.Enabled = false;
             gameMenuPlaytestItem.Enabled = false;
             gameMenuRTPItem.Enabled = false;
+        }
+
+        public void SelectMap(int id)
+        {
+            if(id == 0)
+            {
+                //select the root
+                treeViewMaps.SelectedNode = treeViewMaps.Nodes[0];
+            }
+            MapInfo m = Editor.Project.Maps.GetMapById(id);
+            if(m != null)
+            {
+                treeViewMaps.SelectedNode = m.TreeNode;
+            }
+        }
+
+        public int GetMapId()
+        {
+            TreeNode tn = treeViewMaps.SelectedNode;
+            if(tn != null)
+            {
+                MapInfo m = Editor.Project.Maps.GetMapByTreeNode(tn);
+                if (m != null) return m.Id;
+            }
+            return 0;
         }
 
         private void toolbarLayer1Item_Click(object sender, EventArgs e)

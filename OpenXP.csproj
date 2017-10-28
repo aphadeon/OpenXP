@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>OpenXP.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ionic.Zlib">
@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\MapHandler.cs" />
     <Compile Include="GameData\DataHelper.cs" />
     <Compile Include="Data\MapInfos.cs" />
     <Compile Include="DialogChangeGameTitle.cs">

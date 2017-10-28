@@ -22,7 +22,7 @@ namespace OpenXP
             TreeNode.Text = Editor.Project.Ini.Title;
         }
 
-        public void AddMap(int id, string name, int parent, int order, bool expanded, int scrollx, int scrolly)
+        public void AddMap(int id, string name, int parent, int order, bool expanded, int scrollx, int scrolly, dynamic map)
         {
             MapInfo info = new MapInfo();
             info.Id = id;
@@ -32,6 +32,7 @@ namespace OpenXP
             info.Expanded = expanded;
             info.ScrollX = scrollx;
             info.ScrollY = scrolly;
+            info.Map = new MapHandler(info, map);
             info.TreeNode = new TreeNode();
             info.TreeNode.Name = "tn" + info.Id.ToString(); //so that we can get the id later
             info.TreeNode.Text = info.Name; //temp, make order variable visible
@@ -56,7 +57,7 @@ namespace OpenXP
         }
 
         //not super-duper efficient but whatever. it works for now
-        private bool MapIdExists(int id)
+        public bool MapIdExists(int id)
         {
             foreach(MapInfo info in Maps)
             {
@@ -65,7 +66,7 @@ namespace OpenXP
             return false;
         }
 
-        private MapInfo GetMapById(int id)
+        public MapInfo GetMapById(int id)
         {
             foreach (MapInfo info in Maps)
             {
@@ -119,6 +120,9 @@ namespace OpenXP
         public bool Expanded;
         public int ScrollX;
         public int ScrollY;
+
+        //special case for serialization
+        public MapHandler Map;
 
         //not serialized, used for map browser
         public TreeNode TreeNode;

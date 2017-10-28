@@ -11,6 +11,7 @@ namespace OpenXP
     {
         public string Path;
         public string Directory;
+        public List<string> ResourcePaths;
         public bool Dirty = false;
         public bool Extended = false; //does it make use of OpenXP extensions?
         public GameIni Ini;
@@ -32,6 +33,9 @@ namespace OpenXP
                 return "There was an error reading Game.ini";
             }
 
+            //Load RTP(s)
+            FindRTPs();
+
             //Ruby
             Ruby = new Ruby();
 
@@ -50,8 +54,8 @@ namespace OpenXP
         //call to save the project and clear the dirty flag
         public void Save()
         {
-            if (Dirty)
-            {
+            //if (Dirty)  //disabled, let's just always save
+            //{
                 //todo: save stuff here - implement as each file is supported
                 //save the .rxproj file
                 File.WriteAllText(Path, "RPGXP 1.05");
@@ -66,7 +70,7 @@ namespace OpenXP
                 Ruby.WriteMapInfos(Maps);
 
                 Dirty = false; //set this last if everything saved okay
-            }
+            //}
         }
 
         //call this when you change something that needs to be saved
@@ -84,6 +88,80 @@ namespace OpenXP
         public void Dispose()
         {
             if (Ruby != null) Ruby.Dispose();
+        }
+
+        private void FindRTPs()
+        {
+            ResourcePaths = new List<string>();
+            ResourcePaths.Add(Directory);
+            string rtpn;
+
+            string rtpnn = Ini.RTP1;
+            if (!String.IsNullOrWhiteSpace(rtpnn))
+            {
+                bool found = false;
+                rtpn = FindRTP(rtpnn);
+                if (!String.IsNullOrWhiteSpace(rtpn))
+                {
+                    if (System.IO.Directory.Exists(rtpn))
+                    {
+                        Console.WriteLine("Found RTP: " + rtpnn + " at: " + rtpn);
+                        ResourcePaths.Add(rtpn);
+                        found = true;
+                    }
+                }
+                if (!found) Console.WriteLine("Could not locate RTP: " + rtpnn);
+            }
+
+            rtpnn = Ini.RTP2;
+            if (!String.IsNullOrWhiteSpace(rtpnn))
+            {
+                bool found = false;
+                rtpn = FindRTP(rtpnn);
+                if (!String.IsNullOrWhiteSpace(rtpn))
+                {
+                    if (System.IO.Directory.Exists(rtpn))
+                    {
+                        Console.WriteLine("Found RTP: " + rtpnn + " at: " + rtpn);
+                        ResourcePaths.Add(rtpn);
+                        found = true;
+                    }
+                }
+                if (!found) Console.WriteLine("Could not locate RTP: " + rtpnn);
+            }
+
+            rtpnn = Ini.RTP3;
+            if (!String.IsNullOrWhiteSpace(rtpnn))
+            {
+                bool found = false;
+                rtpn = FindRTP(rtpnn);
+                if (!String.IsNullOrWhiteSpace(rtpn))
+                {
+                    if (System.IO.Directory.Exists(rtpn))
+                    {
+                        Console.WriteLine("Found RTP: " + rtpnn + " at: " + rtpn);
+                        ResourcePaths.Add(rtpn);
+                        found = true;
+                    }
+                }
+                if (!found) Console.WriteLine("Could not locate RTP: " + rtpnn);
+            }
+        }
+
+        private string FindRTP(string name)
+        {
+            string key = @"HKEY_LOCAL_MACHINE\Software\Enterbrain\RGSS\RTP";
+            string rtp = (string)Microsoft.Win32.Registry.GetValue(key, "Standard", "");
+            if (String.IsNullOrWhiteSpace(rtp))
+            {
+                key = @"HKEY_LOCAL_MACHINE\Software\Wow6432Node\Enterbrain\RGSS\RTP";
+                rtp = (string)Microsoft.Win32.Registry.GetValue(key, "Standard", "");
+            }
+            if (!String.IsNullOrWhiteSpace(rtp))
+            {
+                return rtp + @"\";
+            }
+            return null;
         }
     }
 }
