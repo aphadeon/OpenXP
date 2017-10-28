@@ -1,0 +1,108 @@
+# ![logo](Tools/logo.png) OpenXP
+An open-source 2D top-down RPG editor and engine, which aims to support RPG Maker XP projects. 
+It uses Ruby for scripting, and will make attempts to maintain compatibility with existing third 
+party RPG Maker XP scripts.
+
+While not an exact clone, it should be close enough to be comfortable, and more importantly, to 
+*just work*.  There will be additional enhancements and features beyond the original capabilities 
+of the RPG Maker XP engine.
+
+**OpenXP is currently in early development.  It is not recommended for production use at this time.**
+
+
+Status
+--------
+At this point we are focusing on interoperability and compatibility with RPG Maker XP projects, both 
+via the editor and a runtime implementation.
+
+The editor is the initial focus.  Once the basic functionality is completed, we will change focus to 
+the runtime, which will be based on the previous project OpenGame.exe, but limited to RPG Maker XP 
+support.
+
+Speaking of, the runtime is notably absent for the time being. It is being worked on, and will be 
+merged in at a later time.
+
+More enhanced features will be added in the future.
+
+
+Cross-Platform
+--------------
+OpenXP's runtime intends to officially support Windows, Linux, and Mac.  It is not yet ready for use 
+on other platforms.  The editor may be made cross platform, this is yet to be determined.
+
+
+Limitations
+-----------
+You must own RPG Maker XP in order to use the OpenXP editor, in accordance with the details 
+of this project's license (see License below for more information).  I strongly respect the intellectual 
+property rights of others, and while we are using a clean-room approach to implementation, I have no 
+desire to compromise the value or integrity of their product.
+
+Encrypted RPG Maker archives (.rgssad) will not be supported.  While the format is well known 
+at this point, Enterbrain (the copyright holder for RPG Maker) has directly expressed that it is 
+against their wishes for the encryption details to be investigated or made public.  New forms of 
+encryption will be made available for this editor at a later time.
+
+Win32API is not supported.  A plugin system is planned that will allow you to extend many facets 
+of both the editor and the runtime, and additionally you have access to the source code to tailor 
+the engine to your needs.  A cross-platform runtime is a high priority with this project, and most 
+existing Win32API-dependent scripts will likely not work as intended due to a different backend.
+
+
+Building from source
+--------------------
+We also use NuGet to manage dependencies- as long as you have package resolution enabled, 
+this process should run automatically and install the required libraries.
+
+Some dependencies are bundled in the repository, where custom built options were preferable. 
+
+
+Contributions
+------------
+Please see the [Contribution Guidelines and Credits List](CONTRIBUTING.MD).  :eyes:
+
+Thanks to the [hbgames.org community](http://www.hbgames.org/) for helping me learn the RPG Maker 
+series over the years.  
+
+Thanks to vgvgf for demonstrating how to pack and unpack Table, Color, and Tone classes.  
+
+
+License
+-------
+```
+OpenXP License
+Copyright 2017 aphadeon
+
+You must own RPG Maker XP to use the OpenXP editor in binary form to produce software. With this 
+condition met, you may freely use, copy, modify, publish, merge, distribute, sell, or sublicense 
+copies of the software for any purpose, subject to the conditions below.
+
+You must give appropriate credit to all contributors (see CONTRIBUTING.MD), indicate if changes 
+were made, and provide a copy of or link to this license with all substantial portions of the 
+software. You may do so in any reasonable manner which does not suggest the licensor(s) endorses 
+you or your use.
+
+All software is provided "as is", without warranty of any kind, express or implied, including but 
+not limited to the warranties of merchantability, fitness for a particular purpose and 
+noninfringement. In no event shall the authors, contributors, or copyright holders be liable for 
+any claim, damages, or other liability, whether in an action of contract, tort or otherwise, 
+arising from, out of or in connection with the software or the use or other dealings in the
+software.
+```
+
+Dependency License Information:
+-------------------------------
+
+[IronRuby](http://ironruby.net/) 
+is licensed under [Apache License v2](http://www.apache.org/licenses/LICENSE-2.0).  
+
+[Ionic.Zlib](https://github.com/jstedfast/Ionic.Zlib) 
+is licensed under [ZLIB License](https://github.com/jstedfast/Ionic.Zlib/blob/master/License.zlib.txt).  
+
+[ScintillaNET](https://github.com/jacobslusser/ScintillaNET) 
+is licensed under [MIT License](https://github.com/jacobslusser/ScintillaNET/blob/master/LICENSE).  
+
+[Scintilla](http://www.scintilla.org/) 
+is licensed under [MIT License](http://www.scintilla.org/License.txt).  
+
+XPV is licensed under [MIT License](https://opensource.org/licenses/MIT).  
