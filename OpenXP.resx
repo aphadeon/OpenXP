@@ -121,39 +121,6 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="gameMenuPlaytestItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAFpJREFUOE9j
-        GH5gBRAvA2ItMI8M8B6I/wPxXyBeDcS6QEwSgBkAwzCD9IGYKIBuAAz/A+L1QGwAxHgBLgNgGGTQdCDG
-        CWhmANleIDsQyY5GWELSBvNGAmBgAACxmziGca0hiwAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="gameMenuChangeTitleItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAADpJREFUOE9j
-        oAZYDMQrycQgvWCGDhCLQTGITSwA6aXcgEdQBjkYpBfMIBeA9Y4aMGoAiKA4M1EAGBgAb1IvmSzx2vMA
-        AAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="gameMenuRTPItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAL1JREFUOE+9
-        0j8OAUEUgPElEk4gcQGJlgtoJeJPgkTJMQQnoNgLqBQotG7AGbRO4pt5s5uZXbubSTa+5BdvxuRpBGVX
-        wRjzAgv0kGqHLaKHa7yxtO6UF65wGuIgo66KC5K/tMIezoI27qjpk3TEVMa4Pk4yugvOUBdFPqhDpc5x
-        ziEn+13ughFmRlNdmP63IKvoXQehjJLvghtaMko+CwbY6JOVz4IHGvpkpb6w/6pZnuYzVRfJx79MUGZB
-        8AUnjTBZ2+j5OQAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="gameMenuOpenFolderItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAQlJREFUOE9j
-        oBvg5uZmkpWV9VRSUioGYWlpaTOoFAMDJycns4aGRrmBgcFFIL6PA78A4v9I+K+qqmoU2ABtbe0+oMA7
-        NTW1ShkZmXh0rKentx5NMwwfY+Dj42PT1dVdClRoBTYNDSgqKroBFb5D0wjDpxj4+fk5dHR02oCcvUC8
-        HwkfAOI7QIxNIxjr6+vvAjl/AjZJYjDQ5asYgIxz6BLEYi0trVkMQGeAnItVASGsrq7eBfLCSmySxGAV
-        FZVqBqApk7FJEoOBMZTNoKysXINNkhgsJycXzQBMnsHYJInBkpKSFuBkDExpu7EpwIfBUQgDIENALgH6
-        qZQYDFTrx8HBwQjVTglgYAAAot4QKDMD5dYAAAAASUVORK5CYII=
-</value>
-  </data>
   <data name="fileMenuNewProjectItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
@@ -546,6 +513,39 @@
         Zyagu+y67kpDsqSPN7E85jDXwwefynZ/RgDJbdterY9F6ONILhf2+H8BLkxVVa83L8tSjwDxJIvQOA59
         2xGY61EIsyS26oLATkQKuxWRG3v4jLAFN7lwHALCsvPuGbH2va6OGWdu4W8XiVwun0528edVtuBNQNI/
         E4R97QYFM8u2HnZ2AU16Crv9nbmx1MvQDDzvE/hp4yAsqvpvAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="gameMenuPlaytestItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAFpJREFUOE9j
+        GH5gBRAvA2ItMI8M8B6I/wPxXyBeDcS6QEwSgBkAwzCD9IGYKIBuAAz/A+L1QGwAxHgBLgNgGGTQdCDG
+        CWhmANleIDsQyY5GWELSBvNGAmBgAACxmziGca0hiwAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="gameMenuChangeTitleItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAADpJREFUOE9j
+        oAZYDMQrycQgvWCGDhCLQTGITSwA6aXcgEdQBjkYpBfMIBeA9Y4aMGoAiKA4M1EAGBgAb1IvmSzx2vMA
+        AAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="gameMenuRTPItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAL1JREFUOE+9
+        0j8OAUEUgPElEk4gcQGJlgtoJeJPgkTJMQQnoNgLqBQotG7AGbRO4pt5s5uZXbubSTa+5BdvxuRpBGVX
+        wRjzAgv0kGqHLaKHa7yxtO6UF65wGuIgo66KC5K/tMIezoI27qjpk3TEVMa4Pk4yugvOUBdFPqhDpc5x
+        ziEn+13ughFmRlNdmP63IKvoXQehjJLvghtaMko+CwbY6JOVz4IHGvpkpb6w/6pZnuYzVRfJx79MUGZB
+        8AUnjTBZ2+j5OQAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="gameMenuOpenFolderItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAQlJREFUOE9j
+        oBvg5uZmkpWV9VRSUioGYWlpaTOoFAMDJycns4aGRrmBgcFFIL6PA78A4v9I+K+qqmoU2ABtbe0+oMA7
+        NTW1ShkZmXh0rKentx5NMwwfY+Dj42PT1dVdClRoBTYNDSgqKroBFb5D0wjDpxj4+fk5dHR02oCcvUC8
+        HwkfAOI7QIxNIxjr6+vvAjl/AjZJYjDQ5asYgIxz6BLEYi0trVkMQGeAnItVASGsrq7eBfLCSmySxGAV
+        FZVqBqApk7FJEoOBMZTNoKysXINNkhgsJycXzQBMnsHYJInBkpKSFuBkDExpu7EpwIfBUQgDIENALgH6
+        qZQYDFTrx8HBwQjVTglgYAAAot4QKDMD5dYAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="helpMenuContentsItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

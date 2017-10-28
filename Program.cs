@@ -18,5 +18,10 @@ namespace OpenXP
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new OpenXP());
         }
+
+        public static string GetEditorDirectory()
+        {
+            return System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"/";
+        }
     }
 }

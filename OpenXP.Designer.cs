@@ -121,7 +121,7 @@
             this.pictureBoxTileset = new System.Windows.Forms.PictureBox();
             this.treeViewMaps = new System.Windows.Forms.TreeView();
             this.panelTilemapContainer = new System.Windows.Forms.Panel();
-            this.panelMap = new System.Windows.Forms.Panel();
+            this.pictureBoxMap = new System.Windows.Forms.PictureBox();
             this.mainMenu.SuspendLayout();
             this.toolbar.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -1020,7 +1020,7 @@
             // 
             this.panelTilemapContainer.AutoScroll = true;
             this.panelTilemapContainer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelTilemapContainer.Controls.Add(this.panelMap);
+            this.panelTilemapContainer.Controls.Add(this.pictureBoxMap);
             this.panelTilemapContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelTilemapContainer.Location = new System.Drawing.Point(280, 0);
             this.panelTilemapContainer.Margin = new System.Windows.Forms.Padding(0);
@@ -1030,12 +1030,11 @@
             // 
             // panelMap
             // 
-            this.panelMap.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panelMap.Location = new System.Drawing.Point(0, 0);
-            this.panelMap.Margin = new System.Windows.Forms.Padding(0);
-            this.panelMap.Name = "panelMap";
-            this.panelMap.Size = new System.Drawing.Size(200, 100);
-            this.panelMap.TabIndex = 0;
+            this.pictureBoxMap.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxMap.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBoxMap.Name = "panelMap";
+            this.pictureBoxMap.Size = new System.Drawing.Size(200, 100);
+            this.pictureBoxMap.TabIndex = 0;
             // 
             // OpenXP
             // 
@@ -1164,7 +1163,7 @@
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.TreeView treeViewMaps;
         private System.Windows.Forms.PictureBox pictureBoxTileset;
-        private System.Windows.Forms.Panel panelMap;
+        private System.Windows.Forms.PictureBox pictureBoxMap;
         private System.Windows.Forms.Panel panelTilemapContainer;
     }
 }

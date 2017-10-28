@@ -16,11 +16,14 @@ namespace OpenXP
         public static LayerType ActiveLayer { get; set; }
         public static DrawToolType ActiveDrawTool { get; set; }
 
+        public static EditorIni Ini;
+
         public static bool DimOtherLayers = true;
         public static bool ViewAllLayers = true;
 
         public static void Exit()
         {
+            if(Ini != null) Ini.Save();
             Application.Exit();
         }
 
@@ -41,13 +44,18 @@ namespace OpenXP
             Project.Touch();
             UpdateCaption();
         }
+
+        public static void OnStartup()
+        {
+            Ini = new EditorIni();
+        }
         
         public static void OpenProject()
         {
             string projectFile = null;
             //browse for a project
             OpenFileDialog openDialog = new OpenFileDialog();
-            openDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            openDialog.InitialDirectory = Ini.LastProjectDirectory;
             openDialog.Filter = "RPGXP Project (*.rxproj)|*.rxproj|All files (*.*)|*.*";
             openDialog.FilterIndex = 1;
             openDialog.RestoreDirectory = true;
@@ -79,6 +87,7 @@ namespace OpenXP
                             string msg = Project.Setup();
                             if (string.IsNullOrWhiteSpace(msg)){
                                 //all good
+                                Ini.LastProjectDirectory = Project.Directory;
                                 EnableControls();
                                 UpdateCaption();
                                 return;

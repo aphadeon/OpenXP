@@ -84,10 +84,12 @@ namespace OpenXP
                 ra.Add(info.Expanded);
                 ra.Add(info.ScrollX);
                 ra.Add(info.ScrollY);
+                ra.Add(info.Map.rbMap); //ta-da, found a way
                 maps.Add(ra);
             }
             rbhelper.save_map_infos(maps);
-            //todo: temporary, last editor map id
+
+            //todo: temporary
             rbhelper.set_last_map_id(Editor.GetSelectedMapId());
 
         }

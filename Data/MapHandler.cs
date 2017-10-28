@@ -87,7 +87,7 @@ namespace OpenXP
             return output;
         }
 
-        public void PaintEditor(System.Windows.Forms.Panel p, System.Windows.Forms.PaintEventArgs e)
+        public void PaintEditor(System.Windows.Forms.PictureBox p, System.Windows.Forms.PaintEventArgs e)
         {
             if (!firstDrawn) return;
             int widthInTiles = (int)rbMap.width;
@@ -120,6 +120,18 @@ namespace OpenXP
                 if (activeLayer < 2 && !viewAll) return;
                 if (activeLayer < 2 && dim) e.Graphics.DrawImage(RenderLayer3d, Point.Empty);
                 else e.Graphics.DrawImage(RenderLayer3, Point.Empty);
+
+                //draw selection
+                using (Pen pen = new Pen(new SolidBrush(Color.FromArgb(255, 0, 0, 0))))
+                {
+                    pen.Width = 4;
+                    e.Graphics.DrawRectangle(pen, Editor.Form.MapHoverLocationX * 32, Editor.Form.MapHoverLocationY * 32, 32, 32);
+                }
+                using (Pen pen = new Pen(new SolidBrush(Color.FromArgb(255, 255, 255, 255))))
+                {
+                    pen.Width = 2;
+                    e.Graphics.DrawRectangle(pen, (Editor.Form.MapHoverLocationX * 32), (Editor.Form.MapHoverLocationY * 32), 32, 32);
+                }
             } else
             {
                 e.Graphics.DrawImage(RenderLayer1, Point.Empty);
@@ -237,6 +249,13 @@ namespace OpenXP
             DrawLayer(1);
             DrawLayer(2);
             firstDrawn = true;
+        }
+
+        public void SetTile(int column, int row, int layer, int tileId)
+        {
+            rbMap.data[column, row, layer] = tileId;
+            //redraw the modified layer
+            DrawLayer(layer);
         }
     }
 }

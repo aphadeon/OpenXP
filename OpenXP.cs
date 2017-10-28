@@ -21,10 +21,19 @@ namespace OpenXP
         }
         public MapInfo _selectedMap = null;
 
+        public int TilesetSelectionX = -1;
+        public int TilesetSelectionY = -1;
+        public int TilesetSelectionId = 0;
+        public int MapHoverLocationX = -1;
+        public int MapHoverLocationY = -1;
+
+        public bool MarkedForExit = true;
+
         public OpenXP()
         {
             InitializeComponent();
             Editor.Form = this;
+
             //changing to a different value triggers initial updates
             Editor.ActiveLayer = LayerType.LAYER1;
             Editor.ChangeLayer(LayerType.EVENTS);
@@ -36,22 +45,116 @@ namespace OpenXP
             treeViewMaps.AfterCollapse += TreeViewMaps_AfterCollapse;
             treeViewMaps.AfterSelect += TreeViewMaps_AfterSelect;
 
-            panelMap.Paint += PanelMap_Paint;
+            pictureBoxMap.MouseLeave += PictureBoxMap_MouseLeave;
+            pictureBoxMap.MouseMove += PictureBoxMap_MouseMove;
+
+            pictureBoxMap.Paint += PanelMap_Paint;
+            pictureBoxMap.MouseClick += PictureBoxMap_MouseClick;
             panelTilemapContainer.HorizontalScroll.Enabled = true;
             panelTilemapContainer.VerticalScroll.Enabled = true;
 
+            pictureBoxTileset.MouseClick += PictureBoxTileset_MouseClick;
+            pictureBoxTileset.Paint += PictureBoxTileset_Paint;
+
             FormClosed += OpenXP_FormClosed;
+
+            //load configuration here
+            Load += OpenXP_Load;
+            Editor.OnStartup();
+        }
+
+        private void OpenXP_Load(object sender, EventArgs e)
+        {
+            if (MarkedForExit) Close();
+        }
+
+        private void PictureBoxMap_MouseMove(object sender, MouseEventArgs e)
+        {
+            int hoverX = e.X / 32;
+            int hoverY = e.Y / 32;
+            if(hoverX > 0 && hoverY > 0)
+            {
+                if (MapHoverLocationX != hoverX || MapHoverLocationY != hoverY) RepaintMap();
+                MapHoverLocationX = hoverX;
+                MapHoverLocationY = hoverY;
+            }
+        }
+
+        private void PictureBoxMap_MouseLeave(object sender, EventArgs e)
+        {
+            MapHoverLocationX = -1;
+            MapHoverLocationY = -1;
+        }
+
+        private void PictureBoxMap_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (Editor.ActiveLayer == LayerType.EVENTS)
+            {
+
+            } else {
+                int column = e.X / 32;
+                int row = e.Y / 32;
+                if (SelectedMap != null)
+                {
+                    int layer = 0;
+                    switch (Editor.ActiveLayer)
+                    {
+                        case LayerType.LAYER2: layer = 1; break;
+                        case LayerType.LAYER3: layer = 2; break;
+                    }
+                    SelectedMap.Map.SetTile(column, row, layer, TilesetSelectionId);
+                    pictureBoxMap.Invalidate();
+                }
+            }
+        }
+
+        private void PictureBoxTileset_Paint(object sender, PaintEventArgs e)
+        {
+            //draw selection indicator
+            if (TilesetSelectionX >= 0 && TilesetSelectionY >= 0) { //if we /have/ a selection
+                Graphics g = e.Graphics;
+                using (Pen pen = new Pen(new SolidBrush(Color.FromArgb(255, 0, 0, 0))))
+                {
+                    pen.Width = 4;
+                    g.DrawRectangle(pen, TilesetSelectionX * 32, TilesetSelectionY * 32, 32, 32);
+                }
+                using (Pen pen = new Pen(new SolidBrush(Color.FromArgb(255, 255, 255, 255))))
+                {
+                    pen.Width = 2;
+                    g.DrawRectangle(pen, (TilesetSelectionX * 32), (TilesetSelectionY * 32), 32, 32);
+                }
+            }
+        }
+
+        private void PictureBoxTileset_MouseClick(object sender, MouseEventArgs e)
+        {
+            int column = e.X / 32;
+            int row = e.Y / 32;
+            int index = (row * 8) + column;
+
+            TilesetSelectionX = column;
+            TilesetSelectionY = row;
+            if (index > 8)
+            {
+                //todo, test for max id and ignore the click if it was exceeded
+                TilesetSelectionId = (index - 8) + 384;
+            } else
+            {
+                TilesetSelectionId = 0; //autotiles aren't yet implemented
+            }
+            pictureBoxTileset.Invalidate(); //redraw selection
         }
 
         public void OnSelectedMapChange(MapInfo lastMap)
         {
             if(SelectedMap != null) SelectedMap.Map.FirstDraw();
+            pictureBoxMap.Invalidate();
         }
 
         private void PanelMap_Paint(object sender, PaintEventArgs e)
         {
             base.OnPaint(e);
-            if (SelectedMap != null) SelectedMap.Map.PaintEditor(this.panelMap, e);
+            if (SelectedMap != null) SelectedMap.Map.PaintEditor(this.pictureBoxMap, e);
         }
 
         private void TreeViewMaps_AfterSelect(object sender, TreeViewEventArgs e)
@@ -196,7 +299,7 @@ namespace OpenXP
 
         internal void RepaintMap()
         {
-            panelMap.Invalidate();
+            pictureBoxMap.Invalidate();
         }
 
         public void updateSelectedLayer(LayerType layer)

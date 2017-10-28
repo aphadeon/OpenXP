@@ -1024,6 +1024,8 @@ class RxDataHelper
 			$MAPINFOS[i[0].to_i].expanded = i[4]
 			$MAPINFOS[i[0].to_i].scroll_x = i[5]
 			$MAPINFOS[i[0].to_i].scroll_y = i[6]
+			#write the actual map data
+			save_data(i[7], sprintf("Data/Map%03d.rxdata", i[0]))
 		end
 		save_data($MAPINFOS, "Data/MapInfos.rxdata")
 	end
