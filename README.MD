@@ -38,8 +38,8 @@ of this project's license (see License below for more information).  I strongly 
 property rights of others, and while we are using a clean-room approach to implementation, I have no 
 desire to compromise the value or integrity of their product.
 
-Encrypted RPG Maker archives (.rgssad) will not be supported.  While the format is well known 
-at this point, Enterbrain (the copyright holder for RPG Maker) has directly expressed that it is 
+Encrypted RPG Maker archives (.rgssad) will not be supported.  While the format is publicly known 
+at this point, the copyright holders for RPG Maker XP has directly expressed that it is 
 against their wishes for the encryption details to be investigated or made public.  New forms of 
 encryption will be made available for this editor at a later time.
 
@@ -89,6 +89,8 @@ any claim, damages, or other liability, whether in an action of contract, tort o
 arising from, out of or in connection with the software or the use or other dealings in the
 software.
 ```
+The *Dependencies* subdirectory is exempted from this license entirely, dependencies are subject 
+to their own license, as indicated below.
 
 Dependency License Information:
 -------------------------------
