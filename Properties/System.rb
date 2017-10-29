@@ -2,6 +2,56 @@
 Dir.chdir($GAME_DIRECTORY)
 
 #RPG Data Modules
+class Color
+	def initialize(r, g, b, a = 255)
+		@red = r
+		@green = g
+		@blue = b
+		@alpha = a
+	end
+	def set(r, g, b, a = 255)
+		@red = r
+		@green = g
+		@blue = b
+		@alpha = a
+	end
+	def color
+		Color.new(@red, @green, @blue, @alpha)
+	end
+	def _dump(d = 0)
+		[@red, @green, @blue, @alpha].pack('d4')
+	end
+	def self._load(s)
+		Color.new(*s.unpack('d4'))
+	end
+	attr_accessor(:red, :green, :blue, :alpha)
+end
+
+class Tone
+	def initialize(r, g, b, a = 0)
+		@red = r
+		@green = g
+		@blue = b
+		@gray = a
+	end
+	def set(r, g, b, a = 0)
+		@red = r
+		@green = g
+		@blue = b
+		@gray = a
+	end
+	def color
+		Color.new(@red, @green, @blue, @gray)
+	end
+	def _dump(d = 0)
+		[@red, @green, @blue, @gray].pack('d4')
+	end
+	def self._load(s)
+		Tone.new(*s.unpack('d4'))
+	end
+	attr_accessor(:red, :green, :blue, :gray)
+end
+
 module RPG
   class Map
     def initialize(width, height)
@@ -1000,6 +1050,38 @@ class RxDataHelper
 		rescue StandardError => error
 			p "Script file IO failed: " + $!
 		end
+	end
+	# Database ===========================================================================
+	def load_database(db)
+		db.Actors = load_data("Data/Actors.rxdata")
+		db.Animations = load_data("Data/Animations.rxdata")
+		db.Armors = load_data("Data/Armors.rxdata")
+		db.Classes = load_data("Data/Classes.rxdata")
+		db.CommonEvents = load_data("Data/CommonEvents.rxdata")
+		db.Enemies = load_data("Data/Enemies.rxdata")
+		db.Items = load_data("Data/Items.rxdata")
+		db.Skills = load_data("Data/Skills.rxdata")
+		db.States = load_data("Data/States.rxdata")
+		db.System = load_data("Data/System.rxdata")
+		db.Tilesets = load_data("Data/Tilesets.rxdata")
+		db.Troops = load_data("Data/Troops.rxdata")
+		db.Weapons = load_data("Data/Weapons.rxdata")
+	end
+
+	def save_database(db)
+		save_data(db.Actors, "Data/Actors.rxdata")
+		save_data(db.Animations, "Data/Animations.rxdata")
+		save_data(db.Armors, "Data/Armors.rxdata")
+		save_data(db.Classes, "Data/Classes.rxdata")
+		save_data(db.CommonEvents, "Data/CommonEvents.rxdata")
+		save_data(db.Enemies, "Data/Enemies.rxdata")
+		save_data(db.Items, "Data/Items.rxdata")
+		save_data(db.Skills, "Data/Skills.rxdata")
+		save_data(db.States, "Data/States.rxdata")
+		save_data(db.System, "Data/System.rxdata")
+		save_data(db.Tilesets, "Data/Tilesets.rxdata")
+		save_data(db.Troops, "Data/Troops.rxdata")
+		save_data(db.Weapons, "Data/Weapons.rxdata")
 	end
 	# Maps ==============================================================================
 	def load_map_infos

@@ -18,6 +18,7 @@ namespace OpenXP
         public ScriptHive Scripts;
         public MapInfos Maps;
         public Ruby Ruby;
+        public Database Database;
 
         //call on loading to set up the project
         //return a string message if there is a problem or null if everything is okay
@@ -43,10 +44,16 @@ namespace OpenXP
             Scripts = new ScriptHive();
             Ruby.PopulateScriptHive(Scripts);
 
+            //Database
+            Database = new Database();
+            Ruby.PopulateDatabase(Database);
+
             //MapInfos.rxdata
             Maps = new MapInfos();
             Ruby.PopulateMapInfos(Maps);
             Maps.FinishedLoading();
+
+            Editor.SelectMap(Database.System.edit_map_id);
 
             return null;
         }
@@ -65,6 +72,10 @@ namespace OpenXP
 
                 //save Scripts.rxdata
                 Ruby.WriteScriptHive(Scripts);
+
+                //save Database
+                Database.System.edit_map_id = Editor.GetSelectedMapId();
+                Ruby.WriteDatabase(Database);
 
                 //save MapInfos.rxdata
                 Ruby.WriteMapInfos(Maps);

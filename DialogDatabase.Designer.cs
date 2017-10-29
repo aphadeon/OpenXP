@@ -45,7 +45,10 @@
             this.buttonApply = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
+            this.listBoxTilesets = new System.Windows.Forms.ListBox();
+            this.buttonChangeMaxTilesets = new System.Windows.Forms.Button();
             this.tabControlDatabase.SuspendLayout();
+            this.tabPageTilesets.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlDatabase
@@ -172,6 +175,8 @@
             // 
             // tabPageTilesets
             // 
+            this.tabPageTilesets.Controls.Add(this.buttonChangeMaxTilesets);
+            this.tabPageTilesets.Controls.Add(this.listBoxTilesets);
             this.tabPageTilesets.Location = new System.Drawing.Point(4, 22);
             this.tabPageTilesets.Name = "tabPageTilesets";
             this.tabPageTilesets.Padding = new System.Windows.Forms.Padding(3);
@@ -230,6 +235,23 @@
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
+            // listBoxTilesets
+            // 
+            this.listBoxTilesets.FormattingEnabled = true;
+            this.listBoxTilesets.Location = new System.Drawing.Point(6, 6);
+            this.listBoxTilesets.Name = "listBoxTilesets";
+            this.listBoxTilesets.Size = new System.Drawing.Size(150, 524);
+            this.listBoxTilesets.TabIndex = 0;
+            // 
+            // buttonChangeMaxTilesets
+            // 
+            this.buttonChangeMaxTilesets.Location = new System.Drawing.Point(6, 535);
+            this.buttonChangeMaxTilesets.Name = "buttonChangeMaxTilesets";
+            this.buttonChangeMaxTilesets.Size = new System.Drawing.Size(150, 23);
+            this.buttonChangeMaxTilesets.TabIndex = 1;
+            this.buttonChangeMaxTilesets.Text = "Change Maximum...";
+            this.buttonChangeMaxTilesets.UseVisualStyleBackColor = true;
+            // 
             // DialogDatabase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -245,6 +267,7 @@
             this.ShowIcon = false;
             this.Text = "Database";
             this.tabControlDatabase.ResumeLayout(false);
+            this.tabPageTilesets.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -268,5 +291,7 @@
         private System.Windows.Forms.Button buttonApply;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.Button buttonChangeMaxTilesets;
+        private System.Windows.Forms.ListBox listBoxTilesets;
     }
 }

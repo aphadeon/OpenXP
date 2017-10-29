@@ -61,9 +61,6 @@ namespace OpenXP
                     List<dynamic> entry = ToList(d);
                     infos.AddMap((int) entry[0], entry[1].ToString(), (int) entry[2], (int) entry[3], (bool) entry[4], (int) entry[5], (int)entry[6], entry[7]);
                 }
-                //todo: temporary, last editor map id
-                int lastMap = rbhelper.get_last_map_id();
-                Editor.SelectMap(lastMap);
             }
             catch (Exception e)
             {
@@ -88,10 +85,16 @@ namespace OpenXP
                 maps.Add(ra);
             }
             rbhelper.save_map_infos(maps);
+        }
 
-            //todo: temporary
-            rbhelper.set_last_map_id(Editor.GetSelectedMapId());
+        public void PopulateDatabase(Database db)
+        {
+            rbhelper.load_database(db);
+        }
 
+        public void WriteDatabase(Database db)
+        {
+            rbhelper.save_database(db);
         }
 
         public void PopulateScriptHive(ScriptHive hive)
