@@ -143,6 +143,17 @@ namespace OpenXP
                 e.Graphics.DrawImage(RenderLayer2, Point.Empty);
                 e.Graphics.DrawImage(RenderLayer3, Point.Empty);
                 e.Graphics.DrawImage(GridLayer, Point.Empty);
+                //draw selection
+                using (Pen pen = new Pen(new SolidBrush(Color.FromArgb(255, 0, 0, 0))))
+                {
+                    pen.Width = 4;
+                    e.Graphics.DrawRectangle(pen, (Editor.Form.MapEventSelectLocationX * 32), (Editor.Form.MapEventSelectLocationY * 32), 32, 32);
+                }
+                using (Pen pen = new Pen(new SolidBrush(Color.FromArgb(255, 255, 255, 255))))
+                {
+                    pen.Width = 2;
+                    e.Graphics.DrawRectangle(pen, (Editor.Form.MapEventSelectLocationX * 32), (Editor.Form.MapEventSelectLocationY * 32), 32, 32);
+                }
             }
         }
 

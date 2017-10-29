@@ -26,6 +26,8 @@ namespace OpenXP
         public int TilesetSelectionId = 0;
         public int MapHoverLocationX = -1;
         public int MapHoverLocationY = -1;
+        public int MapEventSelectLocationX = -1;
+        public int MapEventSelectLocationY = -1;
 
         public bool MarkedForExit = true;
 
@@ -58,9 +60,32 @@ namespace OpenXP
 
             FormClosed += OpenXP_FormClosed;
 
+            contextMenuStripMap.Opening += ContextMenuStripMap_Opening;
+
             //load configuration here
             Load += OpenXP_Load;
             Editor.OnStartup();
+        }
+
+        private void ContextMenuStripMap_Opening(object sender, CancelEventArgs e)
+        {
+            if(Editor.ActiveLayer != LayerType.EVENTS) e.Cancel = true;
+            else
+            {
+                //manually emulate the selection change before opening
+                int zoomDivide = 1;
+                if (Editor.ActiveZoomType == ZoomType.HALF) zoomDivide = 2;
+                if (Editor.ActiveZoomType == ZoomType.QUARTER) zoomDivide = 4;
+                Point localMouse = pictureBoxMap.PointToClient(MousePosition);
+                int hoverX = (localMouse.X * zoomDivide) / 32;
+                int hoverY = (localMouse.Y * zoomDivide) / 32;
+                if (hoverX >= 0 && hoverY >= 0)
+                {
+                    MapEventSelectLocationX = hoverX;
+                    MapEventSelectLocationY = hoverY;
+                    RepaintMap();
+                }
+            }
         }
 
         private void OpenXP_Load(object sender, EventArgs e)
@@ -98,7 +123,11 @@ namespace OpenXP
 
             if (Editor.ActiveLayer == LayerType.EVENTS)
             {
-
+                int column = (e.X * zoomDivide) / 32;
+                int row = (e.Y * zoomDivide) / 32;
+                MapEventSelectLocationX = column;
+                MapEventSelectLocationY = row;
+                pictureBoxMap.Invalidate();
             } else {
                 int column = (e.X * zoomDivide) / 32;
                 int row = (e.Y * zoomDivide) / 32;
@@ -719,6 +748,11 @@ namespace OpenXP
             scaleMenuZoom1Item.Checked = false;
             scaleMenuZoom2Item.Checked = false;
             scaleMenuZoom4Item.Checked = true;
+        }
+
+        private void toolStripComboBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

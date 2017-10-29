@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OpenXP));
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -122,6 +123,14 @@
             this.treeViewMaps = new System.Windows.Forms.TreeView();
             this.panelTilemapContainer = new System.Windows.Forms.Panel();
             this.pictureBoxMap = new System.Windows.Forms.PictureBox();
+            this.contextMenuStripMap = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.newEventToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
+            this.playersStartingPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.toolbar.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -133,6 +142,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTileset)).BeginInit();
             this.panelTilemapContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMap)).BeginInit();
+            this.contextMenuStripMap.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -1039,12 +1049,66 @@
             // 
             // pictureBoxMap
             // 
+            this.pictureBoxMap.ContextMenuStrip = this.contextMenuStripMap;
             this.pictureBoxMap.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxMap.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBoxMap.Name = "pictureBoxMap";
             this.pictureBoxMap.Size = new System.Drawing.Size(200, 100);
             this.pictureBoxMap.TabIndex = 0;
             this.pictureBoxMap.TabStop = false;
+            // 
+            // contextMenuStripMap
+            // 
+            this.contextMenuStripMap.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newEventToolStripMenuItem,
+            this.toolStripSeparator15,
+            this.toolStripMenuItem1,
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem,
+            this.toolStripSeparator16,
+            this.playersStartingPositionToolStripMenuItem});
+            this.contextMenuStripMap.Name = "contextMenuStripMap";
+            this.contextMenuStripMap.Size = new System.Drawing.Size(205, 126);
+            // 
+            // newEventToolStripMenuItem
+            // 
+            this.newEventToolStripMenuItem.Name = "newEventToolStripMenuItem";
+            this.newEventToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.newEventToolStripMenuItem.Text = "New Event...";
+            // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(201, 6);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(204, 22);
+            this.toolStripMenuItem1.Text = "Cut";
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.pasteToolStripMenuItem.Text = "Paste";
+            // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(201, 6);
+            // 
+            // playersStartingPositionToolStripMenuItem
+            // 
+            this.playersStartingPositionToolStripMenuItem.Name = "playersStartingPositionToolStripMenuItem";
+            this.playersStartingPositionToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.playersStartingPositionToolStripMenuItem.Text = "Player\'s Starting Position";
             // 
             // OpenXP
             // 
@@ -1076,6 +1140,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTileset)).EndInit();
             this.panelTilemapContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMap)).EndInit();
+            this.contextMenuStripMap.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1176,6 +1241,14 @@
         private System.Windows.Forms.PictureBox pictureBoxTileset;
         private System.Windows.Forms.PictureBox pictureBoxMap;
         private System.Windows.Forms.Panel panelTilemapContainer;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripMap;
+        private System.Windows.Forms.ToolStripMenuItem newEventToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
+        private System.Windows.Forms.ToolStripMenuItem playersStartingPositionToolStripMenuItem;
     }
 }
 
