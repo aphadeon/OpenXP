@@ -134,7 +134,7 @@ namespace OpenXP
 
             TilesetSelectionX = column;
             TilesetSelectionY = row;
-            if (index > 8)
+            if (index > 7)
             {
                 //todo, test for max id and ignore the click if it was exceeded
                 TilesetSelectionId = (index - 8) + 384;
