@@ -28,7 +28,7 @@ More enhanced features will be added in the future.
 Cross-Platform
 --------------
 OpenXP's runtime intends to officially support Windows, Linux, and Mac.  It is not yet ready for use 
-on other platforms.  The editor may be made cross platform, this is yet to be determined.
+on non-Windows platforms.  The editor may be made cross platform, this is yet to be determined.
 
 
 Limitations
@@ -66,12 +66,14 @@ series over the years.
 
 Thanks to vgvgf for demonstrating how to pack and unpack Table, Color, and Tone classes.  
 
+This project is based on [OpenGame.exe](https://github.com/aphadeon/OpenGame.exe). 
+Special thanks to all the contributors of OpenGame.exe for their help.
 
 License
 -------
 ```
 OpenXP License
-Copyright 2017 aphadeon
+Copyright 2017 aphadeon & Glitchfinder
 
 You must own RPG Maker XP to use the OpenXP editor in binary form to produce software. With this 
 condition met, you may freely use, copy, modify, publish, merge, distribute, sell, or sublicense 
