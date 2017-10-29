@@ -12,3 +12,4 @@ have not signed this file cannot be accepted. You may include your email address
 
 ## Contributors
 Jason B. (aphadeon)  
+Sean Porter (Glitchfinder)  
