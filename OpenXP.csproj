@@ -108,6 +108,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ruby.cs" />
     <Compile Include="Data\ScriptHive.cs" />
+    <Compile Include="ZoomType.cs" />
     <EmbeddedResource Include="DialogChangeGameTitle.resx">
       <DependentUpon>DialogChangeGameTitle.cs</DependentUpon>
     </EmbeddedResource>

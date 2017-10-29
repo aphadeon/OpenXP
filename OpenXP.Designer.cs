@@ -132,6 +132,7 @@
             this.splitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTileset)).BeginInit();
             this.panelTilemapContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMap)).BeginInit();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -429,24 +430,27 @@
             this.scaleMenuZoom1Item.Enabled = false;
             this.scaleMenuZoom1Item.Image = ((System.Drawing.Image)(resources.GetObject("scaleMenuZoom1Item.Image")));
             this.scaleMenuZoom1Item.Name = "scaleMenuZoom1Item";
-            this.scaleMenuZoom1Item.Size = new System.Drawing.Size(89, 22);
+            this.scaleMenuZoom1Item.Size = new System.Drawing.Size(152, 22);
             this.scaleMenuZoom1Item.Text = "1:1";
+            this.scaleMenuZoom1Item.Click += new System.EventHandler(this.scaleMenuZoom1Item_Click);
             // 
             // scaleMenuZoom2Item
             // 
             this.scaleMenuZoom2Item.Enabled = false;
             this.scaleMenuZoom2Item.Image = ((System.Drawing.Image)(resources.GetObject("scaleMenuZoom2Item.Image")));
             this.scaleMenuZoom2Item.Name = "scaleMenuZoom2Item";
-            this.scaleMenuZoom2Item.Size = new System.Drawing.Size(89, 22);
+            this.scaleMenuZoom2Item.Size = new System.Drawing.Size(152, 22);
             this.scaleMenuZoom2Item.Text = "1:2";
+            this.scaleMenuZoom2Item.Click += new System.EventHandler(this.scaleMenuZoom2Item_Click);
             // 
             // scaleMenuZoom4Item
             // 
             this.scaleMenuZoom4Item.Enabled = false;
             this.scaleMenuZoom4Item.Image = ((System.Drawing.Image)(resources.GetObject("scaleMenuZoom4Item.Image")));
             this.scaleMenuZoom4Item.Name = "scaleMenuZoom4Item";
-            this.scaleMenuZoom4Item.Size = new System.Drawing.Size(89, 22);
+            this.scaleMenuZoom4Item.Size = new System.Drawing.Size(152, 22);
             this.scaleMenuZoom4Item.Text = "1:4";
+            this.scaleMenuZoom4Item.Click += new System.EventHandler(this.scaleMenuZoom4Item_Click);
             // 
             // toolsMenu
             // 
@@ -846,6 +850,8 @@
             // 
             // toolbarZoom1Item
             // 
+            this.toolbarZoom1Item.Checked = true;
+            this.toolbarZoom1Item.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolbarZoom1Item.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolbarZoom1Item.Enabled = false;
             this.toolbarZoom1Item.Image = ((System.Drawing.Image)(resources.GetObject("toolbarZoom1Item.Image")));
@@ -853,6 +859,7 @@
             this.toolbarZoom1Item.Name = "toolbarZoom1Item";
             this.toolbarZoom1Item.Size = new System.Drawing.Size(23, 20);
             this.toolbarZoom1Item.Text = "1:1";
+            this.toolbarZoom1Item.Click += new System.EventHandler(this.toolbarZoom1Item_Click);
             // 
             // toolbarZoom2Item
             // 
@@ -863,6 +870,7 @@
             this.toolbarZoom2Item.Name = "toolbarZoom2Item";
             this.toolbarZoom2Item.Size = new System.Drawing.Size(23, 20);
             this.toolbarZoom2Item.Text = "1:2";
+            this.toolbarZoom2Item.Click += new System.EventHandler(this.toolbarZoom2Item_Click);
             // 
             // toolbarZoom4Item
             // 
@@ -873,6 +881,7 @@
             this.toolbarZoom4Item.Name = "toolbarZoom4Item";
             this.toolbarZoom4Item.Size = new System.Drawing.Size(23, 20);
             this.toolbarZoom4Item.Text = "1:4";
+            this.toolbarZoom4Item.Click += new System.EventHandler(this.toolbarZoom4Item_Click);
             // 
             // toolStripSeparator13
             // 
@@ -1028,13 +1037,14 @@
             this.panelTilemapContainer.Size = new System.Drawing.Size(919, 603);
             this.panelTilemapContainer.TabIndex = 1;
             // 
-            // panelMap
+            // pictureBoxMap
             // 
             this.pictureBoxMap.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxMap.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBoxMap.Name = "panelMap";
+            this.pictureBoxMap.Name = "pictureBoxMap";
             this.pictureBoxMap.Size = new System.Drawing.Size(200, 100);
             this.pictureBoxMap.TabIndex = 0;
+            this.pictureBoxMap.TabStop = false;
             // 
             // OpenXP
             // 
@@ -1065,6 +1075,7 @@
             this.splitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTileset)).EndInit();
             this.panelTilemapContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMap)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

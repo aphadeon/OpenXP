@@ -89,13 +89,18 @@ namespace OpenXP
 
         public void PaintEditor(System.Windows.Forms.PictureBox p, System.Windows.Forms.PaintEventArgs e)
         {
+            int zoomDivide = 1;
+            if (Editor.ActiveZoomType == ZoomType.HALF) zoomDivide = 2;
+            if (Editor.ActiveZoomType == ZoomType.QUARTER) zoomDivide = 4;
+
             if (!firstDrawn) return;
             int widthInTiles = (int)rbMap.width;
             int heightInTiles = (int)rbMap.height; 
-            p.Width = widthInTiles * tileSize;
-            p.Height = heightInTiles * tileSize;
-            p.BackColor = Color.AliceBlue;
-
+            p.Width = (widthInTiles * tileSize) / zoomDivide;
+            p.Height = (heightInTiles * tileSize) / zoomDivide;
+            p.BackColor = Color.White;
+            //zoomin'
+            e.Graphics.ScaleTransform(1.0f / (float)zoomDivide, 1.0f / (float)zoomDivide);
             //draw the map bitmaps
             bool dim = Editor.DimOtherLayers;
             bool viewAll = Editor.ViewAllLayers;
@@ -125,7 +130,7 @@ namespace OpenXP
                 using (Pen pen = new Pen(new SolidBrush(Color.FromArgb(255, 0, 0, 0))))
                 {
                     pen.Width = 4;
-                    e.Graphics.DrawRectangle(pen, Editor.Form.MapHoverLocationX * 32, Editor.Form.MapHoverLocationY * 32, 32, 32);
+                    e.Graphics.DrawRectangle(pen, (Editor.Form.MapHoverLocationX * 32), (Editor.Form.MapHoverLocationY * 32), 32, 32);
                 }
                 using (Pen pen = new Pen(new SolidBrush(Color.FromArgb(255, 255, 255, 255))))
                 {

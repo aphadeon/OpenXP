@@ -15,6 +15,7 @@ namespace OpenXP
 
         public static LayerType ActiveLayer { get; set; }
         public static DrawToolType ActiveDrawTool { get; set; }
+        public static ZoomType ActiveZoomType { get; set; }
 
         public static EditorIni Ini;
 
@@ -159,6 +160,15 @@ namespace OpenXP
         public static void SetViewAllLayers(bool state)
         {
             ViewAllLayers = state;
+        }
+
+        public static void ChangeZoom(ZoomType newZoom)
+        {
+            if(newZoom != ActiveZoomType)
+            {
+                ActiveZoomType = newZoom;
+                Form.RepaintMap();
+            }
         }
 
         public static void ChangeLayer(LayerType newLayer)

@@ -70,9 +70,13 @@ namespace OpenXP
 
         private void PictureBoxMap_MouseMove(object sender, MouseEventArgs e)
         {
-            int hoverX = e.X / 32;
-            int hoverY = e.Y / 32;
-            if(hoverX > 0 && hoverY > 0)
+            int zoomDivide = 1;
+            if (Editor.ActiveZoomType == ZoomType.HALF) zoomDivide = 2;
+            if (Editor.ActiveZoomType == ZoomType.QUARTER) zoomDivide = 4;
+
+            int hoverX = (e.X * zoomDivide) / 32;
+            int hoverY = (e.Y * zoomDivide) / 32;
+            if(hoverX >= 0 && hoverY >= 0)
             {
                 if (MapHoverLocationX != hoverX || MapHoverLocationY != hoverY) RepaintMap();
                 MapHoverLocationX = hoverX;
@@ -88,12 +92,16 @@ namespace OpenXP
 
         private void PictureBoxMap_MouseClick(object sender, MouseEventArgs e)
         {
+            int zoomDivide = 1;
+            if (Editor.ActiveZoomType == ZoomType.HALF) zoomDivide = 2;
+            if (Editor.ActiveZoomType == ZoomType.QUARTER) zoomDivide = 4;
+
             if (Editor.ActiveLayer == LayerType.EVENTS)
             {
 
             } else {
-                int column = e.X / 32;
-                int row = e.Y / 32;
+                int column = (e.X * zoomDivide) / 32;
+                int row = (e.Y * zoomDivide) / 32;
                 if (SelectedMap != null)
                 {
                     int layer = 0;
@@ -645,6 +653,72 @@ namespace OpenXP
         private void gameMenuPlaytestItem_Click(object sender, EventArgs e)
         {
             Editor.Playtest();
+        }
+
+        private void toolbarZoom1Item_Click(object sender, EventArgs e)
+        {
+            Editor.ChangeZoom(ZoomType.FULL);
+            toolbarZoom1Item.Checked = true;
+            toolbarZoom2Item.Checked = false;
+            toolbarZoom4Item.Checked = false;
+            scaleMenuZoom1Item.Checked = true;
+            scaleMenuZoom2Item.Checked = false;
+            scaleMenuZoom4Item.Checked = false;
+        }
+
+        private void toolbarZoom2Item_Click(object sender, EventArgs e)
+        {
+            Editor.ChangeZoom(ZoomType.HALF);
+            toolbarZoom1Item.Checked = false;
+            toolbarZoom2Item.Checked = true;
+            toolbarZoom4Item.Checked = false;
+            scaleMenuZoom1Item.Checked = false;
+            scaleMenuZoom2Item.Checked = true;
+            scaleMenuZoom4Item.Checked = false;
+        }
+
+        private void toolbarZoom4Item_Click(object sender, EventArgs e)
+        {
+            Editor.ChangeZoom(ZoomType.QUARTER);
+            toolbarZoom1Item.Checked = false;
+            toolbarZoom2Item.Checked = false;
+            toolbarZoom4Item.Checked = true;
+            scaleMenuZoom1Item.Checked = false;
+            scaleMenuZoom2Item.Checked = false;
+            scaleMenuZoom4Item.Checked = true;
+        }
+
+        private void scaleMenuZoom1Item_Click(object sender, EventArgs e)
+        {
+            Editor.ChangeZoom(ZoomType.FULL);
+            toolbarZoom1Item.Checked = true;
+            toolbarZoom2Item.Checked = false;
+            toolbarZoom4Item.Checked = false;
+            scaleMenuZoom1Item.Checked = true;
+            scaleMenuZoom2Item.Checked = false;
+            scaleMenuZoom4Item.Checked = false;
+        }
+
+        private void scaleMenuZoom2Item_Click(object sender, EventArgs e)
+        {
+            Editor.ChangeZoom(ZoomType.HALF);
+            toolbarZoom1Item.Checked = false;
+            toolbarZoom2Item.Checked = true;
+            toolbarZoom4Item.Checked = false;
+            scaleMenuZoom1Item.Checked = false;
+            scaleMenuZoom2Item.Checked = true;
+            scaleMenuZoom4Item.Checked = false;
+        }
+
+        private void scaleMenuZoom4Item_Click(object sender, EventArgs e)
+        {
+            Editor.ChangeZoom(ZoomType.QUARTER);
+            toolbarZoom1Item.Checked = false;
+            toolbarZoom2Item.Checked = false;
+            toolbarZoom4Item.Checked = true;
+            scaleMenuZoom1Item.Checked = false;
+            scaleMenuZoom2Item.Checked = false;
+            scaleMenuZoom4Item.Checked = true;
         }
     }
 }
