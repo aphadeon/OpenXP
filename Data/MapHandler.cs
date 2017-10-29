@@ -11,6 +11,11 @@ namespace OpenXP
     public class MapHandler
     {
         public static int tileSize = 32;
+        public static Bitmap startImage = new Bitmap(Properties.Resources.StartPos);
+        public static Bitmap startImageFade = CreateFadedBitmap(startImage, 0.25f);
+        public static int startMapId = -1;
+        public static int startMapX = -1;
+        public static int startMapY = -1;
 
         public MapInfo Info;
         public dynamic rbMap;
@@ -61,7 +66,7 @@ namespace OpenXP
             return null;
         }
 
-        public Bitmap CreateFadedBitmap(Image image, float opacity)
+        public static Bitmap CreateFadedBitmap(Image image, float opacity)
         {
             var colorMatrix = new ColorMatrix();
             colorMatrix.Matrix33 = opacity;
@@ -126,6 +131,11 @@ namespace OpenXP
                 if (activeLayer < 2 && dim) e.Graphics.DrawImage(RenderLayer3d, Point.Empty);
                 else e.Graphics.DrawImage(RenderLayer3, Point.Empty);
 
+                //draw starting position
+                if (Editor.GetSelectedMapId() == startMapId)
+                {
+                    e.Graphics.DrawImage(startImageFade, new Point((startMapX * tileSize) + 3, (startMapY * tileSize) + 3));
+                }
                 //draw selection
                 using (Pen pen = new Pen(new SolidBrush(Color.FromArgb(255, 0, 0, 0))))
                 {
@@ -143,6 +153,13 @@ namespace OpenXP
                 e.Graphics.DrawImage(RenderLayer2, Point.Empty);
                 e.Graphics.DrawImage(RenderLayer3, Point.Empty);
                 e.Graphics.DrawImage(GridLayer, Point.Empty);
+
+                //draw starting position
+                if (Editor.GetSelectedMapId() == startMapId)
+                {
+                    e.Graphics.DrawImage(startImage, new Point((startMapX * tileSize) + 3, (startMapY * tileSize) + 3));
+                }
+
                 //draw selection
                 using (Pen pen = new Pen(new SolidBrush(Color.FromArgb(255, 0, 0, 0))))
                 {

@@ -765,5 +765,13 @@ namespace OpenXP
                 ddb.ShowDialog();
             }
         }
+
+        private void playersStartingPositionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MapHandler.startMapId = Editor.GetSelectedMapId();
+            MapHandler.startMapX = MapEventSelectLocationX;
+            MapHandler.startMapY = MapEventSelectLocationY;
+            RepaintMap();
+        }
     }
 }

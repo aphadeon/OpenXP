@@ -53,6 +53,11 @@ namespace OpenXP
             Ruby.PopulateMapInfos(Maps);
             Maps.FinishedLoading();
 
+            //setup starting position
+            MapHandler.startMapId = Database.System.start_map_id;
+            MapHandler.startMapX = Database.System.start_x;
+            MapHandler.startMapY = Database.System.start_y;
+
             Editor.SelectMap(Database.System.edit_map_id);
 
             return null;
@@ -72,6 +77,11 @@ namespace OpenXP
 
                 //save Scripts.rxdata
                 Ruby.WriteScriptHive(Scripts);
+
+                //Save starting position
+                Database.System.start_map_id = MapHandler.startMapId;
+                Database.System.start_x = MapHandler.startMapX;
+                Database.System.start_y = MapHandler.startMapY;
 
                 //save Database
                 Database.System.edit_map_id = Editor.GetSelectedMapId();

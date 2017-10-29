@@ -480,7 +480,7 @@
             this.toolsMenuDatabaseItem.Enabled = false;
             this.toolsMenuDatabaseItem.Image = ((System.Drawing.Image)(resources.GetObject("toolsMenuDatabaseItem.Image")));
             this.toolsMenuDatabaseItem.Name = "toolsMenuDatabaseItem";
-            this.toolsMenuDatabaseItem.Size = new System.Drawing.Size(152, 22);
+            this.toolsMenuDatabaseItem.Size = new System.Drawing.Size(150, 22);
             this.toolsMenuDatabaseItem.Text = "Database...";
             this.toolsMenuDatabaseItem.Click += new System.EventHandler(this.toolsMenuDatabaseItem_Click);
             // 
@@ -1070,7 +1070,7 @@
             this.toolStripSeparator16,
             this.playersStartingPositionToolStripMenuItem});
             this.contextMenuStripMap.Name = "contextMenuStripMap";
-            this.contextMenuStripMap.Size = new System.Drawing.Size(205, 126);
+            this.contextMenuStripMap.Size = new System.Drawing.Size(205, 148);
             // 
             // newEventToolStripMenuItem
             // 
@@ -1111,6 +1111,7 @@
             this.playersStartingPositionToolStripMenuItem.Name = "playersStartingPositionToolStripMenuItem";
             this.playersStartingPositionToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.playersStartingPositionToolStripMenuItem.Text = "Player\'s Starting Position";
+            this.playersStartingPositionToolStripMenuItem.Click += new System.EventHandler(this.playersStartingPositionToolStripMenuItem_Click);
             // 
             // OpenXP
             // 
