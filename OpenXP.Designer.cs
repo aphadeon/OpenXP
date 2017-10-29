@@ -440,7 +440,7 @@
             this.scaleMenuZoom1Item.Enabled = false;
             this.scaleMenuZoom1Item.Image = ((System.Drawing.Image)(resources.GetObject("scaleMenuZoom1Item.Image")));
             this.scaleMenuZoom1Item.Name = "scaleMenuZoom1Item";
-            this.scaleMenuZoom1Item.Size = new System.Drawing.Size(152, 22);
+            this.scaleMenuZoom1Item.Size = new System.Drawing.Size(89, 22);
             this.scaleMenuZoom1Item.Text = "1:1";
             this.scaleMenuZoom1Item.Click += new System.EventHandler(this.scaleMenuZoom1Item_Click);
             // 
@@ -449,7 +449,7 @@
             this.scaleMenuZoom2Item.Enabled = false;
             this.scaleMenuZoom2Item.Image = ((System.Drawing.Image)(resources.GetObject("scaleMenuZoom2Item.Image")));
             this.scaleMenuZoom2Item.Name = "scaleMenuZoom2Item";
-            this.scaleMenuZoom2Item.Size = new System.Drawing.Size(152, 22);
+            this.scaleMenuZoom2Item.Size = new System.Drawing.Size(89, 22);
             this.scaleMenuZoom2Item.Text = "1:2";
             this.scaleMenuZoom2Item.Click += new System.EventHandler(this.scaleMenuZoom2Item_Click);
             // 
@@ -458,7 +458,7 @@
             this.scaleMenuZoom4Item.Enabled = false;
             this.scaleMenuZoom4Item.Image = ((System.Drawing.Image)(resources.GetObject("scaleMenuZoom4Item.Image")));
             this.scaleMenuZoom4Item.Name = "scaleMenuZoom4Item";
-            this.scaleMenuZoom4Item.Size = new System.Drawing.Size(152, 22);
+            this.scaleMenuZoom4Item.Size = new System.Drawing.Size(89, 22);
             this.scaleMenuZoom4Item.Text = "1:4";
             this.scaleMenuZoom4Item.Click += new System.EventHandler(this.scaleMenuZoom4Item_Click);
             // 
@@ -480,8 +480,9 @@
             this.toolsMenuDatabaseItem.Enabled = false;
             this.toolsMenuDatabaseItem.Image = ((System.Drawing.Image)(resources.GetObject("toolsMenuDatabaseItem.Image")));
             this.toolsMenuDatabaseItem.Name = "toolsMenuDatabaseItem";
-            this.toolsMenuDatabaseItem.Size = new System.Drawing.Size(150, 22);
+            this.toolsMenuDatabaseItem.Size = new System.Drawing.Size(152, 22);
             this.toolsMenuDatabaseItem.Text = "Database...";
+            this.toolsMenuDatabaseItem.Click += new System.EventHandler(this.toolsMenuDatabaseItem_Click);
             // 
             // toolsMenuMaterialsItem
             // 
@@ -907,6 +908,7 @@
             this.toolbarDatabaseItem.Name = "toolbarDatabaseItem";
             this.toolbarDatabaseItem.Size = new System.Drawing.Size(23, 20);
             this.toolbarDatabaseItem.Text = "Database";
+            this.toolbarDatabaseItem.Click += new System.EventHandler(this.toolbarDatabaseItem_Click);
             // 
             // toolbarMaterialsItem
             // 

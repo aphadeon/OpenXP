@@ -750,9 +750,20 @@ namespace OpenXP
             scaleMenuZoom4Item.Checked = true;
         }
 
-        private void toolStripComboBox1_Click(object sender, EventArgs e)
+        private void toolbarDatabaseItem_Click(object sender, EventArgs e)
         {
+            using (DialogDatabase ddb = new DialogDatabase())
+            {
+                ddb.ShowDialog();
+            }
+        }
 
+        private void toolsMenuDatabaseItem_Click(object sender, EventArgs e)
+        {
+            using (DialogDatabase ddb = new DialogDatabase())
+            {
+                ddb.ShowDialog();
+            }
         }
     }
 }

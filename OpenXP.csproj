@@ -78,6 +78,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\MapHandler.cs" />
+    <Compile Include="DialogDatabase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogDatabase.Designer.cs">
+      <DependentUpon>DialogDatabase.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditorIni.cs" />
     <Compile Include="GameData\DataHelper.cs" />
     <Compile Include="Data\MapInfos.cs" />
@@ -111,6 +117,9 @@
     <Compile Include="ZoomType.cs" />
     <EmbeddedResource Include="DialogChangeGameTitle.resx">
       <DependentUpon>DialogChangeGameTitle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogDatabase.resx">
+      <DependentUpon>DialogDatabase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogScriptEditor.resx">
       <DependentUpon>DialogScriptEditor.cs</DependentUpon>
