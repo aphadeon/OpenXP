@@ -44,7 +44,36 @@ namespace OpenXP
             TempTilesets = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Tilesets);
             TempTroops = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Troops);
             TempWeapons = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Weapons);
-    }
+
+            //populate listboxes
+            PopulateDataList(listBoxActors.Items, TempActors);
+            PopulateDataList(listBoxClasses.Items, TempClasses);
+            PopulateDataList(listBoxSkills.Items, TempSkills);
+            PopulateDataList(listBoxItems.Items, TempItems);
+            PopulateDataList(listBoxWeapons.Items, TempWeapons);
+            PopulateDataList(listBoxArmors.Items, TempArmors);
+            PopulateDataList(listBoxEnemies.Items, TempEnemies);
+            PopulateDataList(listBoxTroops.Items, TempTroops);
+            PopulateDataList(listBoxStates.Items, TempStates);
+            PopulateDataList(listBoxAnimations.Items, TempAnimations);
+            PopulateDataList(listBoxTilesets.Items, TempTilesets);
+            PopulateDataList(listBoxCommonEvents.Items, TempCommonEvents);
+        }
+
+        private void PopulateDataList(ListBox.ObjectCollection list, dynamic rxdata)
+        {
+            list.Clear();
+            IronRuby.Builtins.RubyArray ra = (IronRuby.Builtins.RubyArray)rxdata;
+            for (int i = 1; i < ra.Count; i++) //its a one-based index
+            {
+                if (rxdata[i] != null) //safety
+                {
+                    int id = rxdata[i].id;
+                    string name = rxdata[i].name.ToString();
+                    list.Add(id.ToString("D4") + ": " + name);
+                }
+            }
+        }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
