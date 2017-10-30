@@ -1026,9 +1026,9 @@ end
 
 #data helper class
 class RxDataHelper
-	def initialize
-		#todo, this is pretty much just temporary solutions to things.
-		$tilesets = load_data("Data/Tilesets.rxdata")
+
+	def deep_copy(obj)
+		return Marshal.load(Marshal.dump(obj))
 	end
 
     # scripts ==============================================================================
@@ -1051,6 +1051,7 @@ class RxDataHelper
 			p "Script file IO failed: " + $!
 		end
 	end
+
 	# Database ===========================================================================
 	def load_database(db)
 		db.Actors = load_data("Data/Actors.rxdata")
@@ -1083,6 +1084,7 @@ class RxDataHelper
 		save_data(db.Troops, "Data/Troops.rxdata")
 		save_data(db.Weapons, "Data/Weapons.rxdata")
 	end
+
 	# Maps ==============================================================================
 	def load_map_infos
 		# this uses the RPG structure
@@ -1097,7 +1099,7 @@ class RxDataHelper
 	end
 
 	def save_map_infos(infos)
-		$MAPINFOS = {} #clear old data
+		$MAPINFOS = {}
 		infos.each do |i|
 			$MAPINFOS[i[0].to_i] = RPG::MapInfo.new
 			$MAPINFOS[i[0].to_i].name = i[1].to_s
@@ -1106,29 +1108,11 @@ class RxDataHelper
 			$MAPINFOS[i[0].to_i].expanded = i[4]
 			$MAPINFOS[i[0].to_i].scroll_x = i[5]
 			$MAPINFOS[i[0].to_i].scroll_y = i[6]
-			#write the actual map data
 			save_data(i[7], sprintf("Data/Map%03d.rxdata", i[0]))
 		end
 		save_data($MAPINFOS, "Data/MapInfos.rxdata")
 	end
 
-	#todo: VERY TEMPORARY STUFF
-	def get_last_map_id
-		return load_data("Data/System.rxdata").edit_map_id
-	end
-
-	def set_last_map_id(i)
-		obj = load_data("Data/System.rxdata")
-		obj.edit_map_id = i.to_i
-		save_data(obj, "Data/System.rxdata")
-	end
-
-	def grab_tileset(id)
-		return $tilesets[id]
-	end
-	#end temp todo stuff
-
-	# we totally cheat maps and leave them ruby-side
 	def grab_map(id)
 		return load_data(sprintf("Data/Map%03d.rxdata", @map_id))
 	end

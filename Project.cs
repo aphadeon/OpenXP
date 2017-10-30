@@ -66,9 +66,7 @@ namespace OpenXP
         //call to save the project and clear the dirty flag
         public void Save()
         {
-            //if (Dirty)  //disabled, let's just always save
-            //{
-                //todo: save stuff here - implement as each file is supported
+            //if (Dirty) { //disabled, let's just always save
                 //save the .rxproj file
                 File.WriteAllText(Path, "RPGXP 1.05");
 

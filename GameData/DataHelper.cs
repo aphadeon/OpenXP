@@ -11,9 +11,6 @@ namespace OpenXP.GameData
     //this could come in handy for porting later.
     class DataHelper
     {
-        //maybe todo for the future: this is marshal as it was at 1.8.1.
-        //https://github.com/ruby/ruby/blob/bf7bf7efeaf8f05926af673898a09d04f03599a1/marshal.c
-
         public static string Inflate(byte[] s)
         {
             //sanity check for empty or illegal strings

@@ -46,7 +46,7 @@ namespace OpenXP
             rbMap = map;
             //to test, let's print the name of the tileset graphic
             int tilesetId = (int)rbMap.tileset_id;
-            rbTileset = Ruby.rbhelper.grab_tileset(tilesetId);
+            rbTileset = Editor.Project.Database.Tilesets[tilesetId];
             Tileset = ((IronRuby.Builtins.MutableString)rbTileset.tileset_name).ToString();
             TilesetBitmap = LoadTileset();
         }
@@ -207,8 +207,7 @@ namespace OpenXP
                         //first tile in the main tileset image is tile 384
                         if (tileId < 384)
                         {
-                            //autotile
-                            //TODO
+                            //todo: autotile support
                         }
                         else
                         {
@@ -289,6 +288,7 @@ namespace OpenXP
             rbMap.data[column, row, layer] = tileId;
             //redraw the modified layer
             DrawLayer(layer);
+            Editor.Touch();
         }
     }
 }

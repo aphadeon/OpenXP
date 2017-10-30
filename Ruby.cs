@@ -50,6 +50,11 @@ namespace OpenXP
             rbhelper = engine.Execute(@"RxDataHelper.new", scope);
         }
 
+        public dynamic RubyDeepCopy(dynamic obj)
+        {
+            return rbhelper.deep_copy(obj);
+        }
+
         public void PopulateMapInfos(MapInfos infos)
         {
             try
