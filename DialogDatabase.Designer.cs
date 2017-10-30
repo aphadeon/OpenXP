@@ -69,6 +69,30 @@
             this.listBoxClasses = new System.Windows.Forms.ListBox();
             this.buttonChangeMaxActors = new System.Windows.Forms.Button();
             this.listBoxActors = new System.Windows.Forms.ListBox();
+            this.labelNameActors = new System.Windows.Forms.Label();
+            this.textBoxNameActors = new System.Windows.Forms.TextBox();
+            this.textBoxNameClasses = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxNameSkills = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxNameItems = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxNameWeapons = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxNameArmors = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxNameEnemies = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxNameTroops = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxNameStates = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxNameAnimations = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxNameTilesets = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxNameCommonEvents = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.tabControlDatabase.SuspendLayout();
             this.tabPageActors.SuspendLayout();
             this.tabPageClasses.SuspendLayout();
@@ -108,6 +132,8 @@
             // 
             // tabPageActors
             // 
+            this.tabPageActors.Controls.Add(this.textBoxNameActors);
+            this.tabPageActors.Controls.Add(this.labelNameActors);
             this.tabPageActors.Controls.Add(this.buttonChangeMaxActors);
             this.tabPageActors.Controls.Add(this.listBoxActors);
             this.tabPageActors.Location = new System.Drawing.Point(4, 22);
@@ -120,6 +146,8 @@
             // 
             // tabPageClasses
             // 
+            this.tabPageClasses.Controls.Add(this.textBoxNameClasses);
+            this.tabPageClasses.Controls.Add(this.label1);
             this.tabPageClasses.Controls.Add(this.buttonChangeMaxClasses);
             this.tabPageClasses.Controls.Add(this.listBoxClasses);
             this.tabPageClasses.Location = new System.Drawing.Point(4, 22);
@@ -132,6 +160,8 @@
             // 
             // tabPageSkills
             // 
+            this.tabPageSkills.Controls.Add(this.textBoxNameSkills);
+            this.tabPageSkills.Controls.Add(this.label2);
             this.tabPageSkills.Controls.Add(this.buttonChangeMaxSkills);
             this.tabPageSkills.Controls.Add(this.listBoxSkills);
             this.tabPageSkills.Location = new System.Drawing.Point(4, 22);
@@ -144,6 +174,8 @@
             // 
             // tabPageItems
             // 
+            this.tabPageItems.Controls.Add(this.textBoxNameItems);
+            this.tabPageItems.Controls.Add(this.label3);
             this.tabPageItems.Controls.Add(this.buttonChangeMaxItems);
             this.tabPageItems.Controls.Add(this.listBoxItems);
             this.tabPageItems.Location = new System.Drawing.Point(4, 22);
@@ -156,6 +188,8 @@
             // 
             // tabPageWeapons
             // 
+            this.tabPageWeapons.Controls.Add(this.textBoxNameWeapons);
+            this.tabPageWeapons.Controls.Add(this.label4);
             this.tabPageWeapons.Controls.Add(this.buttonChangeMaxWeapons);
             this.tabPageWeapons.Controls.Add(this.listBoxWeapons);
             this.tabPageWeapons.Location = new System.Drawing.Point(4, 22);
@@ -168,6 +202,8 @@
             // 
             // tabPageArmors
             // 
+            this.tabPageArmors.Controls.Add(this.textBoxNameArmors);
+            this.tabPageArmors.Controls.Add(this.label5);
             this.tabPageArmors.Controls.Add(this.buttonChangeMaxArmors);
             this.tabPageArmors.Controls.Add(this.listBoxArmors);
             this.tabPageArmors.Location = new System.Drawing.Point(4, 22);
@@ -180,6 +216,8 @@
             // 
             // tabPageEnemies
             // 
+            this.tabPageEnemies.Controls.Add(this.textBoxNameEnemies);
+            this.tabPageEnemies.Controls.Add(this.label6);
             this.tabPageEnemies.Controls.Add(this.buttonChangeMaxEnemies);
             this.tabPageEnemies.Controls.Add(this.listBoxEnemies);
             this.tabPageEnemies.Location = new System.Drawing.Point(4, 22);
@@ -192,6 +230,8 @@
             // 
             // tabPageTroops
             // 
+            this.tabPageTroops.Controls.Add(this.textBoxNameTroops);
+            this.tabPageTroops.Controls.Add(this.label7);
             this.tabPageTroops.Controls.Add(this.buttonChangeMaxTroops);
             this.tabPageTroops.Controls.Add(this.listBoxTroops);
             this.tabPageTroops.Location = new System.Drawing.Point(4, 22);
@@ -204,6 +244,8 @@
             // 
             // tabPageStates
             // 
+            this.tabPageStates.Controls.Add(this.textBoxNameStates);
+            this.tabPageStates.Controls.Add(this.label8);
             this.tabPageStates.Controls.Add(this.buttonChangeMaxStates);
             this.tabPageStates.Controls.Add(this.listBoxStates);
             this.tabPageStates.Location = new System.Drawing.Point(4, 22);
@@ -216,6 +258,8 @@
             // 
             // tabPageAnimations
             // 
+            this.tabPageAnimations.Controls.Add(this.textBoxNameAnimations);
+            this.tabPageAnimations.Controls.Add(this.label9);
             this.tabPageAnimations.Controls.Add(this.buttonChangeMaxAnimations);
             this.tabPageAnimations.Controls.Add(this.listBoxAnimations);
             this.tabPageAnimations.Location = new System.Drawing.Point(4, 22);
@@ -228,6 +272,8 @@
             // 
             // tabPageTilesets
             // 
+            this.tabPageTilesets.Controls.Add(this.textBoxNameTilesets);
+            this.tabPageTilesets.Controls.Add(this.label10);
             this.tabPageTilesets.Controls.Add(this.buttonChangeMaxTilesets);
             this.tabPageTilesets.Controls.Add(this.listBoxTilesets);
             this.tabPageTilesets.Location = new System.Drawing.Point(4, 22);
@@ -257,6 +303,8 @@
             // 
             // tabPageCommonEvents
             // 
+            this.tabPageCommonEvents.Controls.Add(this.textBoxNameCommonEvents);
+            this.tabPageCommonEvents.Controls.Add(this.label11);
             this.tabPageCommonEvents.Controls.Add(this.buttonChangeMaxCommonEvents);
             this.tabPageCommonEvents.Controls.Add(this.listBoxCommonEvents);
             this.tabPageCommonEvents.Location = new System.Drawing.Point(4, 22);
@@ -494,6 +542,198 @@
             this.listBoxActors.Size = new System.Drawing.Size(150, 524);
             this.listBoxActors.TabIndex = 2;
             // 
+            // labelNameActors
+            // 
+            this.labelNameActors.AutoSize = true;
+            this.labelNameActors.Location = new System.Drawing.Point(162, 6);
+            this.labelNameActors.Name = "labelNameActors";
+            this.labelNameActors.Size = new System.Drawing.Size(38, 13);
+            this.labelNameActors.TabIndex = 4;
+            this.labelNameActors.Text = "Name:";
+            // 
+            // textBoxNameActors
+            // 
+            this.textBoxNameActors.Location = new System.Drawing.Point(165, 22);
+            this.textBoxNameActors.Name = "textBoxNameActors";
+            this.textBoxNameActors.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNameActors.TabIndex = 5;
+            // 
+            // textBoxNameClasses
+            // 
+            this.textBoxNameClasses.Location = new System.Drawing.Point(165, 22);
+            this.textBoxNameClasses.Name = "textBoxNameClasses";
+            this.textBoxNameClasses.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNameClasses.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(162, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Name:";
+            // 
+            // textBoxNameSkills
+            // 
+            this.textBoxNameSkills.Location = new System.Drawing.Point(165, 22);
+            this.textBoxNameSkills.Name = "textBoxNameSkills";
+            this.textBoxNameSkills.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNameSkills.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(162, 6);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Name:";
+            // 
+            // textBoxNameItems
+            // 
+            this.textBoxNameItems.Location = new System.Drawing.Point(165, 22);
+            this.textBoxNameItems.Name = "textBoxNameItems";
+            this.textBoxNameItems.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNameItems.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(162, 6);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Name:";
+            // 
+            // textBoxNameWeapons
+            // 
+            this.textBoxNameWeapons.Location = new System.Drawing.Point(165, 22);
+            this.textBoxNameWeapons.Name = "textBoxNameWeapons";
+            this.textBoxNameWeapons.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNameWeapons.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(162, 6);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(38, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Name:";
+            // 
+            // textBoxNameArmors
+            // 
+            this.textBoxNameArmors.Location = new System.Drawing.Point(165, 22);
+            this.textBoxNameArmors.Name = "textBoxNameArmors";
+            this.textBoxNameArmors.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNameArmors.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(162, 6);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(38, 13);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Name:";
+            // 
+            // textBoxNameEnemies
+            // 
+            this.textBoxNameEnemies.Location = new System.Drawing.Point(165, 22);
+            this.textBoxNameEnemies.Name = "textBoxNameEnemies";
+            this.textBoxNameEnemies.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNameEnemies.TabIndex = 7;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(162, 6);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(38, 13);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Name:";
+            // 
+            // textBoxNameTroops
+            // 
+            this.textBoxNameTroops.Location = new System.Drawing.Point(165, 22);
+            this.textBoxNameTroops.Name = "textBoxNameTroops";
+            this.textBoxNameTroops.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNameTroops.TabIndex = 7;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(162, 6);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(38, 13);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Name:";
+            // 
+            // textBoxNameStates
+            // 
+            this.textBoxNameStates.Location = new System.Drawing.Point(165, 22);
+            this.textBoxNameStates.Name = "textBoxNameStates";
+            this.textBoxNameStates.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNameStates.TabIndex = 7;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(162, 6);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(38, 13);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "Name:";
+            // 
+            // textBoxNameAnimations
+            // 
+            this.textBoxNameAnimations.Location = new System.Drawing.Point(165, 22);
+            this.textBoxNameAnimations.Name = "textBoxNameAnimations";
+            this.textBoxNameAnimations.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNameAnimations.TabIndex = 7;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(162, 6);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(38, 13);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "Name:";
+            // 
+            // textBoxNameTilesets
+            // 
+            this.textBoxNameTilesets.Location = new System.Drawing.Point(165, 22);
+            this.textBoxNameTilesets.Name = "textBoxNameTilesets";
+            this.textBoxNameTilesets.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNameTilesets.TabIndex = 7;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(162, 6);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(38, 13);
+            this.label10.TabIndex = 6;
+            this.label10.Text = "Name:";
+            // 
+            // textBoxNameCommonEvents
+            // 
+            this.textBoxNameCommonEvents.Location = new System.Drawing.Point(165, 22);
+            this.textBoxNameCommonEvents.Name = "textBoxNameCommonEvents";
+            this.textBoxNameCommonEvents.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNameCommonEvents.TabIndex = 7;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(162, 6);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(38, 13);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "Name:";
+            // 
             // DialogDatabase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -510,17 +750,29 @@
             this.Text = "Database";
             this.tabControlDatabase.ResumeLayout(false);
             this.tabPageActors.ResumeLayout(false);
+            this.tabPageActors.PerformLayout();
             this.tabPageClasses.ResumeLayout(false);
+            this.tabPageClasses.PerformLayout();
             this.tabPageSkills.ResumeLayout(false);
+            this.tabPageSkills.PerformLayout();
             this.tabPageItems.ResumeLayout(false);
+            this.tabPageItems.PerformLayout();
             this.tabPageWeapons.ResumeLayout(false);
+            this.tabPageWeapons.PerformLayout();
             this.tabPageArmors.ResumeLayout(false);
+            this.tabPageArmors.PerformLayout();
             this.tabPageEnemies.ResumeLayout(false);
+            this.tabPageEnemies.PerformLayout();
             this.tabPageTroops.ResumeLayout(false);
+            this.tabPageTroops.PerformLayout();
             this.tabPageStates.ResumeLayout(false);
+            this.tabPageStates.PerformLayout();
             this.tabPageAnimations.ResumeLayout(false);
+            this.tabPageAnimations.PerformLayout();
             this.tabPageTilesets.ResumeLayout(false);
+            this.tabPageTilesets.PerformLayout();
             this.tabPageCommonEvents.ResumeLayout(false);
+            this.tabPageCommonEvents.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -568,5 +820,29 @@
         private System.Windows.Forms.ListBox listBoxAnimations;
         private System.Windows.Forms.Button buttonChangeMaxCommonEvents;
         private System.Windows.Forms.ListBox listBoxCommonEvents;
+        private System.Windows.Forms.TextBox textBoxNameActors;
+        private System.Windows.Forms.Label labelNameActors;
+        private System.Windows.Forms.TextBox textBoxNameClasses;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxNameSkills;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxNameItems;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxNameWeapons;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxNameArmors;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxNameEnemies;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxNameTroops;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxNameStates;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxNameAnimations;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBoxNameTilesets;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBoxNameCommonEvents;
+        private System.Windows.Forms.Label label11;
     }
 }

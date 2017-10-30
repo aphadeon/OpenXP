@@ -79,6 +79,12 @@
   <ItemGroup>
     <Compile Include="Data\Database.cs" />
     <Compile Include="Data\MapHandler.cs" />
+    <Compile Include="DialogChangeMaximum.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogChangeMaximum.Designer.cs">
+      <DependentUpon>DialogChangeMaximum.cs</DependentUpon>
+    </Compile>
     <Compile Include="DialogDatabase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +124,9 @@
     <Compile Include="ZoomType.cs" />
     <EmbeddedResource Include="DialogChangeGameTitle.resx">
       <DependentUpon>DialogChangeGameTitle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogChangeMaximum.resx">
+      <DependentUpon>DialogChangeMaximum.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogDatabase.resx">
       <DependentUpon>DialogDatabase.cs</DependentUpon>

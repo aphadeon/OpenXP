@@ -164,6 +164,11 @@ namespace OpenXP
         }
 
         //language interops
+        public static dynamic CreateRubyInstance(string className)
+        {
+            return engine.Execute(className + @".new", scope);
+        }
+        
         public static IronRuby.Builtins.MutableString RString(byte[] item)
         {
             IronRuby.Builtins.MutableString s = new IronRuby.Builtins.MutableString();
