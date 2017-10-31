@@ -14,7 +14,7 @@ namespace OpenXP
     {
         public int OldValue = 0;
         public int NewValue = 0;
-        public DialogResult DialogResult = DialogResult.Cancel;
+        public new DialogResult DialogResult = DialogResult.Cancel;
 
         public DialogChangeMaximum(int oldValue)
         {

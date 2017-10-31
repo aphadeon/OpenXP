@@ -12,99 +12,124 @@ namespace OpenXP
 {
     public partial class DialogDatabase : Form
     {
-        private dynamic TempActors;
-        private dynamic TempAnimations;
-        private dynamic TempArmors;
-        private dynamic TempClasses;
-        private dynamic TempCommonEvents;
-        private dynamic TempEnemies;
-        private dynamic TempItems;
-        private dynamic TempSkills;
-        private dynamic TempStates;
-        private dynamic TempSystem;
-        private dynamic TempTilesets;
-        private dynamic TempTroops;
-        private dynamic TempWeapons;
+        private static string[] dataTabs = { "actors", "classes", "skills", "items", "weapons", "armors", "enemies", "troops", "states", "animations", "tilesets", "commonevents" };
 
-        private int lastSelectedActorIndex = 1;
-        private int lastSelectedAnimation = 1;
-        private int lastSelectedArmor = 1;
-        private int lastSelectedClass = 1;
-        private int lastSelectedCommonEvent = 1;
-        private int lastSelectedEnemy = 1;
-        private int lastSelectedItem = 1;
-        private int lastSelectedSkill = 1;
-        private int lastSelectedState = 1;
-        private int lastSelectedTileset = 1;
-        private int lastSelectedTroop = 1;
-        private int lastSelectedWeapon = 1;
+        private Dictionary<string, dynamic> TempData;
+        private Dictionary<string, ListBox> DataListBoxes;
+        private Dictionary<string, TextBox> DataNameTextBoxes;
+        private Dictionary<string, Button> DataChangeMaxButtons;
+        private Dictionary<string, int> DataSelections;
 
         public DialogDatabase()
         {
             InitializeComponent();
 
             //create temp (cancelable) database
-            TempActors = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Actors);
-            TempAnimations = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Animations);
-            TempArmors = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Armors);
-            TempClasses = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Classes);
-            TempCommonEvents = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.CommonEvents);
-            TempEnemies = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Enemies);
-            TempItems = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Items);
-            TempSkills = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Skills);
-            TempStates = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.States);
-            TempSystem = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.System);
-            TempTilesets = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Tilesets);
-            TempTroops = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Troops);
-            TempWeapons = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Weapons);
+            TempData = new Dictionary<string, dynamic>();
+            TempData["actors"] = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Actors);
+            TempData["animations"] = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Animations);
+            TempData["armors"] = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Armors);
+            TempData["classes"] = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Classes);
+            TempData["commonevents"] = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.CommonEvents);
+            TempData["enemies"] = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Enemies);
+            TempData["items"] = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Items);
+            TempData["skills"] = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Skills);
+            TempData["states"] = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.States);
+            TempData["system"] = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.System);
+            TempData["tilesets"] = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Tilesets);
+            TempData["troops"] = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Troops);
+            TempData["weapons"] = Editor.Project.Ruby.RubyDeepCopy(Editor.Project.Database.Weapons);
 
-            //populate listboxes
-            PopulateDataList(listBoxActors.Items, TempActors);
-            PopulateDataList(listBoxClasses.Items, TempClasses);
-            PopulateDataList(listBoxSkills.Items, TempSkills);
-            PopulateDataList(listBoxItems.Items, TempItems);
-            PopulateDataList(listBoxWeapons.Items, TempWeapons);
-            PopulateDataList(listBoxArmors.Items, TempArmors);
-            PopulateDataList(listBoxEnemies.Items, TempEnemies);
-            PopulateDataList(listBoxTroops.Items, TempTroops);
-            PopulateDataList(listBoxStates.Items, TempStates);
-            PopulateDataList(listBoxAnimations.Items, TempAnimations);
-            PopulateDataList(listBoxTilesets.Items, TempTilesets);
-            PopulateDataList(listBoxCommonEvents.Items, TempCommonEvents);
+            //setup common data management for non-system tabs
+            DataListBoxes = new Dictionary<string, ListBox>();
+            DataNameTextBoxes = new Dictionary<string, TextBox>();
+            DataChangeMaxButtons = new Dictionary<string, Button>();
+            DataSelections = new Dictionary<string, int>();
+            foreach (string s in dataTabs)
+            {
+                //control reference caching
+                Control[] matchingControls;
 
-            //select initial entries
-            listBoxActors.SelectedItem = listBoxActors.Items[0];
-            listBoxClasses.SelectedItem = listBoxClasses.Items[0];
-            listBoxSkills.SelectedItem = listBoxSkills.Items[0];
-            listBoxItems.SelectedItem = listBoxItems.Items[0];
-            listBoxWeapons.SelectedItem = listBoxWeapons.Items[0];
-            listBoxArmors.SelectedItem = listBoxArmors.Items[0];
-            listBoxEnemies.SelectedItem = listBoxEnemies.Items[0];
-            listBoxTroops.SelectedItem = listBoxTroops.Items[0];
-            listBoxStates.SelectedItem = listBoxStates.Items[0];
-            listBoxAnimations.SelectedItem = listBoxAnimations.Items[0];
-            listBoxTilesets.SelectedItem = listBoxTilesets.Items[0];
-            listBoxCommonEvents.SelectedItem = listBoxCommonEvents.Items[0];
+                matchingControls = this.Controls.Find("listBox" + Capitalize(s), true);
+                if (matchingControls.Length <= 0) Console.WriteLine("Failed to locate: listBox" + Capitalize(s));
+                DataListBoxes.Add(s, (ListBox) matchingControls[0]);
 
-            //initial data reads
-            ReadActor(1);
+                matchingControls = this.Controls.Find("textBoxName" + Capitalize(s), true);
+                if (matchingControls.Length <= 0) Console.WriteLine("Failed to locate: textBoxName" + Capitalize(s));
+                DataNameTextBoxes.Add(s, (TextBox)matchingControls[0]);
 
-            //Event hooks
-            listBoxActors.SelectedIndexChanged += ListBoxActors_SelectedIndexChanged;
-            textBoxNameActors.TextChanged += TextBoxNameActors_TextChanged;
-            buttonChangeMaxActors.Click += ButtonChangeMaxActors_Click;
+                matchingControls = this.Controls.Find("buttonChangeMax" + Capitalize(s), true);
+                if (matchingControls.Length <= 0) Console.WriteLine("Failed to locate: buttonChangeMax" + Capitalize(s));
+                DataChangeMaxButtons.Add(s, (Button)matchingControls[0]);
+
+
+                //populate data listbox
+                PopulateDataList(s);
+
+                //setup data selection
+                DataSelections[s] = 0;
+                DataListBoxes[s].SelectedItem = DataListBoxes[s].Items[0];
+
+                //read tab datas
+                Read(s, 1);
+
+                //event hooks
+                DataListBoxes[s].SelectedIndexChanged += ListBox_SelectedIndexChanged;
+                DataNameTextBoxes[s].TextChanged += TextBoxName_TextChanged;
+                DataChangeMaxButtons[s].Click += ButtonChangeMax_Click;
+            }
+        }
+        
+        private string Capitalize(string lower)
+        {
+            return char.ToUpper(lower[0]) + lower.Substring(1);
         }
 
-        //ACTORS TAB ========================================================================
-
-        private void ButtonChangeMaxActors_Click(object sender, EventArgs e)
+        private dynamic GetNewDataInstance(string tab)
         {
-            using (DialogChangeMaximum dcm = new DialogChangeMaximum(listBoxActors.Items.Count))
+            switch (tab)
+            {
+                case "actors":
+                    return Ruby.CreateRubyInstance("RPG::Actor");
+                case "classes":
+                    return Ruby.CreateRubyInstance("RPG::Class");
+                case "skills":
+                    return Ruby.CreateRubyInstance("RPG::Skill");
+                case "items":
+                    return Ruby.CreateRubyInstance("RPG::Item");
+                case "weapons":
+                    return Ruby.CreateRubyInstance("RPG::Weapon");
+                case "armors":
+                    return Ruby.CreateRubyInstance("RPG::Armor");
+                case "enemies":
+                    return Ruby.CreateRubyInstance("RPG::Enemy");
+                case "troops":
+                    return Ruby.CreateRubyInstance("RPG::Troop");
+                case "states":
+                    return Ruby.CreateRubyInstance("RPG::State");
+                case "animations":
+                    return Ruby.CreateRubyInstance("RPG::Animation");
+                case "tilesets":
+                    return Ruby.CreateRubyInstance("RPG::Tileset");
+                case "commonevents":
+                    return Ruby.CreateRubyInstance("RPG::CommonEvent");
+            }
+            Console.WriteLine("New instance for unknown tab!");
+            return null;
+        }
+
+        private void ButtonChangeMax_Click(object sender, EventArgs e)
+        {
+            Button bSender = (Button)sender;
+            string tab = bSender.Name.Substring(15).ToLower();
+            ListBox listBox = DataListBoxes[tab];
+
+            using (DialogChangeMaximum dcm = new DialogChangeMaximum(listBox.Items.Count))
             {
                 dcm.ShowDialog();
                 if(dcm.DialogResult == DialogResult.OK)
                 {
-                    int oldCount = listBoxActors.Items.Count;
+                    int oldCount = listBox.Items.Count;
                     int newCount = dcm.NewValue;
                     if(newCount < oldCount)
                     {
@@ -113,56 +138,49 @@ namespace OpenXP
                         {
                             while(oldCount > newCount)
                             {
-                                TempActors.RemoveAt(oldCount);
+                                TempData[tab].RemoveAt(oldCount);
                                 oldCount -= 1;
                             }
-                            PopulateDataList(listBoxActors.Items, TempActors);
+                            PopulateDataList(tab);
                         }
                     } else
                     {
                         while(oldCount < newCount)
                         {
-                            dynamic actor = Ruby.CreateRubyInstance("RPG::Actor");
+                            dynamic actor = GetNewDataInstance(tab);
                             actor.id = oldCount + 1;
-                            TempActors.Add(actor);
+                            TempData[tab].Add(actor);
                             oldCount++;
                         }
-                        PopulateDataList(listBoxActors.Items, TempActors);
+                        PopulateDataList(tab);
                     }
                 }
             }
         }
 
-        private void TextBoxNameActors_TextChanged(object sender, EventArgs e)
+        private void TextBoxName_TextChanged(object sender, EventArgs e)
         {
-            listBoxActors.Items[listBoxActors.SelectedIndex] = (listBoxActors.SelectedIndex + 1).ToString("D4") + ": " + textBoxNameActors.Text;
+            TextBox bSender = (TextBox)sender;
+            string tab = bSender.Name.Substring(11).ToLower();
+            DataListBoxes[tab].Items[DataListBoxes[tab].SelectedIndex] = (DataListBoxes[tab].SelectedIndex + 1).ToString("D4") + ": " + bSender.Text;
         }
 
-        private void ListBoxActors_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int id = listBoxActors.SelectedIndex + 1;
+            ListBox bSender = (ListBox)sender;
+            string tab = bSender.Name.Substring(7).ToLower();
+            int id = DataListBoxes[tab].SelectedIndex + 1;
             if (id < 1) return;
-            WriteActor(lastSelectedActorIndex);
-            lastSelectedActorIndex = id;
-            ReadActor(id);
+
+            Write(tab, DataSelections[tab]);
+            DataSelections[tab] = id;
+            Read(tab, id);
         }
 
-        private void ReadActor(int id)
+        private void PopulateDataList(string db)
         {
-            if (TempActors[id] == null) return;
-            textBoxNameActors.Text = TempActors[id].name.ToString();
-        }
-
-        private void WriteActor(int id)
-        {
-            TempActors[id].name = new IronRuby.Builtins.MutableString().Append(textBoxNameActors.Text);
-        }
-
-        //END TABS ========================================================================
-
-        private void PopulateDataList(ListBox.ObjectCollection list, dynamic rxdata)
-        {
-            list.Clear();
+            dynamic rxdata = TempData[db];
+            DataListBoxes[db].Items.Clear();
             IronRuby.Builtins.RubyArray ra = (IronRuby.Builtins.RubyArray)rxdata;
             for (int i = 1; i < ra.Count; i++) //its a one-based index
             {
@@ -170,7 +188,7 @@ namespace OpenXP
                 {
                     int id = rxdata[i].id;
                     string name = rxdata[i].name.ToString();
-                    list.Add(id.ToString("D4") + ": " + name);
+                    DataListBoxes[db].Items.Add(id.ToString("D4") + ": " + name);
                 }
             }
         }
@@ -188,26 +206,182 @@ namespace OpenXP
 
         public void Save()
         {
-            //todo: write all
             //save temp database
-            Editor.Project.Database.Actors = TempActors;
-            Editor.Project.Database.Animations = TempAnimations;
-            Editor.Project.Database.Armors = TempArmors;
-            Editor.Project.Database.Classes = TempClasses;
-            Editor.Project.Database.CommonEvents = TempCommonEvents;
-            Editor.Project.Database.Enemies = TempEnemies;
-            Editor.Project.Database.Items = TempItems;
-            Editor.Project.Database.Skills = TempSkills;
-            Editor.Project.Database.States = TempStates;
-            Editor.Project.Database.System = TempSystem;
-            Editor.Project.Database.Tilesets = TempTilesets;
-            Editor.Project.Database.Troops = TempTroops;
-            Editor.Project.Database.Weapons = TempWeapons;
+            Editor.Project.Database.Actors = TempData["actors"];
+            Editor.Project.Database.Animations = TempData["animations"];
+            Editor.Project.Database.Armors = TempData["armors"];
+            Editor.Project.Database.Classes = TempData["classes"];
+            Editor.Project.Database.CommonEvents = TempData["commonevents"];
+            Editor.Project.Database.Enemies = TempData["enemies"];
+            Editor.Project.Database.Items = TempData["items"];
+            Editor.Project.Database.Skills = TempData["skills"];
+            Editor.Project.Database.States = TempData["states"];
+            Editor.Project.Database.System = TempData["system"];
+            Editor.Project.Database.Tilesets = TempData["tilesets"];
+            Editor.Project.Database.Troops = TempData["troops"];
+            Editor.Project.Database.Weapons = TempData["weapons"];
         }
 
         private void buttonApply_Click(object sender, EventArgs e)
         {
             Save();
         }
+
+        private void Read(string tab, int id)
+        {
+            if (TempData[tab][id] == null) return; //queries while repopulating try to say 0 is selected
+            //common: name
+            DataNameTextBoxes[tab].Text = TempData[tab][id].name.ToString();
+            //switch on tab
+            switch (tab)
+            {
+                case "actors": ReadActor(id); break;
+                case "classes": ReadClass (id); break;
+                case "skills": ReadSkill(id); break;
+                case "items": ReadItem(id); break;
+                case "weapons": ReadWeapon(id); break;
+                case "enemies": ReadEnemy(id); break;
+                case "troops": ReadTroop(id); break;
+                case "states": ReadState(id); break;
+                case "animations": ReadAnimation(id); break;
+                case "tilesets": ReadTileset(id); break;
+                case "commonevents": ReadCommonEvent(id); break;
+            }
+        }
+
+        private void Write(string tab, int id)
+        {
+            if (TempData[tab][id] == null) return; //queries while repopulating try to say 0 is selected
+            //common: name
+            TempData[tab][id].name = new IronRuby.Builtins.MutableString().Append(DataNameTextBoxes[tab].Text);
+            //switch on tab
+            switch (tab)
+            {
+                case "actors": WriteActor(id); break;
+                case "classes": WriteClass(id); break;
+                case "skills": WriteSkill(id); break;
+                case "items": WriteItem(id); break;
+                case "weapons": WriteWeapon(id); break;
+                case "enemies": WriteEnemy(id); break;
+                case "troops": WriteTroop(id); break;
+                case "states": WriteState(id); break;
+                case "animations": WriteAnimation(id); break;
+                case "tilesets": WriteTileset(id); break;
+                case "commonevents": WriteCommonEvent(id); break;
+            }
+        }
+
+        //ACTORS ==========================================================================
+        private void ReadActor(int id)
+        {
+
+        }
+
+        private void WriteActor(int id)
+        {
+
+        }
+        //CLASSES ==========================================================================
+        private void ReadClass(int id)
+        {
+
+        }
+
+        private void WriteClass(int id)
+        {
+
+        }
+        //SKILLS ==========================================================================
+        private void ReadSkill(int id)
+        {
+
+        }
+
+        private void WriteSkill(int id)
+        {
+
+        }
+        //ITEMS ==========================================================================
+        private void ReadItem(int id)
+        {
+
+        }
+
+        private void WriteItem(int id)
+        {
+
+        }
+        //WEAPONS ==========================================================================
+        private void ReadWeapon(int id)
+        {
+
+        }
+
+        private void WriteWeapon(int id)
+        {
+
+        }
+        //ENEMIES ==========================================================================
+        private void ReadEnemy(int id)
+        {
+
+        }
+
+        private void WriteEnemy(int id)
+        {
+
+        }
+        //TROOPS ==========================================================================
+        private void ReadTroop(int id)
+        {
+
+        }
+
+        private void WriteTroop(int id)
+        {
+
+        }
+        //STATES ==========================================================================
+        private void ReadState(int id)
+        {
+
+        }
+
+        private void WriteState(int id)
+        {
+
+        }
+        //ANIMATIONS ==========================================================================
+        private void ReadAnimation(int id)
+        {
+
+        }
+
+        private void WriteAnimation(int id)
+        {
+
+        }
+        //ACTORS ==========================================================================
+        private void ReadTileset(int id)
+        {
+
+        }
+
+        private void WriteTileset(int id)
+        {
+
+        }
+        //COMMON EVENTS ==========================================================================
+        private void ReadCommonEvent(int id)
+        {
+
+        }
+
+        private void WriteCommonEvent(int id)
+        {
+
+        }
+
+        //END TABS ========================================================================
     }
 }
