@@ -165,5 +165,8 @@
   <ItemGroup>
     <None Include="Icons\StartPos.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\EventOverlay.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -11,6 +11,7 @@ namespace OpenXP
     public class MapHandler
     {
         public static int tileSize = 32;
+        public static Bitmap eventOverlay = new Bitmap(Properties.Resources.EventOverlay);
         public static Bitmap startImage = new Bitmap(Properties.Resources.StartPos);
         public static Bitmap startImageFade = CreateFadedBitmap(startImage, 0.25f);
         public static int startMapId = -1;
@@ -63,6 +64,22 @@ namespace OpenXP
                 }
             }
             Console.WriteLine("Could not locate tileset: " + Tileset);
+            return null;
+        }
+
+
+        public Bitmap LoadCharacter(string characterName)
+        {
+            foreach (string path in Editor.Project.ResourcePaths)
+            {
+                //todo, multiple extension support
+                string file = "Graphics\\Characters\\" + characterName + ".png";
+                if (System.IO.File.Exists(System.IO.Path.Combine(path, file)))
+                {
+                    return (Bitmap)Image.FromFile(System.IO.Path.Combine(path, file));
+                }
+            }
+            Console.WriteLine("Could not locate character: " + characterName);
             return null;
         }
 
@@ -158,6 +175,26 @@ namespace OpenXP
                 if (Editor.GetSelectedMapId() == startMapId)
                 {
                     e.Graphics.DrawImage(startImage, new Point((startMapX * tileSize) + 3, (startMapY * tileSize) + 3));
+                }
+
+                //draw events
+                if(rbMap.events.Count > 0)
+                {
+                    Dictionary<object, object> events = rbMap.events;
+                    foreach(dynamic o in events)
+                    {
+                        e.Graphics.DrawImage(eventOverlay, new Point((o.Value.x * tileSize) + 2, (o.Value.y * tileSize) + 2));
+                        //draw event graphic
+                        string filename = o.Value.pages[0].graphic.character_name.ToString();
+                        //todo: cache character graphics - urgent, this is a massive memory leak
+                        Bitmap eventIcon = new Bitmap(28, 26);
+                        Bitmap charset = LoadCharacter(filename);
+                        using (Graphics gg = Graphics.FromImage(eventIcon))
+                        {
+                            gg.DrawImage(charset, new Rectangle(0, 0, 28, 26), new Rectangle(0, 0, charset.Width / 4, charset.Height / 7), GraphicsUnit.Pixel);
+                        }
+                        e.Graphics.DrawImage(eventIcon, new Point((o.Value.x * tileSize) + 2, (o.Value.y * tileSize) + 2));
+                    }
                 }
 
                 //draw selection
