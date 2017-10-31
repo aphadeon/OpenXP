@@ -64,8 +64,26 @@ namespace OpenXP
 
             contextMenuStripMap.Opening += ContextMenuStripMap_Opening;
 
+            //setup menu/toolbar hover status text events
+            AddHoverEventToToolStripItems(toolbar.Items);
+            AddHoverEventToToolStripItems(mainMenu.Items);
+
             //load configuration here
             Editor.OnStartup();
+        }
+
+        private void AddHoverEventToToolStripItems(ToolStripItemCollection items)
+        {
+            foreach (ToolStripItem tsi in items)
+            {
+                tsi.MouseEnter += new EventHandler(this.onStatusBarObjectHoverStart);
+                tsi.MouseLeave += new EventHandler(this.onStatusBarObjectHoverEnd);
+                if (tsi is ToolStripMenuItem)
+                {
+                    ToolStripMenuItem mi = tsi as ToolStripMenuItem;
+                    AddHoverEventToToolStripItems(mi.DropDownItems);
+                }
+            }
         }
 
         private void ContextMenuStripMap_Opening(object sender, CancelEventArgs e)
@@ -768,6 +786,23 @@ namespace OpenXP
             MapHandler.startMapX = MapEventSelectLocationX;
             MapHandler.startMapY = MapEventSelectLocationY;
             RepaintMap();
+        }
+
+        private void onStatusBarObjectHoverStart(object sender, EventArgs e)
+        {
+            Control control = sender as Control;
+            if (control != null && control.Tag != null && control.Tag.ToString().Length > 0)
+                this.toolStripStatusLabel.Text = control.Tag.ToString();
+
+            ToolStripItem tsi = sender as ToolStripItem;
+            if (tsi != null && tsi.Tag != null && tsi.Tag.ToString().Length > 0)
+                this.toolStripStatusLabel.Text = tsi.Tag.ToString();
+        }
+
+        private void onStatusBarObjectHoverEnd(object sender, EventArgs e)
+        {
+            if (this.toolStripStatusLabel.Text.ToString().Length > 0)
+                toolStripStatusLabel.Text = "";
         }
     }
 }

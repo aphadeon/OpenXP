@@ -115,8 +115,8 @@
             this.toolbarSoundTestItem = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolbarPlaytestItem = new System.Windows.Forms.ToolStripButton();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.pictureBoxTileset = new System.Windows.Forms.PictureBox();
@@ -133,7 +133,7 @@
             this.playersStartingPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.toolbar.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -182,7 +182,8 @@
             // 
             this.fileMenuNewProjectItem.Image = ((System.Drawing.Image)(resources.GetObject("fileMenuNewProjectItem.Image")));
             this.fileMenuNewProjectItem.Name = "fileMenuNewProjectItem";
-            this.fileMenuNewProjectItem.Size = new System.Drawing.Size(147, 22);
+            this.fileMenuNewProjectItem.Size = new System.Drawing.Size(152, 22);
+            this.fileMenuNewProjectItem.Tag = "Create a new project";
             this.fileMenuNewProjectItem.Text = "New Project...";
             this.fileMenuNewProjectItem.Click += new System.EventHandler(this.newProjectToolStripMenuItem_Click);
             // 
@@ -190,7 +191,8 @@
             // 
             this.fileMenuOpenProjectItem.Image = ((System.Drawing.Image)(resources.GetObject("fileMenuOpenProjectItem.Image")));
             this.fileMenuOpenProjectItem.Name = "fileMenuOpenProjectItem";
-            this.fileMenuOpenProjectItem.Size = new System.Drawing.Size(147, 22);
+            this.fileMenuOpenProjectItem.Size = new System.Drawing.Size(152, 22);
+            this.fileMenuOpenProjectItem.Tag = "Open an existing project";
             this.fileMenuOpenProjectItem.Text = "Open Project";
             this.fileMenuOpenProjectItem.Click += new System.EventHandler(this.openProjectToolStripMenuItem_Click);
             // 
@@ -199,7 +201,8 @@
             this.fileMenuCloseProjectItem.Enabled = false;
             this.fileMenuCloseProjectItem.Image = ((System.Drawing.Image)(resources.GetObject("fileMenuCloseProjectItem.Image")));
             this.fileMenuCloseProjectItem.Name = "fileMenuCloseProjectItem";
-            this.fileMenuCloseProjectItem.Size = new System.Drawing.Size(147, 22);
+            this.fileMenuCloseProjectItem.Size = new System.Drawing.Size(152, 22);
+            this.fileMenuCloseProjectItem.Tag = "Close the currently open project";
             this.fileMenuCloseProjectItem.Text = "Close Project";
             this.fileMenuCloseProjectItem.Click += new System.EventHandler(this.fileMenuCloseProjectItem_Click);
             // 
@@ -208,20 +211,22 @@
             this.fileMenuSaveProjectItem.Enabled = false;
             this.fileMenuSaveProjectItem.Image = ((System.Drawing.Image)(resources.GetObject("fileMenuSaveProjectItem.Image")));
             this.fileMenuSaveProjectItem.Name = "fileMenuSaveProjectItem";
-            this.fileMenuSaveProjectItem.Size = new System.Drawing.Size(147, 22);
+            this.fileMenuSaveProjectItem.Size = new System.Drawing.Size(152, 22);
+            this.fileMenuSaveProjectItem.Tag = "Save the current project";
             this.fileMenuSaveProjectItem.Text = "Save Project";
             this.fileMenuSaveProjectItem.Click += new System.EventHandler(this.fileMenuSaveProjectItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(144, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // fileMenuExitItem
             // 
             this.fileMenuExitItem.Image = ((System.Drawing.Image)(resources.GetObject("fileMenuExitItem.Image")));
             this.fileMenuExitItem.Name = "fileMenuExitItem";
-            this.fileMenuExitItem.Size = new System.Drawing.Size(147, 22);
+            this.fileMenuExitItem.Size = new System.Drawing.Size(152, 22);
+            this.fileMenuExitItem.Tag = "Exit the OpenXP Editor";
             this.fileMenuExitItem.Text = "Exit OpenXP";
             this.fileMenuExitItem.Click += new System.EventHandler(this.fileMenuExitItem_Click);
             // 
@@ -242,7 +247,8 @@
             this.editMenuUndoItem.Enabled = false;
             this.editMenuUndoItem.Image = ((System.Drawing.Image)(resources.GetObject("editMenuUndoItem.Image")));
             this.editMenuUndoItem.Name = "editMenuUndoItem";
-            this.editMenuUndoItem.Size = new System.Drawing.Size(103, 22);
+            this.editMenuUndoItem.Size = new System.Drawing.Size(152, 22);
+            this.editMenuUndoItem.Tag = "Undo the last action";
             this.editMenuUndoItem.Text = "Undo";
             // 
             // toolStripSeparator2
@@ -255,7 +261,8 @@
             this.editMenuCutItem.Enabled = false;
             this.editMenuCutItem.Image = ((System.Drawing.Image)(resources.GetObject("editMenuCutItem.Image")));
             this.editMenuCutItem.Name = "editMenuCutItem";
-            this.editMenuCutItem.Size = new System.Drawing.Size(103, 22);
+            this.editMenuCutItem.Size = new System.Drawing.Size(152, 22);
+            this.editMenuCutItem.Tag = "Cut the selected tiles and place them on the clipboard";
             this.editMenuCutItem.Text = "Cut";
             // 
             // editMenuCopyItem
@@ -263,7 +270,8 @@
             this.editMenuCopyItem.Enabled = false;
             this.editMenuCopyItem.Image = ((System.Drawing.Image)(resources.GetObject("editMenuCopyItem.Image")));
             this.editMenuCopyItem.Name = "editMenuCopyItem";
-            this.editMenuCopyItem.Size = new System.Drawing.Size(103, 22);
+            this.editMenuCopyItem.Size = new System.Drawing.Size(152, 22);
+            this.editMenuCopyItem.Tag = "Copy the selected tiles and place them on the clipboard";
             this.editMenuCopyItem.Text = "Copy";
             // 
             // editMenuPasteItem
@@ -271,7 +279,8 @@
             this.editMenuPasteItem.Enabled = false;
             this.editMenuPasteItem.Image = ((System.Drawing.Image)(resources.GetObject("editMenuPasteItem.Image")));
             this.editMenuPasteItem.Name = "editMenuPasteItem";
-            this.editMenuPasteItem.Size = new System.Drawing.Size(103, 22);
+            this.editMenuPasteItem.Size = new System.Drawing.Size(152, 22);
+            this.editMenuPasteItem.Tag = "Insert the clipboard contents";
             this.editMenuPasteItem.Text = "Paste";
             // 
             // viewMenu
@@ -291,6 +300,7 @@
             this.viewMenuCurrentLayerItem.Image = ((System.Drawing.Image)(resources.GetObject("viewMenuCurrentLayerItem.Image")));
             this.viewMenuCurrentLayerItem.Name = "viewMenuCurrentLayerItem";
             this.viewMenuCurrentLayerItem.Size = new System.Drawing.Size(203, 22);
+            this.viewMenuCurrentLayerItem.Tag = "View only the currently selected layer and layers below it";
             this.viewMenuCurrentLayerItem.Text = "Current Layer and Below";
             this.viewMenuCurrentLayerItem.Click += new System.EventHandler(this.viewMenuCurrentLayerItem_Click);
             // 
@@ -302,6 +312,7 @@
             this.viewMenuAllLayersItem.Image = ((System.Drawing.Image)(resources.GetObject("viewMenuAllLayersItem.Image")));
             this.viewMenuAllLayersItem.Name = "viewMenuAllLayersItem";
             this.viewMenuAllLayersItem.Size = new System.Drawing.Size(203, 22);
+            this.viewMenuAllLayersItem.Tag = "View all layers regardless of selected layer";
             this.viewMenuAllLayersItem.Text = "All Layers";
             this.viewMenuAllLayersItem.Click += new System.EventHandler(this.viewMenuAllLayersItem_Click);
             // 
@@ -318,6 +329,7 @@
             this.viewMenuDimLayersItem.Image = ((System.Drawing.Image)(resources.GetObject("viewMenuDimLayersItem.Image")));
             this.viewMenuDimLayersItem.Name = "viewMenuDimLayersItem";
             this.viewMenuDimLayersItem.Size = new System.Drawing.Size(203, 22);
+            this.viewMenuDimLayersItem.Tag = "Dim layers that are not the selected layer";
             this.viewMenuDimLayersItem.Text = "Dim other layers";
             this.viewMenuDimLayersItem.Click += new System.EventHandler(this.viewMenuDimLayersItem_Click);
             // 
@@ -337,7 +349,8 @@
             this.modeMenuLayer1Item.Enabled = false;
             this.modeMenuLayer1Item.Image = ((System.Drawing.Image)(resources.GetObject("modeMenuLayer1Item.Image")));
             this.modeMenuLayer1Item.Name = "modeMenuLayer1Item";
-            this.modeMenuLayer1Item.Size = new System.Drawing.Size(111, 22);
+            this.modeMenuLayer1Item.Size = new System.Drawing.Size(152, 22);
+            this.modeMenuLayer1Item.Tag = "Switch to layer 1 editing mode";
             this.modeMenuLayer1Item.Text = "Layer 1";
             this.modeMenuLayer1Item.Click += new System.EventHandler(this.modeMenuLayer1Item_Click);
             // 
@@ -346,7 +359,8 @@
             this.modeMenuLayer2Item.Enabled = false;
             this.modeMenuLayer2Item.Image = ((System.Drawing.Image)(resources.GetObject("modeMenuLayer2Item.Image")));
             this.modeMenuLayer2Item.Name = "modeMenuLayer2Item";
-            this.modeMenuLayer2Item.Size = new System.Drawing.Size(111, 22);
+            this.modeMenuLayer2Item.Size = new System.Drawing.Size(152, 22);
+            this.modeMenuLayer2Item.Tag = "Switch to layer 2 editing mode";
             this.modeMenuLayer2Item.Text = "Layer 2";
             this.modeMenuLayer2Item.Click += new System.EventHandler(this.modeMenuLayer2Item_Click);
             // 
@@ -355,7 +369,8 @@
             this.modeMenuLayer3Item.Enabled = false;
             this.modeMenuLayer3Item.Image = ((System.Drawing.Image)(resources.GetObject("modeMenuLayer3Item.Image")));
             this.modeMenuLayer3Item.Name = "modeMenuLayer3Item";
-            this.modeMenuLayer3Item.Size = new System.Drawing.Size(111, 22);
+            this.modeMenuLayer3Item.Size = new System.Drawing.Size(152, 22);
+            this.modeMenuLayer3Item.Tag = "Switch to layer 3 editing mode";
             this.modeMenuLayer3Item.Text = "Layer 3";
             this.modeMenuLayer3Item.Click += new System.EventHandler(this.modeMenuLayer3Item_Click);
             // 
@@ -364,7 +379,8 @@
             this.modeMenuEventsItem.Enabled = false;
             this.modeMenuEventsItem.Image = ((System.Drawing.Image)(resources.GetObject("modeMenuEventsItem.Image")));
             this.modeMenuEventsItem.Name = "modeMenuEventsItem";
-            this.modeMenuEventsItem.Size = new System.Drawing.Size(111, 22);
+            this.modeMenuEventsItem.Size = new System.Drawing.Size(152, 22);
+            this.modeMenuEventsItem.Tag = "Switch to event editing mode";
             this.modeMenuEventsItem.Text = "Events";
             this.modeMenuEventsItem.Click += new System.EventHandler(this.modeMenuEventsItem_Click);
             // 
@@ -385,7 +401,8 @@
             this.drawMenuPencilItem.Enabled = false;
             this.drawMenuPencilItem.Image = ((System.Drawing.Image)(resources.GetObject("drawMenuPencilItem.Image")));
             this.drawMenuPencilItem.Name = "drawMenuPencilItem";
-            this.drawMenuPencilItem.Size = new System.Drawing.Size(126, 22);
+            this.drawMenuPencilItem.Size = new System.Drawing.Size(152, 22);
+            this.drawMenuPencilItem.Tag = "Draw the selected tiles freehand";
             this.drawMenuPencilItem.Text = "Pencil";
             this.drawMenuPencilItem.Click += new System.EventHandler(this.drawMenuPencilItem_Click);
             // 
@@ -394,7 +411,8 @@
             this.drawMenuRectangleItem.Enabled = false;
             this.drawMenuRectangleItem.Image = ((System.Drawing.Image)(resources.GetObject("drawMenuRectangleItem.Image")));
             this.drawMenuRectangleItem.Name = "drawMenuRectangleItem";
-            this.drawMenuRectangleItem.Size = new System.Drawing.Size(126, 22);
+            this.drawMenuRectangleItem.Size = new System.Drawing.Size(152, 22);
+            this.drawMenuRectangleItem.Tag = "Draw the selected tiles in a rectangle";
             this.drawMenuRectangleItem.Text = "Rectangle";
             this.drawMenuRectangleItem.Click += new System.EventHandler(this.drawMenuRectangleItem_Click);
             // 
@@ -403,7 +421,8 @@
             this.drawMenuEllipseItem.Enabled = false;
             this.drawMenuEllipseItem.Image = ((System.Drawing.Image)(resources.GetObject("drawMenuEllipseItem.Image")));
             this.drawMenuEllipseItem.Name = "drawMenuEllipseItem";
-            this.drawMenuEllipseItem.Size = new System.Drawing.Size(126, 22);
+            this.drawMenuEllipseItem.Size = new System.Drawing.Size(152, 22);
+            this.drawMenuEllipseItem.Tag = "Draw the selected tiles in an ellipse";
             this.drawMenuEllipseItem.Text = "Ellipse";
             this.drawMenuEllipseItem.Click += new System.EventHandler(this.drawMenuEllipseItem_Click);
             // 
@@ -412,7 +431,8 @@
             this.drawMenuFloodFillItem.Enabled = false;
             this.drawMenuFloodFillItem.Image = ((System.Drawing.Image)(resources.GetObject("drawMenuFloodFillItem.Image")));
             this.drawMenuFloodFillItem.Name = "drawMenuFloodFillItem";
-            this.drawMenuFloodFillItem.Size = new System.Drawing.Size(126, 22);
+            this.drawMenuFloodFillItem.Size = new System.Drawing.Size(152, 22);
+            this.drawMenuFloodFillItem.Tag = "Fill a map region with the selected tiles";
             this.drawMenuFloodFillItem.Text = "Flood Fill";
             this.drawMenuFloodFillItem.Click += new System.EventHandler(this.drawMenuFloodFillItem_Click);
             // 
@@ -421,7 +441,8 @@
             this.drawMenuSelectItem.Enabled = false;
             this.drawMenuSelectItem.Image = ((System.Drawing.Image)(resources.GetObject("drawMenuSelectItem.Image")));
             this.drawMenuSelectItem.Name = "drawMenuSelectItem";
-            this.drawMenuSelectItem.Size = new System.Drawing.Size(126, 22);
+            this.drawMenuSelectItem.Size = new System.Drawing.Size(152, 22);
+            this.drawMenuSelectItem.Tag = "Select a square region of the map";
             this.drawMenuSelectItem.Text = "Select";
             this.drawMenuSelectItem.Click += new System.EventHandler(this.drawMenuSelectItem_Click);
             // 
@@ -440,7 +461,8 @@
             this.scaleMenuZoom1Item.Enabled = false;
             this.scaleMenuZoom1Item.Image = ((System.Drawing.Image)(resources.GetObject("scaleMenuZoom1Item.Image")));
             this.scaleMenuZoom1Item.Name = "scaleMenuZoom1Item";
-            this.scaleMenuZoom1Item.Size = new System.Drawing.Size(89, 22);
+            this.scaleMenuZoom1Item.Size = new System.Drawing.Size(152, 22);
+            this.scaleMenuZoom1Item.Tag = "Display the map at full size";
             this.scaleMenuZoom1Item.Text = "1:1";
             this.scaleMenuZoom1Item.Click += new System.EventHandler(this.scaleMenuZoom1Item_Click);
             // 
@@ -449,7 +471,8 @@
             this.scaleMenuZoom2Item.Enabled = false;
             this.scaleMenuZoom2Item.Image = ((System.Drawing.Image)(resources.GetObject("scaleMenuZoom2Item.Image")));
             this.scaleMenuZoom2Item.Name = "scaleMenuZoom2Item";
-            this.scaleMenuZoom2Item.Size = new System.Drawing.Size(89, 22);
+            this.scaleMenuZoom2Item.Size = new System.Drawing.Size(152, 22);
+            this.scaleMenuZoom2Item.Tag = "Display the map at half size";
             this.scaleMenuZoom2Item.Text = "1:2";
             this.scaleMenuZoom2Item.Click += new System.EventHandler(this.scaleMenuZoom2Item_Click);
             // 
@@ -458,7 +481,8 @@
             this.scaleMenuZoom4Item.Enabled = false;
             this.scaleMenuZoom4Item.Image = ((System.Drawing.Image)(resources.GetObject("scaleMenuZoom4Item.Image")));
             this.scaleMenuZoom4Item.Name = "scaleMenuZoom4Item";
-            this.scaleMenuZoom4Item.Size = new System.Drawing.Size(89, 22);
+            this.scaleMenuZoom4Item.Size = new System.Drawing.Size(152, 22);
+            this.scaleMenuZoom4Item.Tag = "Display the map at 1/4 size";
             this.scaleMenuZoom4Item.Text = "1:4";
             this.scaleMenuZoom4Item.Click += new System.EventHandler(this.scaleMenuZoom4Item_Click);
             // 
@@ -480,7 +504,8 @@
             this.toolsMenuDatabaseItem.Enabled = false;
             this.toolsMenuDatabaseItem.Image = ((System.Drawing.Image)(resources.GetObject("toolsMenuDatabaseItem.Image")));
             this.toolsMenuDatabaseItem.Name = "toolsMenuDatabaseItem";
-            this.toolsMenuDatabaseItem.Size = new System.Drawing.Size(150, 22);
+            this.toolsMenuDatabaseItem.Size = new System.Drawing.Size(152, 22);
+            this.toolsMenuDatabaseItem.Tag = "Open the database editor";
             this.toolsMenuDatabaseItem.Text = "Database...";
             this.toolsMenuDatabaseItem.Click += new System.EventHandler(this.toolsMenuDatabaseItem_Click);
             // 
@@ -489,7 +514,8 @@
             this.toolsMenuMaterialsItem.Enabled = false;
             this.toolsMenuMaterialsItem.Image = ((System.Drawing.Image)(resources.GetObject("toolsMenuMaterialsItem.Image")));
             this.toolsMenuMaterialsItem.Name = "toolsMenuMaterialsItem";
-            this.toolsMenuMaterialsItem.Size = new System.Drawing.Size(150, 22);
+            this.toolsMenuMaterialsItem.Size = new System.Drawing.Size(152, 22);
+            this.toolsMenuMaterialsItem.Tag = "View/edit materials";
             this.toolsMenuMaterialsItem.Text = "Materialbase...";
             // 
             // toolsMenuScriptEditorItem
@@ -497,7 +523,8 @@
             this.toolsMenuScriptEditorItem.Enabled = false;
             this.toolsMenuScriptEditorItem.Image = ((System.Drawing.Image)(resources.GetObject("toolsMenuScriptEditorItem.Image")));
             this.toolsMenuScriptEditorItem.Name = "toolsMenuScriptEditorItem";
-            this.toolsMenuScriptEditorItem.Size = new System.Drawing.Size(150, 22);
+            this.toolsMenuScriptEditorItem.Size = new System.Drawing.Size(152, 22);
+            this.toolsMenuScriptEditorItem.Tag = "Open the script editor";
             this.toolsMenuScriptEditorItem.Text = "Script Editor...";
             this.toolsMenuScriptEditorItem.Click += new System.EventHandler(this.toolsMenuScriptEditorItem_Click);
             // 
@@ -506,7 +533,8 @@
             this.toolsMenuSoundTestItem.Enabled = false;
             this.toolsMenuSoundTestItem.Image = ((System.Drawing.Image)(resources.GetObject("toolsMenuSoundTestItem.Image")));
             this.toolsMenuSoundTestItem.Name = "toolsMenuSoundTestItem";
-            this.toolsMenuSoundTestItem.Size = new System.Drawing.Size(150, 22);
+            this.toolsMenuSoundTestItem.Size = new System.Drawing.Size(152, 22);
+            this.toolsMenuSoundTestItem.Tag = "Open the sound test window";
             this.toolsMenuSoundTestItem.Text = "Sound Test...";
             // 
             // toolStripSeparator4
@@ -519,7 +547,8 @@
             this.toolsMenuOptionsItem.Enabled = false;
             this.toolsMenuOptionsItem.Image = ((System.Drawing.Image)(resources.GetObject("toolsMenuOptionsItem.Image")));
             this.toolsMenuOptionsItem.Name = "toolsMenuOptionsItem";
-            this.toolsMenuOptionsItem.Size = new System.Drawing.Size(150, 22);
+            this.toolsMenuOptionsItem.Size = new System.Drawing.Size(152, 22);
+            this.toolsMenuOptionsItem.Tag = "Change editor settings";
             this.toolsMenuOptionsItem.Text = "Options";
             // 
             // gameMenu
@@ -541,6 +570,7 @@
             this.gameMenuPlaytestItem.Image = ((System.Drawing.Image)(resources.GetObject("gameMenuPlaytestItem.Image")));
             this.gameMenuPlaytestItem.Name = "gameMenuPlaytestItem";
             this.gameMenuPlaytestItem.Size = new System.Drawing.Size(173, 22);
+            this.gameMenuPlaytestItem.Tag = "Start a playtest of this game";
             this.gameMenuPlaytestItem.Text = "Playtest";
             this.gameMenuPlaytestItem.Click += new System.EventHandler(this.gameMenuPlaytestItem_Click);
             // 
@@ -555,6 +585,7 @@
             this.gameMenuChangeTitleItem.Image = ((System.Drawing.Image)(resources.GetObject("gameMenuChangeTitleItem.Image")));
             this.gameMenuChangeTitleItem.Name = "gameMenuChangeTitleItem";
             this.gameMenuChangeTitleItem.Size = new System.Drawing.Size(173, 22);
+            this.gameMenuChangeTitleItem.Tag = "Change the game\'s title";
             this.gameMenuChangeTitleItem.Text = "Change Title...";
             this.gameMenuChangeTitleItem.Click += new System.EventHandler(this.gameMenuChangeTitleItem_Click);
             // 
@@ -564,6 +595,7 @@
             this.gameMenuRTPItem.Image = ((System.Drawing.Image)(resources.GetObject("gameMenuRTPItem.Image")));
             this.gameMenuRTPItem.Name = "gameMenuRTPItem";
             this.gameMenuRTPItem.Size = new System.Drawing.Size(173, 22);
+            this.gameMenuRTPItem.Tag = "Select which runtime package(s) to use for this game";
             this.gameMenuRTPItem.Text = "Select RTP...";
             // 
             // toolStripSeparator6
@@ -577,6 +609,7 @@
             this.gameMenuOpenFolderItem.Image = ((System.Drawing.Image)(resources.GetObject("gameMenuOpenFolderItem.Image")));
             this.gameMenuOpenFolderItem.Name = "gameMenuOpenFolderItem";
             this.gameMenuOpenFolderItem.Size = new System.Drawing.Size(173, 22);
+            this.gameMenuOpenFolderItem.Tag = "Open the game\'s folder";
             this.gameMenuOpenFolderItem.Text = "Open Game Folder";
             this.gameMenuOpenFolderItem.Click += new System.EventHandler(this.gameMenuOpenFolderItem_Click);
             // 
@@ -594,7 +627,8 @@
             // 
             this.helpMenuContentsItem.Image = ((System.Drawing.Image)(resources.GetObject("helpMenuContentsItem.Image")));
             this.helpMenuContentsItem.Name = "helpMenuContentsItem";
-            this.helpMenuContentsItem.Size = new System.Drawing.Size(122, 22);
+            this.helpMenuContentsItem.Size = new System.Drawing.Size(152, 22);
+            this.helpMenuContentsItem.Tag = "View the OpenXP Editor documentation";
             this.helpMenuContentsItem.Text = "Contents";
             // 
             // toolStripSeparator7
@@ -606,7 +640,8 @@
             // 
             this.helpMenuAboutItem.Image = ((System.Drawing.Image)(resources.GetObject("helpMenuAboutItem.Image")));
             this.helpMenuAboutItem.Name = "helpMenuAboutItem";
-            this.helpMenuAboutItem.Size = new System.Drawing.Size(122, 22);
+            this.helpMenuAboutItem.Size = new System.Drawing.Size(152, 22);
+            this.helpMenuAboutItem.Tag = "Display program information, version number, and copyright";
             this.helpMenuAboutItem.Text = "About...";
             // 
             // toolbar
@@ -661,6 +696,7 @@
             this.toolbarNewProjectItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarNewProjectItem.Name = "toolbarNewProjectItem";
             this.toolbarNewProjectItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarNewProjectItem.Tag = "Create a new project";
             this.toolbarNewProjectItem.Text = "New Project";
             this.toolbarNewProjectItem.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -671,6 +707,7 @@
             this.toolbarOpenProjectItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarOpenProjectItem.Name = "toolbarOpenProjectItem";
             this.toolbarOpenProjectItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarOpenProjectItem.Tag = "Open an existing project";
             this.toolbarOpenProjectItem.Text = "Open Project";
             this.toolbarOpenProjectItem.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
@@ -682,6 +719,7 @@
             this.toolbarSaveProjectItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarSaveProjectItem.Name = "toolbarSaveProjectItem";
             this.toolbarSaveProjectItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarSaveProjectItem.Tag = "Save the current project";
             this.toolbarSaveProjectItem.Text = "Save Project";
             this.toolbarSaveProjectItem.Click += new System.EventHandler(this.toolbarSaveProjectItem_Click);
             // 
@@ -698,6 +736,7 @@
             this.toolbarCutItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarCutItem.Name = "toolbarCutItem";
             this.toolbarCutItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarCutItem.Tag = "Cut the selection and put it on the clipboard";
             this.toolbarCutItem.Text = "Cut";
             // 
             // toolbarCopyItem
@@ -708,6 +747,7 @@
             this.toolbarCopyItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarCopyItem.Name = "toolbarCopyItem";
             this.toolbarCopyItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarCopyItem.Tag = "Copy the selection and put it on the clipboard";
             this.toolbarCopyItem.Text = "Copy";
             // 
             // toolbarPasteItem
@@ -718,6 +758,7 @@
             this.toolbarPasteItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarPasteItem.Name = "toolbarPasteItem";
             this.toolbarPasteItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarPasteItem.Tag = "Insert clipboard contents";
             this.toolbarPasteItem.Text = "Paste";
             // 
             // toolbarDeleteItem
@@ -728,6 +769,7 @@
             this.toolbarDeleteItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarDeleteItem.Name = "toolbarDeleteItem";
             this.toolbarDeleteItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarDeleteItem.Tag = "Erase the selection";
             this.toolbarDeleteItem.Text = "Delete";
             // 
             // toolStripSeparator9
@@ -743,6 +785,7 @@
             this.toolbarUndoItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarUndoItem.Name = "toolbarUndoItem";
             this.toolbarUndoItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarUndoItem.Tag = "Undo the last action";
             this.toolbarUndoItem.Text = "Undo";
             // 
             // toolStripSeparator10
@@ -758,6 +801,7 @@
             this.toolbarLayer1Item.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarLayer1Item.Name = "toolbarLayer1Item";
             this.toolbarLayer1Item.Size = new System.Drawing.Size(23, 20);
+            this.toolbarLayer1Item.Tag = "Switch to layer 1 editing mode";
             this.toolbarLayer1Item.Text = "Layer 1";
             this.toolbarLayer1Item.Click += new System.EventHandler(this.toolbarLayer1Item_Click);
             // 
@@ -769,6 +813,7 @@
             this.toolbarLayer2Item.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarLayer2Item.Name = "toolbarLayer2Item";
             this.toolbarLayer2Item.Size = new System.Drawing.Size(23, 20);
+            this.toolbarLayer2Item.Tag = "Switch to layer 2 editing mode";
             this.toolbarLayer2Item.Text = "Layer 2";
             this.toolbarLayer2Item.Click += new System.EventHandler(this.toolbarLayer2Item_Click);
             // 
@@ -780,6 +825,7 @@
             this.toolbarLayer3Item.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarLayer3Item.Name = "toolbarLayer3Item";
             this.toolbarLayer3Item.Size = new System.Drawing.Size(23, 20);
+            this.toolbarLayer3Item.Tag = "Switch to layer 3 editing mode";
             this.toolbarLayer3Item.Text = "Layer 3";
             this.toolbarLayer3Item.Click += new System.EventHandler(this.toolbarLayer3Item_Click);
             // 
@@ -791,6 +837,7 @@
             this.toolbarEventsItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarEventsItem.Name = "toolbarEventsItem";
             this.toolbarEventsItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarEventsItem.Tag = "Switch to event editing mode";
             this.toolbarEventsItem.Text = "Events";
             this.toolbarEventsItem.Click += new System.EventHandler(this.toolbarEventsItem_Click);
             // 
@@ -807,6 +854,7 @@
             this.toolbarPencilItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarPencilItem.Name = "toolbarPencilItem";
             this.toolbarPencilItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarPencilItem.Tag = "Draw selected tiles freehand";
             this.toolbarPencilItem.Text = "Pencil";
             this.toolbarPencilItem.Click += new System.EventHandler(this.toolbarPencilItem_Click);
             // 
@@ -818,6 +866,7 @@
             this.toolbarRectangleItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarRectangleItem.Name = "toolbarRectangleItem";
             this.toolbarRectangleItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarRectangleItem.Tag = "Draw selected tiles in a rectangle";
             this.toolbarRectangleItem.Text = "Rectangle";
             this.toolbarRectangleItem.Click += new System.EventHandler(this.toolbarRectangleItem_Click);
             // 
@@ -829,6 +878,7 @@
             this.toolbarEllipseItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarEllipseItem.Name = "toolbarEllipseItem";
             this.toolbarEllipseItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarEllipseItem.Tag = "Draw selected tiles in an ellipse";
             this.toolbarEllipseItem.Text = "Ellipse";
             this.toolbarEllipseItem.Click += new System.EventHandler(this.toolbarEllipseItem_Click);
             // 
@@ -840,6 +890,7 @@
             this.toolbarFloodFillItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarFloodFillItem.Name = "toolbarFloodFillItem";
             this.toolbarFloodFillItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarFloodFillItem.Tag = "Fill a region with selected tiles";
             this.toolbarFloodFillItem.Text = "Flood Fill";
             this.toolbarFloodFillItem.Click += new System.EventHandler(this.toolbarFloodFillItem_Click);
             // 
@@ -851,6 +902,7 @@
             this.toolbarSelectItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarSelectItem.Name = "toolbarSelectItem";
             this.toolbarSelectItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarSelectItem.Tag = "Select a square portion of the map";
             this.toolbarSelectItem.Text = "Select";
             this.toolbarSelectItem.Click += new System.EventHandler(this.toolbarSelectItem_Click);
             // 
@@ -869,6 +921,7 @@
             this.toolbarZoom1Item.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarZoom1Item.Name = "toolbarZoom1Item";
             this.toolbarZoom1Item.Size = new System.Drawing.Size(23, 20);
+            this.toolbarZoom1Item.Tag = "Display the map at full size";
             this.toolbarZoom1Item.Text = "1:1";
             this.toolbarZoom1Item.Click += new System.EventHandler(this.toolbarZoom1Item_Click);
             // 
@@ -880,6 +933,7 @@
             this.toolbarZoom2Item.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarZoom2Item.Name = "toolbarZoom2Item";
             this.toolbarZoom2Item.Size = new System.Drawing.Size(23, 20);
+            this.toolbarZoom2Item.Tag = "Display the map at half size";
             this.toolbarZoom2Item.Text = "1:2";
             this.toolbarZoom2Item.Click += new System.EventHandler(this.toolbarZoom2Item_Click);
             // 
@@ -891,6 +945,7 @@
             this.toolbarZoom4Item.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarZoom4Item.Name = "toolbarZoom4Item";
             this.toolbarZoom4Item.Size = new System.Drawing.Size(23, 20);
+            this.toolbarZoom4Item.Tag = "Display the map at 1/4 size";
             this.toolbarZoom4Item.Text = "1:4";
             this.toolbarZoom4Item.Click += new System.EventHandler(this.toolbarZoom4Item_Click);
             // 
@@ -907,6 +962,7 @@
             this.toolbarDatabaseItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarDatabaseItem.Name = "toolbarDatabaseItem";
             this.toolbarDatabaseItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarDatabaseItem.Tag = "Open the database";
             this.toolbarDatabaseItem.Text = "Database";
             this.toolbarDatabaseItem.Click += new System.EventHandler(this.toolbarDatabaseItem_Click);
             // 
@@ -918,6 +974,7 @@
             this.toolbarMaterialsItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarMaterialsItem.Name = "toolbarMaterialsItem";
             this.toolbarMaterialsItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarMaterialsItem.Tag = "View/edit materials";
             this.toolbarMaterialsItem.Text = "Materials";
             // 
             // toolbarScriptEditorItem
@@ -928,6 +985,7 @@
             this.toolbarScriptEditorItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarScriptEditorItem.Name = "toolbarScriptEditorItem";
             this.toolbarScriptEditorItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarScriptEditorItem.Tag = "Open the script editor";
             this.toolbarScriptEditorItem.Text = "Script Editor";
             this.toolbarScriptEditorItem.Click += new System.EventHandler(this.toolbarScriptEditorItem_Click);
             // 
@@ -939,6 +997,7 @@
             this.toolbarSoundTestItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarSoundTestItem.Name = "toolbarSoundTestItem";
             this.toolbarSoundTestItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarSoundTestItem.Tag = "Open the sound test window";
             this.toolbarSoundTestItem.Text = "Sound Test";
             // 
             // toolStripSeparator14
@@ -954,25 +1013,25 @@
             this.toolbarPlaytestItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarPlaytestItem.Name = "toolbarPlaytestItem";
             this.toolbarPlaytestItem.Size = new System.Drawing.Size(23, 20);
+            this.toolbarPlaytestItem.Tag = "Start a playtest of this game";
             this.toolbarPlaytestItem.Text = "PlayTest";
             this.toolbarPlaytestItem.Click += new System.EventHandler(this.toolbarPlaytestItem_Click);
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 656);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1199, 22);
-            this.statusStrip1.TabIndex = 3;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel});
+            this.statusStrip.Location = new System.Drawing.Point(0, 656);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(1199, 22);
+            this.statusStrip.TabIndex = 3;
+            this.statusStrip.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // toolStripStatusLabel
             // 
-            this.toolStripStatusLabel1.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(108, 17);
-            this.toolStripStatusLabel1.Text = "This is a status text.";
+            this.toolStripStatusLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // tableLayoutPanel
             // 
@@ -1013,7 +1072,7 @@
             this.splitContainer.Panel2.AutoScroll = true;
             this.splitContainer.Panel2.Controls.Add(this.treeViewMaps);
             this.splitContainer.Size = new System.Drawing.Size(280, 603);
-            this.splitContainer.SplitterDistance = 373;
+            this.splitContainer.SplitterDistance = 345;
             this.splitContainer.SplitterWidth = 6;
             this.splitContainer.TabIndex = 0;
             // 
@@ -1034,7 +1093,7 @@
             this.treeViewMaps.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewMaps.Location = new System.Drawing.Point(0, 0);
             this.treeViewMaps.Name = "treeViewMaps";
-            this.treeViewMaps.Size = new System.Drawing.Size(276, 220);
+            this.treeViewMaps.Size = new System.Drawing.Size(276, 248);
             this.treeViewMaps.TabIndex = 0;
             // 
             // panelTilemapContainer
@@ -1070,7 +1129,7 @@
             this.toolStripSeparator16,
             this.playersStartingPositionToolStripMenuItem});
             this.contextMenuStripMap.Name = "contextMenuStripMap";
-            this.contextMenuStripMap.Size = new System.Drawing.Size(205, 148);
+            this.contextMenuStripMap.Size = new System.Drawing.Size(205, 126);
             // 
             // newEventToolStripMenuItem
             // 
@@ -1120,7 +1179,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(1199, 678);
             this.Controls.Add(this.tableLayoutPanel);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolbar);
             this.Controls.Add(this.mainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1132,8 +1191,8 @@
             this.mainMenu.PerformLayout();
             this.toolbar.ResumeLayout(false);
             this.toolbar.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.tableLayoutPanel.ResumeLayout(false);
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel1.PerformLayout();
@@ -1236,8 +1295,8 @@
         private System.Windows.Forms.ToolStripButton toolbarSoundTestItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
         private System.Windows.Forms.ToolStripButton toolbarPlaytestItem;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.TreeView treeViewMaps;
