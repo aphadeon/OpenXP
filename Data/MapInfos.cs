@@ -20,6 +20,8 @@ namespace OpenXP
             Maps = new List<MapInfo>();
             TreeNode = new System.Windows.Forms.TreeNode();
             TreeNode.Text = Editor.Project.Ini.Title;
+            TreeNode.ImageKey = "globe";
+            TreeNode.SelectedImageKey = "globe";
         }
 
         public void AddMap(int id, string name, int parent, int order, bool expanded, int scrollx, int scrolly, dynamic map)
@@ -36,6 +38,8 @@ namespace OpenXP
             info.TreeNode = new TreeNode();
             info.TreeNode.Name = "tn" + info.Id.ToString(); //so that we can get the id later
             info.TreeNode.Text = info.Name; //temp, make order variable visible
+            info.TreeNode.ImageKey = "map";
+            info.TreeNode.SelectedImageKey = "map";
             if (expanded) info.TreeNode.Expand();
             else info.TreeNode.Collapse();
             Maps.Add(info);

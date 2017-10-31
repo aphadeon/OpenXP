@@ -72,9 +72,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="XPV">
-      <HintPath>Dependencies\XPV.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Database.cs" />
@@ -167,6 +164,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Icons\EventOverlay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\globe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\map.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -29,8 +29,6 @@ namespace OpenXP
         public int MapEventSelectLocationX = -1;
         public int MapEventSelectLocationY = -1;
 
-        public bool MarkedForExit = true;
-
         public OpenXP()
         {
             InitializeComponent();
@@ -46,6 +44,10 @@ namespace OpenXP
             treeViewMaps.AfterExpand += TreeViewMaps_AfterExpand;
             treeViewMaps.AfterCollapse += TreeViewMaps_AfterCollapse;
             treeViewMaps.AfterSelect += TreeViewMaps_AfterSelect;
+            ImageList il = new ImageList();
+            il.Images.Add("globe", Properties.Resources.globe);
+            il.Images.Add("map", Properties.Resources.map);
+            treeViewMaps.ImageList = il;
 
             pictureBoxMap.MouseLeave += PictureBoxMap_MouseLeave;
             pictureBoxMap.MouseMove += PictureBoxMap_MouseMove;
@@ -63,7 +65,6 @@ namespace OpenXP
             contextMenuStripMap.Opening += ContextMenuStripMap_Opening;
 
             //load configuration here
-            Load += OpenXP_Load;
             Editor.OnStartup();
         }
 
@@ -86,11 +87,6 @@ namespace OpenXP
                     RepaintMap();
                 }
             }
-        }
-
-        private void OpenXP_Load(object sender, EventArgs e)
-        {
-            if (MarkedForExit) Close();
         }
 
         private void PictureBoxMap_MouseMove(object sender, MouseEventArgs e)
