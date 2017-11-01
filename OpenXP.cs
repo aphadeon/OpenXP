@@ -65,7 +65,7 @@ namespace OpenXP
 
             contextMenuStripMap.Opening += ContextMenuStripMap_Opening;
 
-            //setup menu/toolbar hover status text events
+            //setup statusbar
             AddHoverEventToToolStripItems(toolbar.Items);
             AddHoverEventToToolStripItems(mainMenu.Items);
 
@@ -121,6 +121,8 @@ namespace OpenXP
                 if (MapHoverLocationX != hoverX || MapHoverLocationY != hoverY) RepaintMap();
                 MapHoverLocationX = hoverX;
                 MapHoverLocationY = hoverY;
+                if (Editor.ActiveLayer != LayerType.EVENTS)
+                    toolStripStatusCoord.Text = MapHoverLocationX.ToString("d3") + ", " + MapHoverLocationY.ToString("d3");
             }
         }
 
@@ -128,6 +130,9 @@ namespace OpenXP
         {
             MapHoverLocationX = -1;
             MapHoverLocationY = -1;
+            if (Editor.ActiveLayer != LayerType.EVENTS)
+                toolStripStatusCoord.Text = "";
+            pictureBoxMap.Invalidate();
         }
 
         private void PictureBoxMap_MouseClick(object sender, MouseEventArgs e)
@@ -142,7 +147,9 @@ namespace OpenXP
                 int row = (e.Y * zoomDivide) / 32;
                 MapEventSelectLocationX = column;
                 MapEventSelectLocationY = row;
+                toolStripStatusCoord.Text = MapEventSelectLocationX.ToString("d3") + ", " + MapEventSelectLocationY.ToString("d3");
                 pictureBoxMap.Invalidate();
+                if (SelectedMap != null) toolStripStatusEventInfo.Text = SelectedMap.Map.GetEventTooltip(column, row);
             } else {
                 int column = (e.X * zoomDivide) / 32;
                 int row = (e.Y * zoomDivide) / 32;
@@ -199,8 +206,22 @@ namespace OpenXP
 
         public void OnSelectedMapChange(MapInfo lastMap)
         {
-            if(SelectedMap != null) SelectedMap.Map.FirstDraw();
+            if (SelectedMap != null)
+            {
+                if(!pictureBoxMap.Visible) pictureBoxMap.Visible = true;
+                SelectedMap.Map.FirstDraw();
+                toolStripStatusMapInfo.Text = SelectedMap.Id.ToString("D3") + ": " + SelectedMap.Name + "(" + SelectedMap.Map.rbMap.width.ToString() + " x " + SelectedMap.Map.rbMap.height.ToString() + ")";
+            } else
+            {
+                pictureBoxMap.Visible = false;
+                toolStripStatusMapInfo.Text = "";
+            }
+            MapEventSelectLocationX = -1;
+            MapEventSelectLocationY = -1;
+            MapHoverLocationX = -1;
+            MapHoverLocationY = -1;
             pictureBoxMap.Invalidate();
+            toolStripStatusEventInfo.Text = "";
         }
 
         private void PanelMap_Paint(object sender, PaintEventArgs e)
@@ -545,16 +566,19 @@ namespace OpenXP
 
         private void toolbarLayer1Item_Click(object sender, EventArgs e)
         {
+            toolStripStatusEventInfo.Text = "";
             Editor.ChangeLayer(LayerType.LAYER1);
         }
 
         private void toolbarLayer2Item_Click(object sender, EventArgs e)
         {
+            toolStripStatusEventInfo.Text = "";
             Editor.ChangeLayer(LayerType.LAYER2);
         }
 
         private void toolbarLayer3Item_Click(object sender, EventArgs e)
         {
+            toolStripStatusEventInfo.Text = "";
             Editor.ChangeLayer(LayerType.LAYER3);
         }
 
@@ -565,16 +589,19 @@ namespace OpenXP
 
         private void modeMenuLayer1Item_Click(object sender, EventArgs e)
         {
+            toolStripStatusEventInfo.Text = "";
             Editor.ChangeLayer(LayerType.LAYER1);
         }
 
         private void modeMenuLayer2Item_Click(object sender, EventArgs e)
         {
+            toolStripStatusEventInfo.Text = "";
             Editor.ChangeLayer(LayerType.LAYER2);
         }
 
         private void modeMenuLayer3Item_Click(object sender, EventArgs e)
         {
+            toolStripStatusEventInfo.Text = "";
             Editor.ChangeLayer(LayerType.LAYER3);
         }
 
@@ -818,9 +845,7 @@ namespace OpenXP
         {
             get
             {
-
                 string path = @"\http\shell\open\command";
-
                 using (RegistryKey reg = Registry.ClassesRoot.OpenSubKey(path))
                 {
                     if (reg != null)
@@ -837,7 +862,6 @@ namespace OpenXP
                             return webBrowserPath.Split(' ')[0];
                         }
                     }
-
                     return null;
                 }
             }

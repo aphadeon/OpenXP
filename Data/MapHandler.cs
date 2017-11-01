@@ -67,6 +67,28 @@ namespace OpenXP
             return null;
         }
 
+        public string GetEventTooltip(int x, int y)
+        {
+            //check starting position first
+            if(startMapId == Info.Id)
+            {
+                if (x == startMapX && y == startMapY) return "Player";
+            }
+            //check for events
+            if (rbMap.events.Count > 0)
+            {
+                Dictionary<object, object> events = rbMap.events;
+                foreach (dynamic o in events)
+                {
+                    if(o.Value.x == x && o.Value.y == y)
+                    {
+                        return o.Value.id.ToString("d3") + ": " + o.Value.name.ToString();
+                    }
+                }
+            }
+            //nothing here
+            return "";
+        }
 
         public Bitmap LoadCharacter(string characterName)
         {
