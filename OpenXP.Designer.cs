@@ -630,6 +630,7 @@
             this.helpMenuContentsItem.Size = new System.Drawing.Size(152, 22);
             this.helpMenuContentsItem.Tag = "View the OpenXP Editor documentation";
             this.helpMenuContentsItem.Text = "Contents";
+            this.helpMenuContentsItem.Click += new System.EventHandler(this.helpMenuContentsItem_Click);
             // 
             // toolStripSeparator7
             // 

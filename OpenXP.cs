@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -803,6 +804,43 @@ namespace OpenXP
         {
             if (this.toolStripStatusLabel.Text.ToString().Length > 0)
                 toolStripStatusLabel.Text = "";
+        }
+
+        private void helpMenuContentsItem_Click(object sender, EventArgs e)
+        {
+            string helpfile = System.IO.Path.Combine(Program.GetEditorDirectory(),"Documentation", "index.html");
+            var uri = new System.Uri(helpfile);
+            var converted = uri.AbsoluteUri;
+            System.Diagnostics.Process.Start(DefaultWebBrowser, converted);
+        }
+
+        public static string DefaultWebBrowser
+        {
+            get
+            {
+
+                string path = @"\http\shell\open\command";
+
+                using (RegistryKey reg = Registry.ClassesRoot.OpenSubKey(path))
+                {
+                    if (reg != null)
+                    {
+                        string webBrowserPath = reg.GetValue(String.Empty) as string;
+
+                        if (!String.IsNullOrEmpty(webBrowserPath))
+                        {
+                            if (webBrowserPath.First() == '"')
+                            {
+                                return webBrowserPath.Split('"')[1];
+                            }
+
+                            return webBrowserPath.Split(' ')[0];
+                        }
+                    }
+
+                    return null;
+                }
+            }
         }
     }
 }

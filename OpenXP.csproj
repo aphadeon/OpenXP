@@ -172,4 +172,10 @@
     <None Include="Icons\map.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY "$(SolutionDir)Documentation" "$(TargetDir)Documentation" /S /Y /C</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>if not exist "$(TargetDir)Documentation\" mkdir "$(TargetDir)Documentation\"</PreBuildEvent>
+  </PropertyGroup>
 </Project>
