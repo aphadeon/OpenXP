@@ -22,10 +22,13 @@ namespace OpenXP
         public static bool DimOtherLayers = true;
         public static bool ViewAllLayers = true;
 
-        public static void Exit()
+        public static bool Exit()
         {
+            bool shouldClose = CloseProject(); //prompts for save
+            if (!shouldClose) return false;
             if(Ini != null) Ini.Save();
             Application.Exit();
+            return true;
         }
 
         public static void UpdateCaption()
@@ -36,7 +39,7 @@ namespace OpenXP
                 if (Project.Dirty) caption += "*";
                 caption += " - ";
             }
-            caption += "OpenXP";
+            caption += "OpenXP Editor";
             Form.Text = caption;
         }
 
@@ -63,6 +66,7 @@ namespace OpenXP
             openDialog.Multiselect = false;
             if (openDialog.ShowDialog() == DialogResult.OK)
             {
+                CloseProject(); //out with the old
                 try
                 {
                     if (!string.IsNullOrWhiteSpace(openDialog.FileName))
@@ -90,6 +94,7 @@ namespace OpenXP
                                 //all good
                                 Ini.LastProjectDirectory = Project.Directory;
                                 EnableControls();
+                                Editor.SelectMap(Editor.Project.Database.System.edit_map_id);
                                 UpdateCaption();
                                 return;
                             } else
@@ -115,6 +120,9 @@ namespace OpenXP
         {
             //UpdateCaption(form);
             //EnableControls(form);
+            
+            //do this when they hit ok to create one:
+            //CloseProject(); //out with the old
         }
 
         public static void SaveProject()
@@ -129,8 +137,19 @@ namespace OpenXP
         {
             if (Project != null)
             {
-                //todo: flush any project-related stuff
-                //todo: prompt for save, return false if cancelled
+                if (Project.Dirty)
+                {
+                    DialogResult dr = System.Windows.Forms.MessageBox.Show(Form, "This project has unsaved changes. Would you like to save them now?", "Save Project?", MessageBoxButtons.YesNoCancel);
+                    if (dr == DialogResult.Yes)
+                    {
+                        Project.Save();
+                    } else if(dr == DialogResult.Cancel)
+                    {
+                        return false;
+                    }
+                    //no falls through to cleanup without saving
+                }
+                Form.Cleanup();
                 Project = null;
                 ChangeLayer(LayerType.EVENTS);
                 DisableControls();

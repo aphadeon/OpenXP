@@ -58,8 +58,6 @@ namespace OpenXP
             MapHandler.startMapX = Database.System.start_x;
             MapHandler.startMapY = Database.System.start_y;
 
-            Editor.SelectMap(Database.System.edit_map_id);
-
             return null;
         }
 

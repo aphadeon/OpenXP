@@ -220,6 +220,8 @@ namespace OpenXP
             Editor.Project.Database.Tilesets = TempData["tilesets"];
             Editor.Project.Database.Troops = TempData["troops"];
             Editor.Project.Database.Weapons = TempData["weapons"];
+
+            Editor.Touch();
         }
 
         private void buttonApply_Click(object sender, EventArgs e)

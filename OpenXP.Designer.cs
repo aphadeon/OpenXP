@@ -1126,6 +1126,7 @@
             this.pictureBoxMap.Size = new System.Drawing.Size(200, 100);
             this.pictureBoxMap.TabIndex = 0;
             this.pictureBoxMap.TabStop = false;
+            this.pictureBoxMap.Visible = false;
             // 
             // contextMenuStripMap
             // 
@@ -1219,7 +1220,7 @@
             this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "OpenXP";
-            this.Text = "OpenXP";
+            this.Text = "OpenXP Editor";
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.toolbar.ResumeLayout(false);

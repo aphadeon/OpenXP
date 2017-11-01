@@ -22,8 +22,8 @@ namespace OpenXP
         }
         public MapInfo _selectedMap = null;
 
-        public int TilesetSelectionX = -1;
-        public int TilesetSelectionY = -1;
+        public int TilesetSelectionX = 0;
+        public int TilesetSelectionY = 0;
         public int TilesetSelectionId = 0;
         public int MapHoverLocationX = -1;
         public int MapHoverLocationY = -1;
@@ -61,7 +61,7 @@ namespace OpenXP
             pictureBoxTileset.MouseClick += PictureBoxTileset_MouseClick;
             pictureBoxTileset.Paint += PictureBoxTileset_Paint;
 
-            FormClosed += OpenXP_FormClosed;
+            FormClosing += OpenXP_FormClosed;
 
             contextMenuStripMap.Opening += ContextMenuStripMap_Opening;
 
@@ -71,6 +71,26 @@ namespace OpenXP
 
             //load configuration here
             Editor.OnStartup();
+        }
+
+        //called when closing a project to be ready for a new one
+        public void Cleanup()
+        {
+            pictureBoxMap.Visible = false;
+            Console.Clear();
+            _selectedMap = null;
+            treeViewMaps.SelectedNode = null;
+            treeViewMaps.Nodes.Clear();
+            this.ActiveControl = tableLayoutPanel; //forceably unfocus the treeview so it can update to null
+            treeViewMaps.Invalidate();
+            MapHoverLocationX = -1;
+            MapHoverLocationY = -1;
+            MapEventSelectLocationX = -1;
+            MapEventSelectLocationY = -1;
+            TilesetSelectionId = 0;
+            TilesetSelectionX = 0;
+            TilesetSelectionY = 0;
+
         }
 
         private void AddHoverEventToToolStripItems(ToolStripItemCollection items)
@@ -258,9 +278,10 @@ namespace OpenXP
             if (map != null) map.Expanded = true;
         }
 
-        private void OpenXP_FormClosed(object sender, FormClosedEventArgs e)
+        private void OpenXP_FormClosed(object sender, FormClosingEventArgs e)
         {
-            Editor.Exit();
+            bool shouldExit = Editor.Exit();
+            if (!shouldExit) e.Cancel = true;
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -452,7 +473,6 @@ namespace OpenXP
 
         public void enableControls()
         {
-            treeViewMaps.Nodes.Clear();
             treeViewMaps.Nodes.Add(Editor.Project.Maps.TreeNode);
             tableLayoutPanel.Visible = true;
             toolbarSaveProjectItem.Enabled = true;
@@ -540,16 +560,16 @@ namespace OpenXP
 
         public void SelectMap(int id)
         {
-            MapInfo lastMap = SelectedMap;
-            if(id == 0)
+            var matches = from TreeNode node in Editor.Project.Maps.TreeNode.Nodes
+                          where (int)node.Tag == id
+                          select node; //linq match by tag
+            if(matches.Count() > 0)
             {
-                //select the root
+                treeViewMaps.SelectedNode = matches.First<TreeNode>();
+            } else
+            {
+                //select root
                 treeViewMaps.SelectedNode = treeViewMaps.Nodes[0];
-            }
-            MapInfo m = Editor.Project.Maps.GetMapById(id);
-            if(m != null)
-            {
-                treeViewMaps.SelectedNode = m.TreeNode;
             }
         }
 
