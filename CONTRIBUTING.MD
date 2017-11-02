@@ -4,7 +4,10 @@ order.*
 
 ## Licensing
 By contributing to OpenXP, you agree that your contribution is your own original work, and that 
-you agree to have your contributions bundled with the software under the OpenXP License.
+you agree to have your contributions bundled with the software under the OpenXP License. If you 
+add dependencies, please specify their license terms in README.MD, and make sure they are located 
+in the */Dependencies/* directory.  Content contributions to */Documentation/* should be considered 
+public domain.
 
 Please edit this file and add your name, username, or both below the Contributors header to 
 indicate that you have read this document and agree to its terms.  Pull requests from users that 

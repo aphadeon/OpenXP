@@ -94,6 +94,9 @@ software.
 The *Dependencies* subdirectory is exempted from this license entirely, dependencies are subject 
 to their own license, as indicated below.
 
+The *Documentation* subdirectory is exempted from this license entirely. The license terms of the 
+template apply as usual, and any contents are to be considered public domain.
+
 Dependency License Information:
 -------------------------------
 
@@ -108,5 +111,3 @@ is licensed under [MIT License](https://github.com/jacobslusser/ScintillaNET/blo
 
 [Scintilla](http://www.scintilla.org/) 
 is licensed under [MIT License](http://www.scintilla.org/License.txt).  
-
-XPV is licensed under [MIT License](https://opensource.org/licenses/MIT).  
