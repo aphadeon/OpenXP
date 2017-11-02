@@ -41,6 +41,9 @@ namespace OpenXP
             Editor.ActiveDrawTool = DrawToolType.SELECT;
             Editor.ChangeDrawTool(DrawToolType.PENCIL);
 
+            treeViewMaps.ShowLines = false;
+            treeViewMaps.ShowRootLines = false;
+            treeViewMaps.ItemHeight = 20;
             treeViewMaps.TreeViewNodeSorter = new NodeSorter();
             treeViewMaps.AfterExpand += TreeViewMaps_AfterExpand;
             treeViewMaps.AfterCollapse += TreeViewMaps_AfterCollapse;
