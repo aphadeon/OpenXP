@@ -50,11 +50,10 @@ namespace OpenXP
             il.Images.Add("map", Properties.Resources.map);
             treeViewMaps.ImageList = il;
 
-            pictureBoxMap.MouseLeave += PictureBoxMap_MouseLeave;
-            pictureBoxMap.MouseMove += PictureBoxMap_MouseMove;
+            tilemapMap.MouseLeave += tilemapMap_MouseLeave;
+            tilemapMap.MouseMove += tilemapMap_MouseMove;
+            tilemapMap.MouseClick += PictureBoxMap_MouseClick;
 
-            pictureBoxMap.Paint += PanelMap_Paint;
-            pictureBoxMap.MouseClick += PictureBoxMap_MouseClick;
             panelTilemapContainer.HorizontalScroll.Enabled = true;
             panelTilemapContainer.VerticalScroll.Enabled = true;
 
@@ -76,7 +75,7 @@ namespace OpenXP
         //called when closing a project to be ready for a new one
         public void Cleanup()
         {
-            pictureBoxMap.Visible = false;
+            tilemapMap.Visible = false;
             Console.Clear();
             _selectedMap = null;
             treeViewMaps.SelectedNode = null;
@@ -116,7 +115,7 @@ namespace OpenXP
                 int zoomDivide = 1;
                 if (Editor.ActiveZoomType == ZoomType.HALF) zoomDivide = 2;
                 if (Editor.ActiveZoomType == ZoomType.QUARTER) zoomDivide = 4;
-                Point localMouse = pictureBoxMap.PointToClient(MousePosition);
+                Point localMouse = tilemapMap.PointToClient(MousePosition);
                 int hoverX = (localMouse.X * zoomDivide) / 32;
                 int hoverY = (localMouse.Y * zoomDivide) / 32;
                 if (hoverX >= 0 && hoverY >= 0)
@@ -128,7 +127,7 @@ namespace OpenXP
             }
         }
 
-        private void PictureBoxMap_MouseMove(object sender, MouseEventArgs e)
+        private void tilemapMap_MouseMove(object sender, MouseEventArgs e)
         {
             int zoomDivide = 1;
             if (Editor.ActiveZoomType == ZoomType.HALF) zoomDivide = 2;
@@ -146,13 +145,13 @@ namespace OpenXP
             }
         }
 
-        private void PictureBoxMap_MouseLeave(object sender, EventArgs e)
+        private void tilemapMap_MouseLeave(object sender, EventArgs e)
         {
             MapHoverLocationX = -1;
             MapHoverLocationY = -1;
             if (Editor.ActiveLayer != LayerType.EVENTS)
                 toolStripStatusCoord.Text = "";
-            pictureBoxMap.Invalidate();
+            tilemapMap.Invalidate();
         }
 
         private void PictureBoxMap_MouseClick(object sender, MouseEventArgs e)
@@ -168,7 +167,7 @@ namespace OpenXP
                 MapEventSelectLocationX = column;
                 MapEventSelectLocationY = row;
                 toolStripStatusCoord.Text = MapEventSelectLocationX.ToString("d3") + ", " + MapEventSelectLocationY.ToString("d3");
-                pictureBoxMap.Invalidate();
+                tilemapMap.Invalidate();
                 if (SelectedMap != null) toolStripStatusEventInfo.Text = SelectedMap.Map.GetEventTooltip(column, row);
             } else {
                 int column = (e.X * zoomDivide) / 32;
@@ -182,7 +181,7 @@ namespace OpenXP
                         case LayerType.LAYER3: layer = 2; break;
                     }
                     SelectedMap.Map.SetTile(column, row, layer, TilesetSelectionId);
-                    pictureBoxMap.Invalidate();
+                    tilemapMap.Invalidate();
                 }
             }
         }
@@ -228,26 +227,20 @@ namespace OpenXP
         {
             if (SelectedMap != null)
             {
-                if(!pictureBoxMap.Visible) pictureBoxMap.Visible = true;
-                SelectedMap.Map.FirstDraw();
+                if(!tilemapMap.Visible) tilemapMap.Visible = true;
+                tilemapMap.SetMap(SelectedMap.Map);
                 toolStripStatusMapInfo.Text = SelectedMap.Id.ToString("D3") + ": " + SelectedMap.Name + "(" + SelectedMap.Map.rbMap.width.ToString() + " x " + SelectedMap.Map.rbMap.height.ToString() + ")";
             } else
             {
-                pictureBoxMap.Visible = false;
+                tilemapMap.Visible = false;
                 toolStripStatusMapInfo.Text = "";
             }
             MapEventSelectLocationX = -1;
             MapEventSelectLocationY = -1;
             MapHoverLocationX = -1;
             MapHoverLocationY = -1;
-            pictureBoxMap.Invalidate();
+            tilemapMap.Invalidate();
             toolStripStatusEventInfo.Text = "";
-        }
-
-        private void PanelMap_Paint(object sender, PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            if (SelectedMap != null) SelectedMap.Map.PaintEditor(this.pictureBoxMap, e);
         }
 
         private void TreeViewMaps_AfterSelect(object sender, TreeViewEventArgs e)
@@ -255,9 +248,9 @@ namespace OpenXP
             MapInfo mapInfo = Editor.Project.Maps.GetMapByTreeNode(e.Node);
             if (mapInfo != null)
             {
-                pictureBoxTileset.Image = mapInfo.Map.TilesetBitmap;
-                pictureBoxTileset.Visible = true;
                 SelectedMap = mapInfo;
+                pictureBoxTileset.Image = tilemapMap.TilesetBitmap;
+                pictureBoxTileset.Visible = true;
             }
             else
             {
@@ -393,7 +386,7 @@ namespace OpenXP
 
         internal void RepaintMap()
         {
-            pictureBoxMap.Invalidate();
+            tilemapMap.Invalidate();
         }
 
         public void updateSelectedLayer(LayerType layer)

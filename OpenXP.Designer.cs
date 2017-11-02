@@ -117,12 +117,15 @@
             this.toolbarPlaytestItem = new System.Windows.Forms.ToolStripButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusMapInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusCoord = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusEventInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.pictureBoxTileset = new System.Windows.Forms.PictureBox();
             this.treeViewMaps = new System.Windows.Forms.TreeView();
             this.panelTilemapContainer = new System.Windows.Forms.Panel();
-            this.pictureBoxMap = new System.Windows.Forms.PictureBox();
+            this.tilemapMap = new XPT.UserControlTilemap();
             this.contextMenuStripMap = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newEventToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
@@ -131,9 +134,6 @@
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.playersStartingPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripStatusMapInfo = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusEventInfo = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusCoord = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainMenu.SuspendLayout();
             this.toolbar.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -144,7 +144,6 @@
             this.splitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTileset)).BeginInit();
             this.panelTilemapContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMap)).BeginInit();
             this.contextMenuStripMap.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -1038,12 +1037,37 @@
             // 
             this.toolStripStatusLabel.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(369, 17);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(296, 17);
             this.toolStripStatusLabel.Spring = true;
             this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // toolStripStatusMapInfo
+            // 
+            this.toolStripStatusMapInfo.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripStatusMapInfo.Name = "toolStripStatusMapInfo";
+            this.toolStripStatusMapInfo.Size = new System.Drawing.Size(296, 17);
+            this.toolStripStatusMapInfo.Spring = true;
+            this.toolStripStatusMapInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // toolStripStatusCoord
+            // 
+            this.toolStripStatusCoord.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripStatusCoord.Name = "toolStripStatusCoord";
+            this.toolStripStatusCoord.Size = new System.Drawing.Size(296, 17);
+            this.toolStripStatusCoord.Spring = true;
+            this.toolStripStatusCoord.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // toolStripStatusEventInfo
+            // 
+            this.toolStripStatusEventInfo.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripStatusEventInfo.Name = "toolStripStatusEventInfo";
+            this.toolStripStatusEventInfo.Size = new System.Drawing.Size(296, 17);
+            this.toolStripStatusEventInfo.Spring = true;
+            this.toolStripStatusEventInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // tableLayoutPanel
             // 
+            this.tableLayoutPanel.BackColor = System.Drawing.Color.LightGray;
             this.tableLayoutPanel.ColumnCount = 2;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 277F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -1107,26 +1131,35 @@
             // 
             // panelTilemapContainer
             // 
+            this.panelTilemapContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelTilemapContainer.AutoScroll = true;
+            this.panelTilemapContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelTilemapContainer.BackColor = System.Drawing.Color.LightGray;
             this.panelTilemapContainer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelTilemapContainer.Controls.Add(this.pictureBoxMap);
-            this.panelTilemapContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTilemapContainer.Controls.Add(this.tilemapMap);
             this.panelTilemapContainer.Location = new System.Drawing.Point(277, 0);
             this.panelTilemapContainer.Margin = new System.Windows.Forms.Padding(0);
             this.panelTilemapContainer.Name = "panelTilemapContainer";
             this.panelTilemapContainer.Size = new System.Drawing.Size(922, 603);
             this.panelTilemapContainer.TabIndex = 1;
             // 
-            // pictureBoxMap
+            // tilemapMap
             // 
-            this.pictureBoxMap.ContextMenuStrip = this.contextMenuStripMap;
-            this.pictureBoxMap.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxMap.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBoxMap.Name = "pictureBoxMap";
-            this.pictureBoxMap.Size = new System.Drawing.Size(200, 100);
-            this.pictureBoxMap.TabIndex = 0;
-            this.pictureBoxMap.TabStop = false;
-            this.pictureBoxMap.Visible = false;
+            this.tilemapMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tilemapMap.AutoScroll = true;
+            this.tilemapMap.BackColor = System.Drawing.Color.LightGray;
+            this.tilemapMap.ContextMenuStrip = this.contextMenuStripMap;
+            this.tilemapMap.Location = new System.Drawing.Point(0, 0);
+            this.tilemapMap.Margin = new System.Windows.Forms.Padding(0);
+            this.tilemapMap.Name = "tilemapMap";
+            this.tilemapMap.Size = new System.Drawing.Size(918, 599);
+            this.tilemapMap.TabIndex = 0;
+            this.tilemapMap.TabStop = false;
+            this.tilemapMap.Visible = false;
             // 
             // contextMenuStripMap
             // 
@@ -1182,35 +1215,11 @@
             this.playersStartingPositionToolStripMenuItem.Text = "Player\'s Starting Position";
             this.playersStartingPositionToolStripMenuItem.Click += new System.EventHandler(this.playersStartingPositionToolStripMenuItem_Click);
             // 
-            // toolStripStatusMapInfo
-            // 
-            this.toolStripStatusMapInfo.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripStatusMapInfo.Name = "toolStripStatusMapInfo";
-            this.toolStripStatusMapInfo.Size = new System.Drawing.Size(288, 17);
-            this.toolStripStatusMapInfo.Spring = true;
-            this.toolStripStatusMapInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // toolStripStatusEventInfo
-            // 
-            this.toolStripStatusEventInfo.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripStatusEventInfo.Name = "toolStripStatusEventInfo";
-            this.toolStripStatusEventInfo.Size = new System.Drawing.Size(288, 17);
-            this.toolStripStatusEventInfo.Spring = true;
-            this.toolStripStatusEventInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // toolStripStatusCoord
-            // 
-            this.toolStripStatusCoord.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripStatusCoord.Name = "toolStripStatusCoord";
-            this.toolStripStatusCoord.Size = new System.Drawing.Size(288, 17);
-            this.toolStripStatusCoord.Spring = true;
-            this.toolStripStatusCoord.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // OpenXP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(1199, 678);
             this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.statusStrip);
@@ -1218,7 +1227,7 @@
             this.Controls.Add(this.mainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu;
-            this.MinimumSize = new System.Drawing.Size(800, 600);
+            this.MinimumSize = new System.Drawing.Size(480, 480);
             this.Name = "OpenXP";
             this.Text = "OpenXP Editor";
             this.mainMenu.ResumeLayout(false);
@@ -1235,7 +1244,6 @@
             this.splitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTileset)).EndInit();
             this.panelTilemapContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMap)).EndInit();
             this.contextMenuStripMap.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1335,7 +1343,7 @@
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.TreeView treeViewMaps;
         private System.Windows.Forms.PictureBox pictureBoxTileset;
-        private System.Windows.Forms.PictureBox pictureBoxMap;
+        private XPT.UserControlTilemap tilemapMap;
         private System.Windows.Forms.Panel panelTilemapContainer;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripMap;
         private System.Windows.Forms.ToolStripMenuItem newEventToolStripMenuItem;
