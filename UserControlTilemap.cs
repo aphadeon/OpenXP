@@ -31,11 +31,13 @@ namespace XPT
 
         private bool firstDrawn = false;
 
+        public Panel container;
+
         public UserControlTilemap()
         {
             InitializeComponent();
+
             //optimize for drawing
-            AutoScroll = true;
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
         }
 
@@ -65,6 +67,12 @@ namespace XPT
         public void SetMap(MapHandler map)
         {
             firstDrawn = false;
+
+            //manually dock in parent
+            container = Editor.Form.panelTilemapContainer;
+            Parent = container;
+            container.AutoScroll = true;
+
             Map = map;
             TilesetBitmap = LoadTileset();
 
@@ -75,7 +83,9 @@ namespace XPT
             int widthInTiles = (int)Map.rbMap.width;
             int heightInTiles = (int)Map.rbMap.height;
 
-            AutoScrollMinSize = new Size((widthInTiles * TileSize) / zoomDivide, (heightInTiles * TileSize) / zoomDivide);
+            Size = new Size((widthInTiles * TileSize) / zoomDivide, (heightInTiles * TileSize) / zoomDivide);
+            Width = (widthInTiles * TileSize) / zoomDivide;
+            //container.AutoScrollMinSize = new Size((widthInTiles * TileSize) / zoomDivide, (heightInTiles * TileSize) / zoomDivide);
 
             //setup gray layer
             if (GrayLayer != null) GrayLayer.Dispose();
@@ -191,6 +201,7 @@ namespace XPT
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+
             int zoomDivide = 1;
             if (Editor.ActiveZoomType == ZoomType.HALF) zoomDivide = 2;
             if (Editor.ActiveZoomType == ZoomType.QUARTER) zoomDivide = 4;
@@ -198,12 +209,14 @@ namespace XPT
             if (!firstDrawn) return;
             int widthInTiles = (int)Map.rbMap.width;
             int heightInTiles = (int)Map.rbMap.height;
-            //Width = (widthInTiles * TileSize) / zoomDivide;
-            //Height = (heightInTiles * TileSize) / zoomDivide;
 
+            //scrollme
+            MinimumSize = new Size((widthInTiles * TileSize) / zoomDivide, (heightInTiles * TileSize) / zoomDivide);
+            
 
             //zoomin'
             e.Graphics.ScaleTransform(1.0f / (float)zoomDivide, 1.0f / (float)zoomDivide);
+
             //draw the map bitmaps
             bool dim = Editor.DimOtherLayers;
             bool viewAll = Editor.ViewAllLayers;
@@ -291,6 +304,12 @@ namespace XPT
                     e.Graphics.DrawRectangle(pen, (Editor.Form.MapEventSelectLocationX * 32), (Editor.Form.MapEventSelectLocationY * 32), 32, 32);
                 }
             }
+        }
+
+        //Disable scroll-to-control on focus
+        protected override Point ScrollToControl(Control activeControl)
+        {
+            return DisplayRectangle.Location;
         }
 
         public Bitmap LoadCharacter(string characterName)

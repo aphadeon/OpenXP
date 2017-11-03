@@ -125,7 +125,6 @@
             this.pictureBoxTileset = new System.Windows.Forms.PictureBox();
             this.treeViewMaps = new System.Windows.Forms.TreeView();
             this.panelTilemapContainer = new System.Windows.Forms.Panel();
-            this.tilemapMap = new XPT.UserControlTilemap();
             this.contextMenuStripMap = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newEventToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
@@ -134,6 +133,7 @@
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.playersStartingPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tilemapMap = new XPT.UserControlTilemap();
             this.mainMenu.SuspendLayout();
             this.toolbar.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -1068,18 +1068,16 @@
             // tableLayoutPanel
             // 
             this.tableLayoutPanel.BackColor = System.Drawing.Color.LightGray;
-            this.tableLayoutPanel.ColumnCount = 2;
+            this.tableLayoutPanel.ColumnCount = 1;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 277F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel.Controls.Add(this.splitContainer, 0, 0);
-            this.tableLayoutPanel.Controls.Add(this.panelTilemapContainer, 1, 0);
-            this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 53);
             this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 1;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(1199, 603);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(277, 603);
             this.tableLayoutPanel.TabIndex = 4;
             this.tableLayoutPanel.Visible = false;
             // 
@@ -1131,35 +1129,17 @@
             // 
             // panelTilemapContainer
             // 
-            this.panelTilemapContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelTilemapContainer.AutoScroll = true;
             this.panelTilemapContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panelTilemapContainer.BackColor = System.Drawing.Color.LightGray;
             this.panelTilemapContainer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelTilemapContainer.Controls.Add(this.tilemapMap);
-            this.panelTilemapContainer.Location = new System.Drawing.Point(277, 0);
+            this.panelTilemapContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTilemapContainer.Location = new System.Drawing.Point(277, 53);
             this.panelTilemapContainer.Margin = new System.Windows.Forms.Padding(0);
             this.panelTilemapContainer.Name = "panelTilemapContainer";
             this.panelTilemapContainer.Size = new System.Drawing.Size(922, 603);
             this.panelTilemapContainer.TabIndex = 1;
-            // 
-            // tilemapMap
-            // 
-            this.tilemapMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tilemapMap.AutoScroll = true;
-            this.tilemapMap.BackColor = System.Drawing.Color.LightGray;
-            this.tilemapMap.ContextMenuStrip = this.contextMenuStripMap;
-            this.tilemapMap.Location = new System.Drawing.Point(0, 0);
-            this.tilemapMap.Margin = new System.Windows.Forms.Padding(0);
-            this.tilemapMap.Name = "tilemapMap";
-            this.tilemapMap.Size = new System.Drawing.Size(918, 599);
-            this.tilemapMap.TabIndex = 0;
-            this.tilemapMap.TabStop = false;
-            this.tilemapMap.Visible = false;
             // 
             // contextMenuStripMap
             // 
@@ -1215,12 +1195,25 @@
             this.playersStartingPositionToolStripMenuItem.Text = "Player\'s Starting Position";
             this.playersStartingPositionToolStripMenuItem.Click += new System.EventHandler(this.playersStartingPositionToolStripMenuItem_Click);
             // 
+            // tilemapMap
+            // 
+            this.tilemapMap.BackColor = System.Drawing.Color.LightGray;
+            this.tilemapMap.ContextMenuStrip = this.contextMenuStripMap;
+            this.tilemapMap.Location = new System.Drawing.Point(0, 0);
+            this.tilemapMap.Margin = new System.Windows.Forms.Padding(0);
+            this.tilemapMap.Name = "tilemapMap";
+            this.tilemapMap.Size = new System.Drawing.Size(100, 100);
+            this.tilemapMap.TabIndex = 0;
+            this.tilemapMap.TabStop = false;
+            this.tilemapMap.Visible = false;
+            // 
             // OpenXP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(1199, 678);
+            this.Controls.Add(this.panelTilemapContainer);
             this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolbar);
@@ -1344,7 +1337,6 @@
         private System.Windows.Forms.TreeView treeViewMaps;
         private System.Windows.Forms.PictureBox pictureBoxTileset;
         private XPT.UserControlTilemap tilemapMap;
-        private System.Windows.Forms.Panel panelTilemapContainer;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripMap;
         private System.Windows.Forms.ToolStripMenuItem newEventToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
@@ -1356,6 +1348,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusMapInfo;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusEventInfo;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusCoord;
+        public System.Windows.Forms.Panel panelTilemapContainer;
     }
 }
 

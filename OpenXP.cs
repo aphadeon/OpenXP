@@ -55,7 +55,7 @@ namespace OpenXP
 
             tilemapMap.MouseLeave += tilemapMap_MouseLeave;
             tilemapMap.MouseMove += tilemapMap_MouseMove;
-            tilemapMap.MouseClick += PictureBoxMap_MouseClick;
+            tilemapMap.MouseClick += tilemapMap_MouseClick;
 
             panelTilemapContainer.HorizontalScroll.Enabled = true;
             panelTilemapContainer.VerticalScroll.Enabled = true;
@@ -157,7 +157,7 @@ namespace OpenXP
             tilemapMap.Invalidate();
         }
 
-        private void PictureBoxMap_MouseClick(object sender, MouseEventArgs e)
+        private void tilemapMap_MouseClick(object sender, MouseEventArgs e)
         {
             int zoomDivide = 1;
             if (Editor.ActiveZoomType == ZoomType.HALF) zoomDivide = 2;
