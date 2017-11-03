@@ -31,6 +31,13 @@ OpenXP's runtime intends to officially support Windows, Linux, and Mac.  It is n
 on non-Windows platforms.  The editor may be made cross platform, this is yet to be determined.
 
 
+Changes from Vanilla
+--------------------
+Editor:  
+No RGSSAD Encryption support.  This is by design. We will eventually offer a new encryption method.  
+More coming.
+
+
 Limitations
 -----------
 You must own RPG Maker XP in order to use the OpenXP editor, in accordance with the details 

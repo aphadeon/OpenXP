@@ -46,7 +46,15 @@ namespace XPT
             Map.SetTile(column, row, layer, tileId);
             DrawLayer(layer);
             Editor.Touch();
-            Invalidate();
+            Redraw();
+        }
+
+        public void Redraw()
+        {
+            if (container != null && firstDrawn)
+            {
+                Invalidate();
+            }
         }
 
         public Bitmap LoadTileset()
@@ -124,7 +132,7 @@ namespace XPT
             DrawLayer(2);
 
             firstDrawn = true;
-            Invalidate();
+            Redraw();
         }
 
         public void DrawLayer(int dataLayer)
@@ -304,12 +312,6 @@ namespace XPT
                     e.Graphics.DrawRectangle(pen, (Editor.Form.MapEventSelectLocationX * 32), (Editor.Form.MapEventSelectLocationY * 32), 32, 32);
                 }
             }
-        }
-
-        //Disable scroll-to-control on focus
-        protected override Point ScrollToControl(Control activeControl)
-        {
-            return DisplayRectangle.Location;
         }
 
         public Bitmap LoadCharacter(string characterName)

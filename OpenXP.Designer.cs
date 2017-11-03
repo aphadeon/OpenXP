@@ -124,7 +124,7 @@
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.pictureBoxTileset = new System.Windows.Forms.PictureBox();
             this.treeViewMaps = new System.Windows.Forms.TreeView();
-            this.panelTilemapContainer = new System.Windows.Forms.Panel();
+            this.panelTilemapContainer = new XPT.MPanel();
             this.contextMenuStripMap = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newEventToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
@@ -1348,7 +1348,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusMapInfo;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusEventInfo;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusCoord;
-        public System.Windows.Forms.Panel panelTilemapContainer;
+        public XPT.MPanel panelTilemapContainer;
     }
 }
 

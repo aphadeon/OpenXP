@@ -154,7 +154,7 @@ namespace OpenXP
             MapHoverLocationY = -1;
             if (Editor.ActiveLayer != LayerType.EVENTS)
                 toolStripStatusCoord.Text = "";
-            tilemapMap.Invalidate();
+            tilemapMap.Redraw();
         }
 
         private void tilemapMap_MouseClick(object sender, MouseEventArgs e)
@@ -170,7 +170,7 @@ namespace OpenXP
                 MapEventSelectLocationX = column;
                 MapEventSelectLocationY = row;
                 toolStripStatusCoord.Text = MapEventSelectLocationX.ToString("d3") + ", " + MapEventSelectLocationY.ToString("d3");
-                tilemapMap.Invalidate();
+                tilemapMap.Redraw();
                 if (SelectedMap != null) toolStripStatusEventInfo.Text = SelectedMap.Map.GetEventTooltip(column, row);
             } else {
                 int column = (e.X * zoomDivide) / 32;
@@ -183,8 +183,7 @@ namespace OpenXP
                         case LayerType.LAYER2: layer = 1; break;
                         case LayerType.LAYER3: layer = 2; break;
                     }
-                    SelectedMap.Map.SetTile(column, row, layer, TilesetSelectionId);
-                    tilemapMap.Invalidate();
+                    tilemapMap.SetTile(column, row, layer, TilesetSelectionId);
                 }
             }
         }
@@ -242,7 +241,7 @@ namespace OpenXP
             MapEventSelectLocationY = -1;
             MapHoverLocationX = -1;
             MapHoverLocationY = -1;
-            tilemapMap.Invalidate();
+            tilemapMap.Redraw();
             toolStripStatusEventInfo.Text = "";
         }
 
@@ -389,7 +388,7 @@ namespace OpenXP
 
         internal void RepaintMap()
         {
-            tilemapMap.Invalidate();
+            tilemapMap.Redraw();
         }
 
         public void updateSelectedLayer(LayerType layer)
