@@ -111,21 +111,24 @@ namespace OpenXP
             openDialog.Multiselect = false;
             if (openDialog.ShowDialog() == DialogResult.OK)
             {
-                CloseProject(); //out with the old
-                try
+                bool shouldContinue = CloseProject(); //out with the old
+                if (shouldContinue)
                 {
-                    if (!string.IsNullOrWhiteSpace(openDialog.FileName))
+                    try
                     {
-                        projectFile = openDialog.FileName;
+                        if (!string.IsNullOrWhiteSpace(openDialog.FileName))
+                        {
+                            projectFile = openDialog.FileName;
+                            LoadProject(projectFile);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                        UpdateCaption();
+                        return;
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-                    UpdateCaption();
-                    return;
-                }
-                LoadProject(projectFile);
             }
         }
 

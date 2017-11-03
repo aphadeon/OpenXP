@@ -71,8 +71,55 @@ namespace OpenXP
             AddHoverEventToToolStripItems(toolbar.Items);
             AddHoverEventToToolStripItems(mainMenu.Items);
 
+            //project file drop support
+            AllowDrop = true;
+            DragDrop += OpenXP_DragDrop;
+            DragEnter += OpenXP_DragEnter;
+
             //load configuration here
             Editor.OnStartup();
+        }
+
+        //only allow a single file ending in .rxproj
+        private void OpenXP_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("FileDrop", false))
+            {
+                e.Effect = DragDropEffects.Copy;
+                string[] paths = (string[])(e.Data.GetData("FileDrop", false));
+                if (paths.Length > 1) e.Effect = DragDropEffects.None;
+                foreach (string path in paths)
+                {
+                    if (!path.EndsWith(".rxproj"))
+                    {
+                        e.Effect = DragDropEffects.None;
+                    }
+                }
+            }
+            else e.Effect = DragDropEffects.None;
+        }
+
+        private void OpenXP_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("FileDrop", false))
+            {
+                string[] paths = (string[])(e.Data.GetData("FileDrop", false));
+                foreach (string path in paths)
+                {
+                    bool shouldContinue = Editor.CloseProject(); //out with the old
+                    if (shouldContinue)
+                    {
+                        try
+                        {
+                            Editor.LoadProject(path);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                        }
+                    }
+                }
+            }
         }
 
         //called when closing a project to be ready for a new one
