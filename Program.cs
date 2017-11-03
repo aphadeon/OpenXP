@@ -12,8 +12,18 @@ namespace OpenXP
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] parameters)
         {
+            if (parameters.Length > 0)
+            {
+                foreach(string s in parameters)
+                {
+                    if (s.EndsWith(".rxproj"))
+                    {
+                        Editor.PreloadProject = s;
+                    }
+                }
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new OpenXP());

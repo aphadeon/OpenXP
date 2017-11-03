@@ -10,6 +10,8 @@ namespace OpenXP
 {
     class Editor
     {
+        public static string PreloadProject;
+
         public static OpenXP Form { get; set; }
         public static Project Project { get; set; } = null;
 
@@ -52,6 +54,49 @@ namespace OpenXP
         public static void OnStartup()
         {
             Ini = new EditorIni();
+            if(PreloadProject != null)
+            {
+                LoadProject(PreloadProject);
+                PreloadProject = null;
+            }
+        }
+
+        public static void LoadProject(string projectFile)
+        {
+            if (projectFile != null)
+            {
+                if (File.Exists(projectFile))
+                {
+                    Project = new Project();
+                    Project.Path = new FileInfo(projectFile).FullName;
+                    Project.Directory = new FileInfo(projectFile).Directory.FullName;
+                    if (Directory.Exists(Project.Directory))
+                    {
+                        string msg = Project.Setup();
+                        if (string.IsNullOrWhiteSpace(msg))
+                        {
+                            //all good
+                            Ini.LastProjectDirectory = Project.Directory;
+                            EnableControls();
+                            Editor.SelectMap(Editor.Project.Database.System.edit_map_id);
+                            UpdateCaption();
+                            return;
+                        }
+                        else
+                        {
+                            //there was an error during project setup
+                            MessageBox.Show(msg);
+                            Project = null;
+                            UpdateCaption();
+                            return;
+                        }
+                    }
+                }
+            }
+            //If we are still here, something has gone wrong.
+            Project = null;
+            MessageBox.Show("Error: Could not read locate project data.");
+            UpdateCaption();
         }
         
         public static void OpenProject()
@@ -80,39 +125,7 @@ namespace OpenXP
                     UpdateCaption();
                     return;
                 }
-                if (projectFile != null)
-                {
-                    if (File.Exists(projectFile))
-                    {
-                        Project = new Project();
-                        Project.Path = new FileInfo(projectFile).FullName;
-                        Project.Directory = new FileInfo(projectFile).Directory.FullName;
-                        if (Directory.Exists(Project.Directory))
-                        {
-                            string msg = Project.Setup();
-                            if (string.IsNullOrWhiteSpace(msg)){
-                                //all good
-                                Ini.LastProjectDirectory = Project.Directory;
-                                EnableControls();
-                                Editor.SelectMap(Editor.Project.Database.System.edit_map_id);
-                                UpdateCaption();
-                                return;
-                            } else
-                            {
-                                //there was an error during project setup
-                                MessageBox.Show(msg);
-                                Project = null;
-                                UpdateCaption();
-                                return;
-                            }
-                        }
-                    }
-                }
-                //If we are still here, something has gone wrong.
-                Project = null;
-                MessageBox.Show("Error: Could not read locate project data.");
-                UpdateCaption();
-                return;
+                LoadProject(projectFile);
             }
         }
 
