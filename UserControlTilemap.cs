@@ -49,6 +49,65 @@ namespace XPT
             Redraw();
         }
 
+        public Point DrawPolyPointA;
+        public Point DrawPolyPointB;
+        public int DrawPolyLayer;
+        public int DrawPolyTile;
+
+        public void StartRectangle(int column, int row, int layer, int tileId)
+        {
+            DrawPolyLayer = layer;
+            DrawPolyTile = tileId;
+            DrawPolyPointA = new Point(column, row);
+            DrawPolyPointB = new Point(column, row);
+        }
+
+        public void UpdateRectangle(int column, int row)
+        {
+            DrawPolyPointB.X = column;
+            DrawPolyPointB.Y = row;
+        }
+
+        public void EndRectangle()
+        {
+            int x1 = DrawPolyPointA.X;
+            int x2 = DrawPolyPointB.X;
+            int y1 = DrawPolyPointA.Y;
+            int y2 = DrawPolyPointB.Y;
+            //notably these can run out of bounds, so we'll have to sanitize it later
+            Map.SetRectangle(x1, x2, y1, y2, DrawPolyLayer, DrawPolyTile);
+            DrawLayer(DrawPolyLayer);
+            Editor.Touch();
+            Redraw();
+        }
+
+        public void StartEllipse(int column, int row, int layer, int tileId)
+        {
+            DrawPolyLayer = layer;
+            DrawPolyTile = tileId;
+            DrawPolyPointA = new Point(column, row);
+            DrawPolyPointB = new Point(column, row);
+        }
+
+        public void UpdateEllipse(int column, int row)
+        {
+            DrawPolyPointB.X = column;
+            DrawPolyPointB.Y = row;
+        }
+
+        public void EndEllipse()
+        {
+            int x1 = DrawPolyPointA.X;
+            int x2 = DrawPolyPointB.X;
+            int y1 = DrawPolyPointA.Y;
+            int y2 = DrawPolyPointB.Y;
+            //notably these can run out of bounds, so we'll have to sanitize it later
+            Map.SetEllipse(x1, x2, y1, y2, DrawPolyLayer, DrawPolyTile);
+            DrawLayer(DrawPolyLayer);
+            Editor.Touch();
+            Redraw();
+        }
+
         public void FloodFill(int column, int row, int layer, int tileId)
         {
             Map.FloodFill(column, row, layer, tileId);
@@ -108,7 +167,7 @@ namespace XPT
             GrayLayer = new Bitmap(TileSize * (int)Map.rbMap.width, TileSize * (int)Map.rbMap.height);
             using (Graphics g = Graphics.FromImage(GrayLayer))
             {
-                using (Brush brush = new SolidBrush(Color.FromArgb(64, 0, 0, 0)))
+                using (Brush brush = new SolidBrush(Color.FromArgb(128, 0, 0, 0)))
                 {
                     g.FillRectangle(brush, 0, 0, TileSize * (int)Map.rbMap.width, TileSize * (int)Map.rbMap.height);
                 }

@@ -66,6 +66,108 @@ namespace OpenXP
             rbMap.data[column, row, layer] = tileId;
         }
 
+        public void SetRectangle(int x1, int x2, int y1, int y2, int layer, int tileId)
+        {
+            //sanitize coordinates
+            x1 = x1 < 0 ? 0 : x1 > rbMap.width ? rbMap.width : x1;
+            x2 = x2 < 0 ? 0 : x2 > rbMap.width ? rbMap.width : x2;
+            y1 = y1 < 0 ? 0 : y1 > rbMap.height ? rbMap.height : y1;
+            y2 = y2 < 0 ? 0 : y2 > rbMap.height ? rbMap.height : y2;
+            if(x2 < x1)
+            {
+                int vx = x2;
+                x2 = x1;
+                x1 = vx;
+            }
+            if (y2 < y1)
+            {
+                int vy = y2;
+                y2 = y1;
+                y1 = vy;
+            }
+            for (int ix = x1; ix <= x2; ix++)
+            {
+                for(int iy = y1; iy <= y2; iy++)
+                {
+                    rbMap.data[ix, iy, layer] = tileId;
+                }
+            }
+            //Console.WriteLine("Drawing rectangle: " + x1 + ", " + x2 + ", " + y1 + ", " + y2);
+        }
+
+        public void SetEllipse(int x1, int x2, int y1, int y2, int layer, int tileId)
+        {
+            //sanitize coordinates
+            x1 = x1 < 0 ? 0 : x1 > rbMap.width ? rbMap.width : x1;
+            x2 = x2 < 0 ? 0 : x2 > rbMap.width ? rbMap.width : x2;
+            y1 = y1 < 0 ? 0 : y1 > rbMap.height ? rbMap.height : y1;
+            y2 = y2 < 0 ? 0 : y2 > rbMap.height ? rbMap.height : y2;
+            if (x2 < x1)
+            {
+                int vx = x2;
+                x2 = x1;
+                x1 = vx;
+            }
+            if (y2 < y1)
+            {
+                int vy = y2;
+                y2 = y1;
+                y1 = vy;
+            }
+            int width = (x2 - x1);
+            int height = (y2 - y1);
+            if(width <= 1 || height <= 1)
+            {
+                //just fill it as a rectangle
+                SetRectangle(x1, x2, y1, y2, layer, tileId);
+                return;
+            }
+            int halfw = width / 2;
+            int halfh = height / 2;
+            bool wodd = (x2 - x1) % 2 == 1;
+            bool hodd = (y2 - y1) % 2 == 1;
+            FillEllipse(x1 + halfw, y1 + halfh, halfw, halfh, wodd, hodd, layer, tileId);
+            Console.WriteLine("Drawing ellipse: " + x1 + ", " + x2 + ", " + y1 + ", " + y2);
+        }
+
+        void FillEllipse(int CenterX, int CenterY, int EllipseWidth, int EllipseHeight, bool WidthOdd, bool HeightOdd, int Layer, int TileId)
+        {
+            int a2 = EllipseWidth * EllipseWidth;
+            int b2 = EllipseHeight * EllipseHeight;
+            int fa2 = 4 * a2, fb2 = 4 * b2;
+            int x, y, sigma;
+
+            /* first half */
+            for (x = 0, y = EllipseHeight, sigma = 2 * b2 + a2 * (1 - 2 * EllipseHeight); b2 * x <= a2 * y; x++)
+            {
+                SetRectangle(CenterX - x, CenterX + x + (WidthOdd ? 1 : 0), CenterY + y, CenterY + y, Layer, TileId);
+                SetRectangle(CenterX - x, CenterX + x + (WidthOdd ? 1 : 0), CenterY - y, CenterY - y, Layer, TileId);
+                if (sigma >= 0)
+                {
+                    sigma += fa2 * (1 - y);
+                    y--;
+                }
+                sigma += b2 * ((4 * x) + 6);
+            }
+            /* second half */
+            for (x = EllipseWidth, y = 0, sigma = 2 * a2 + b2 * (1 - 2 * EllipseWidth); a2 * y <= b2 * x; y++)
+            {
+                SetRectangle(CenterX - x, CenterX + x + (WidthOdd ? 1 : 0), CenterY + y, CenterY + y, Layer, TileId);
+                SetRectangle(CenterX - x, CenterX + x + (WidthOdd ? 1 : 0), CenterY - y, CenterY - y, Layer, TileId);
+                //SetTile(CenterX + x, CenterY + y, Layer, TileId);
+                //SetTile(CenterX - x, CenterY + y, Layer, TileId);
+                //SetTile(CenterX + x, CenterY - y, Layer, TileId);
+                //SetTile(CenterX - x, CenterY - y, Layer, TileId);
+                if (sigma >= 0)
+                {
+                    sigma += fb2 * (1 - x);
+                    x--;
+                }
+                sigma += a2 * ((4 * y) + 6);
+            }
+        }
+
+
         public void FloodFill(int column, int row, int layer, int tileId)
         {
             FloodSourceTile = rbMap.data[column, row, layer];

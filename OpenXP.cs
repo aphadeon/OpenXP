@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace OpenXP
 {
-    public partial class OpenXP : Form
+    public partial class OpenXP : Form, IMessageFilter
     {
         public MapInfo SelectedMap { get {return _selectedMap; } set
             {
@@ -33,6 +33,7 @@ namespace OpenXP
 
         public OpenXP()
         {
+            Application.AddMessageFilter(this);
             InitializeComponent();
             Editor.Form = this;
 
@@ -58,7 +59,7 @@ namespace OpenXP
             tilemapMap.MouseMove += tilemapMap_MouseMove;
             tilemapMap.MouseClick += tilemapMap_MouseClick;
             tilemapMap.MouseDown += tilemapMap_MouseDown;
-            MouseUp += OpenXP_MouseUp;
+            //Drawing mouseup handled in PreFilterMessage
 
             panelTilemapContainer.HorizontalScroll.Enabled = true;
             panelTilemapContainer.VerticalScroll.Enabled = true;
@@ -232,6 +233,7 @@ namespace OpenXP
                         switch (Editor.ActiveDrawTool)
                         {
                             case DrawToolType.ELLIPSE:
+                                tilemapMap.StartEllipse(column, row, layer, TilesetSelectionId);
                                 break;
                             case DrawToolType.FLOODFILL:
                                 tilemapMap.FloodFill(column, row, layer, TilesetSelectionId);
@@ -240,6 +242,7 @@ namespace OpenXP
                                 tilemapMap.SetTile(column, row, layer, TilesetSelectionId);
                                 break;
                             case DrawToolType.RECTANGLE:
+                                tilemapMap.StartRectangle(column, row, layer, TilesetSelectionId);
                                 break;
                             case DrawToolType.SELECT:
                                 break;
@@ -281,15 +284,17 @@ namespace OpenXP
                                 switch (Editor.ActiveDrawTool)
                                 {
                                     case DrawToolType.ELLIPSE:
+                                        tilemapMap.UpdateEllipse(column, row);
                                         break;
                                     case DrawToolType.FLOODFILL:
                                         //no update on drag
                                         break;
                                     case DrawToolType.PENCIL:
                                         tilemapMap.SetTile(column, row, layer, TilesetSelectionId);
-                                        return; //settile already paints map
+                                        return;
                                     case DrawToolType.RECTANGLE:
-                                        break;
+                                        tilemapMap.UpdateRectangle(column, row);
+                                        break;//return;
                                     case DrawToolType.SELECT:
                                         break;
                                 }
@@ -301,32 +306,28 @@ namespace OpenXP
             }
         }
 
-        private void OpenXP_MouseUp(object sender, MouseEventArgs e)
+        private void OpenXP_MouseUpDrawing()
         {
-            if (e.Button == MouseButtons.Left)
+            //called by PreFilterMessage on left mouse up event anywhere
+            MapDrawing = false;
+            if (Editor.ActiveLayer != LayerType.EVENTS)
             {
-                if (Editor.ActiveLayer != LayerType.EVENTS)
+                //end tool
+                if (SelectedMap != null)
                 {
-                    MapDrawing = false;
-
-                    //end tool
-                    if (SelectedMap != null)
+                    switch (Editor.ActiveDrawTool)
                     {
-                        switch (Editor.ActiveDrawTool)
-                        {
-                            case DrawToolType.ELLIPSE:
-                                break;
-                            case DrawToolType.FLOODFILL:
-                                //already good to go
-                                break;
-                            case DrawToolType.PENCIL:
-                                //already good to go
-                                break;
-                            case DrawToolType.RECTANGLE:
-                                break;
-                            case DrawToolType.SELECT:
-                                break;
-                        }
+                        case DrawToolType.ELLIPSE:
+                            tilemapMap.EndEllipse();
+                            return;
+                        case DrawToolType.FLOODFILL:
+                        case DrawToolType.PENCIL:
+                            return;
+                        case DrawToolType.RECTANGLE:
+                            tilemapMap.EndRectangle();
+                            return;
+                        case DrawToolType.SELECT:
+                            break;
                     }
                 }
             }
@@ -998,6 +999,25 @@ namespace OpenXP
             var uri = new System.Uri(helpfile);
             var converted = uri.AbsoluteUri;
             System.Diagnostics.Process.Start(DefaultWebBrowser, converted);
+        }
+
+        public bool PreFilterMessage(ref Message m)
+        {
+            if (Editor.Form.MapDrawing)
+            { //trap mouseup events
+                bool mousetrap = false;
+                if (m.Msg == 0x210)
+                {
+                    if (m.WParam.ToInt64() == 0x202) mousetrap = true;
+                }
+                else if (m.Msg == 0x202) mousetrap = true;
+                if (mousetrap)
+                {
+                    Editor.Form.OpenXP_MouseUpDrawing();
+                    //return true; //block message from forwarding to another control
+                }
+            }
+            return false;
         }
 
         public static string DefaultWebBrowser
