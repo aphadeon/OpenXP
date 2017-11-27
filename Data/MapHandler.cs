@@ -65,5 +65,40 @@ namespace OpenXP
         {
             rbMap.data[column, row, layer] = tileId;
         }
+
+        public void FloodFill(int column, int row, int layer, int tileId)
+        {
+            FloodSourceTile = rbMap.data[column, row, layer];
+            FloodLayer = layer;
+            FloodDestTile = tileId;
+            FloodTiles = new List<Point>();
+            FloodTiles.Add(new Point(column, row));
+            while(FloodTiles.Count > 0)
+            {
+                UpdateFloodFill();
+            }
+        }
+
+        private List<Point> FloodTiles;
+        private int FloodSourceTile = -1;
+        private int FloodLayer = -1;
+        private int FloodDestTile = -1;
+
+        private void UpdateFloodFill()
+        {
+            Point tile = FloodTiles.First();
+            FloodTiles.Remove(tile);
+            //if this is not a valid target, simply return.
+            if(rbMap.data[tile.X, tile.Y, FloodLayer] == FloodSourceTile)
+            {
+                //update this tile...
+                rbMap.data[tile.X, tile.Y, FloodLayer] = FloodDestTile;
+                //then add all its neighbors
+                FloodTiles.Add(new Point(tile.X - 1, tile.Y)); //left
+                FloodTiles.Add(new Point(tile.X + 1, tile.Y)); //right
+                FloodTiles.Add(new Point(tile.X, tile.Y - 1)); //up
+                FloodTiles.Add(new Point(tile.X, tile.Y + 1)); //down
+            }
+        }
     }
 }

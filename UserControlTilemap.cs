@@ -49,6 +49,14 @@ namespace XPT
             Redraw();
         }
 
+        public void FloodFill(int column, int row, int layer, int tileId)
+        {
+            Map.FloodFill(column, row, layer, tileId);
+            DrawLayer(layer);
+            Editor.Touch();
+            Redraw();
+        }
+
         public void Redraw()
         {
             if (container != null && firstDrawn)

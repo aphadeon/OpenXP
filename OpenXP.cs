@@ -29,6 +29,7 @@ namespace OpenXP
         public int MapHoverLocationY = -1;
         public int MapEventSelectLocationX = -1;
         public int MapEventSelectLocationY = -1;
+        private bool MapDrawing = false;
 
         public OpenXP()
         {
@@ -56,6 +57,8 @@ namespace OpenXP
             tilemapMap.MouseLeave += tilemapMap_MouseLeave;
             tilemapMap.MouseMove += tilemapMap_MouseMove;
             tilemapMap.MouseClick += tilemapMap_MouseClick;
+            tilemapMap.MouseDown += tilemapMap_MouseDown;
+            MouseUp += OpenXP_MouseUp;
 
             panelTilemapContainer.HorizontalScroll.Enabled = true;
             panelTilemapContainer.VerticalScroll.Enabled = true;
@@ -177,24 +180,6 @@ namespace OpenXP
             }
         }
 
-        private void tilemapMap_MouseMove(object sender, MouseEventArgs e)
-        {
-            int zoomDivide = 1;
-            if (Editor.ActiveZoomType == ZoomType.HALF) zoomDivide = 2;
-            if (Editor.ActiveZoomType == ZoomType.QUARTER) zoomDivide = 4;
-
-            int hoverX = (e.X * zoomDivide) / 32;
-            int hoverY = (e.Y * zoomDivide) / 32;
-            if(hoverX >= 0 && hoverY >= 0)
-            {
-                if (MapHoverLocationX != hoverX || MapHoverLocationY != hoverY) RepaintMap();
-                MapHoverLocationX = hoverX;
-                MapHoverLocationY = hoverY;
-                if (Editor.ActiveLayer != LayerType.EVENTS)
-                    toolStripStatusCoord.Text = MapHoverLocationX.ToString("d3") + ", " + MapHoverLocationY.ToString("d3");
-            }
-        }
-
         private void tilemapMap_MouseLeave(object sender, EventArgs e)
         {
             MapHoverLocationX = -1;
@@ -219,18 +204,130 @@ namespace OpenXP
                 toolStripStatusCoord.Text = MapEventSelectLocationX.ToString("d3") + ", " + MapEventSelectLocationY.ToString("d3");
                 tilemapMap.Redraw();
                 if (SelectedMap != null) toolStripStatusEventInfo.Text = SelectedMap.Map.GetEventTooltip(column, row);
-            } else {
-                int column = (e.X * zoomDivide) / 32;
-                int row = (e.Y * zoomDivide) / 32;
-                if (SelectedMap != null)
+            }
+        }
+
+        private void tilemapMap_MouseDown(object sender, MouseEventArgs e)
+        {
+            int zoomDivide = 1;
+            if (Editor.ActiveZoomType == ZoomType.HALF) zoomDivide = 2;
+            if (Editor.ActiveZoomType == ZoomType.QUARTER) zoomDivide = 4;
+            int layer = 0;
+            switch (Editor.ActiveLayer)
+            {
+                case LayerType.LAYER2: layer = 1; break;
+                case LayerType.LAYER3: layer = 2; break;
+            }
+            int column = (e.X * zoomDivide) / 32;
+            int row = (e.Y * zoomDivide) / 32;
+
+            if (e.Button == MouseButtons.Left)
+            {
+                if (Editor.ActiveLayer != LayerType.EVENTS)
                 {
-                    int layer = 0;
-                    switch (Editor.ActiveLayer)
+                    //start tool and handle initial tile
+                    if (SelectedMap != null)
                     {
-                        case LayerType.LAYER2: layer = 1; break;
-                        case LayerType.LAYER3: layer = 2; break;
+                        MapDrawing = true;
+                        switch (Editor.ActiveDrawTool)
+                        {
+                            case DrawToolType.ELLIPSE:
+                                break;
+                            case DrawToolType.FLOODFILL:
+                                tilemapMap.FloodFill(column, row, layer, TilesetSelectionId);
+                                break;
+                            case DrawToolType.PENCIL:
+                                tilemapMap.SetTile(column, row, layer, TilesetSelectionId);
+                                break;
+                            case DrawToolType.RECTANGLE:
+                                break;
+                            case DrawToolType.SELECT:
+                                break;
+                        }
                     }
-                    tilemapMap.SetTile(column, row, layer, TilesetSelectionId);
+                }
+            }
+        }
+
+        private void tilemapMap_MouseMove(object sender, MouseEventArgs e)
+        {
+            int zoomDivide = 1;
+            if (Editor.ActiveZoomType == ZoomType.HALF) zoomDivide = 2;
+            if (Editor.ActiveZoomType == ZoomType.QUARTER) zoomDivide = 4;
+            int layer = 0;
+            switch (Editor.ActiveLayer)
+            {
+                case LayerType.LAYER2: layer = 1; break;
+                case LayerType.LAYER3: layer = 2; break;
+            }
+            int column = (e.X * zoomDivide) / 32;
+            int row = (e.Y * zoomDivide) / 32;
+            if (column >= 0 && row >= 0)
+            {
+                if (MapHoverLocationX != column || MapHoverLocationY != row)
+                {
+                    MapHoverLocationX = column;
+                    MapHoverLocationY = row;
+
+                    if (Editor.ActiveLayer != LayerType.EVENTS)
+                    {
+                        toolStripStatusCoord.Text = MapHoverLocationX.ToString("d3") + ", " + MapHoverLocationY.ToString("d3");
+                        if (MapDrawing && ((MouseButtons & MouseButtons.Left) == MouseButtons.Left))
+                        {
+                            //if the mouse is inside of control boundary
+                            if (SelectedMap != null && tilemapMap.ClientRectangle.Contains(tilemapMap.PointToClient(MousePosition)))
+                            {
+                                //update draw tool
+                                switch (Editor.ActiveDrawTool)
+                                {
+                                    case DrawToolType.ELLIPSE:
+                                        break;
+                                    case DrawToolType.FLOODFILL:
+                                        //no update on drag
+                                        break;
+                                    case DrawToolType.PENCIL:
+                                        tilemapMap.SetTile(column, row, layer, TilesetSelectionId);
+                                        return; //settile already paints map
+                                    case DrawToolType.RECTANGLE:
+                                        break;
+                                    case DrawToolType.SELECT:
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                    RepaintMap();
+                }
+            }
+        }
+
+        private void OpenXP_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (Editor.ActiveLayer != LayerType.EVENTS)
+                {
+                    MapDrawing = false;
+
+                    //end tool
+                    if (SelectedMap != null)
+                    {
+                        switch (Editor.ActiveDrawTool)
+                        {
+                            case DrawToolType.ELLIPSE:
+                                break;
+                            case DrawToolType.FLOODFILL:
+                                //already good to go
+                                break;
+                            case DrawToolType.PENCIL:
+                                //already good to go
+                                break;
+                            case DrawToolType.RECTANGLE:
+                                break;
+                            case DrawToolType.SELECT:
+                                break;
+                        }
+                    }
                 }
             }
         }
