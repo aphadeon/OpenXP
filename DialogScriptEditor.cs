@@ -23,7 +23,14 @@ namespace OpenXP
             //setup scintilla
             scintilla.Lexer = ScintillaNET.Lexer.Ruby;
 
-            scintilla.Styles[ScintillaNET.Style.Ruby.Default].Font = "Inconsolata";
+            scintilla.StyleResetDefault();
+            scintilla.Styles[Style.Default].Font = "Consolas";
+            scintilla.Styles[Style.Default].Size = 10;
+            scintilla.StyleClearAll();
+
+            scintilla.Styles[ScintillaNET.Style.Ruby.Default].Font = "Consolas";
+            scintilla.Styles[ScintillaNET.Style.Ruby.CommentLine].Font = "Consolas";
+            scintilla.Styles[ScintillaNET.Style.Ruby.Default].Size = 10;
             scintilla.Styles[ScintillaNET.Style.Ruby.CommentLine].ForeColor = Color.ForestGreen;
             scintilla.Styles[ScintillaNET.Style.Ruby.Pod].ForeColor = Color.ForestGreen;
             scintilla.Styles[ScintillaNET.Style.Ruby.Number].ForeColor = Color.DarkRed;
