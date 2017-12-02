@@ -3,17 +3,30 @@ Dir.chdir($GAME_DIRECTORY)
 
 #RPG Data Modules
 class Color
-	def initialize(r, g, b, a = 255)
-		@red = r
-		@green = g
-		@blue = b
-		@alpha = a
+	def initialize(r, g, b, a = 255.0)
+		self.red = r.to_f
+		self.green = g.to_f
+		self.blue = b.to_f
+		self.alpha = a.to_f
 	end
-	def set(r, g, b, a = 255)
-		@red = r
-		@green = g
-		@blue = b
-		@alpha = a
+	def set(r, g, b, a = 255.0)
+		self.red = r.to_f
+		self.green = g.to_f
+		self.blue = b.to_f
+		self.alpha = a.to_f
+	end
+	attr_reader(:red, :green, :blue, :alpha)
+	def red=(val)
+		@red = [[val.to_f, 0.0].max, 255.0].min
+	end
+	def green=(val)
+		@green = [[val.to_f, 0.0].max, 255.0].min
+	end
+	def blue=(val)
+		@blue = [[val.to_f, 0.0].max, 255.0].min
+	end
+	def alpha=(val)
+		@alpha = [[val.to_f, 0.0].max, 255.0].min
 	end
 	def color
 		Color.new(@red, @green, @blue, @alpha)
@@ -24,21 +37,20 @@ class Color
 	def self._load(s)
 		Color.new(*s.unpack('d4'))
 	end
-	attr_accessor(:red, :green, :blue, :alpha)
 end
 
 class Tone
-	def initialize(r, g, b, a = 0)
-		@red = r
-		@green = g
-		@blue = b
-		@gray = a
+	def initialize(r, g, b, a = 0.0)
+		self.red = r.to_f
+		self.green = g.to_f
+		self.blue = b.to_f
+		self.gray = a.to_f
 	end
-	def set(r, g, b, a = 0)
-		@red = r
-		@green = g
-		@blue = b
-		@gray = a
+	def set(r, g, b, a = 0.0)
+		self.red = r.to_f
+		self.green = g.to_f
+		self.blue = b.to_f
+		self.gray = a.to_f
 	end
 	def color
 		Color.new(@red, @green, @blue, @gray)
@@ -49,7 +61,19 @@ class Tone
 	def self._load(s)
 		Tone.new(*s.unpack('d4'))
 	end
-	attr_accessor(:red, :green, :blue, :gray)
+	attr_reader(:red, :green, :blue, :gray)
+	def red=(val)
+		@red = [[val.to_f, -255.0].max, 255.0].min
+	end
+	def green=(val)
+		@green = [[val.to_f, -255.0].max, 255.0].min
+	end
+	def blue=(val)
+		@blue = [[val.to_f, -255.0].max, 255.0].min
+	end
+	def gray=(val)
+		@gray = [[val.to_f, 0.0].max, 255.0].min
+	end
 end
 
 module RPG
@@ -945,62 +969,33 @@ module RPG
   end
 end
 
-
-class Table # by vgvgf
-  def initialize(x,y=1,z=1)
-    @xsize,@ysize,@zsize=x,y,z
-    @data=Array.new(x*y*z, 0)
-  end
-  def [](x,y=0,z=0)
-    @data[x+y*@xsize+z*@xsize*@ysize]
-  end
-  def []=(*args)
-    x=args[0]
-    y=args.size>2 ?args[1]:0
-    z=args.size>3 ?args[2]:0
-    v=args.pop
-    @data[x+y*@xsize+z*@xsize*@ysize]=v
-  end
-  def _dump(d=0)
-    s=[3].pack('L')
-    s+=[@xsize].pack('L')+[@ysize].pack('L')+[@zsize].pack('L')
-    s+=[@xsize*@ysize*@zsize].pack('L')
-    for z in 0...@zsize
-      for y in 0...@ysize
-        for x in 0...@xsize
-          s+=[@data[x+y*@xsize+z*@xsize*@ysize],0,0].pack('L')[0,2]
-        end
-      end
-    end
-    s
-  end
-  attr_reader(:xsize,:ysize,:zsize,:data)
-  class << self
-    def _load(s)
-      size=s[0,4].unpack('L')[0]
-      nx=s[4,4].unpack('L')[0]
-      ny=s[8,4].unpack('L')[0]
-      nz=s[12,4].unpack('L')[0]
-      data=[]
-      pointer=20
-      loop do
-        data.push((s[pointer,2]+"\000\000").unpack('L')[0])
-        pointer+=2
-        break if pointer > s.size-1
-      end
-      t=Table.new(nx,ny,nz)
-      n=0
-      for z in 0...nz
-        for y in 0...ny
-          for x in 0...nx
-            t[x,y,z]=data[n]
-            n+=1
-          end
-        end
-      end
-      t
-    end
-  end
+class Table
+	def initialize(x, y = 0, z = 0)
+		@dim = 1 + (y > 0 ? 1 : 0) + (z > 0 ? 1 : 0)
+		@xsize, @ysize, @zsize = x, [y, 1].max, [z, 1].max
+		@data = Array.new(x * y * z, 0)
+	end
+	def [](x, y = 0, z = 0)
+		@data[x + y * @xsize + z * @xsize * @ysize]
+	end
+	def []=(*args)
+		x = args[0]
+		y = args.size > 2 ? args[1] : 0
+		z = args.size > 3 ? args[2] : 0
+		v = args.pop
+		@data[x + y * @xsize + z * @xsize * @ysize] = v
+	end
+	def _dump(d = 0)
+		[@dim, @xsize, @ysize, @zsize, @xsize * @ysize * @zsize].pack('LLLLL') <<
+		@data.pack("S#{@xsize * @ysize * @zsize}")
+	end
+	def self._load(s)
+		size, nx, ny, nz, items = *s[0, 20].unpack('LLLLL')
+		t = Table.new(*[nx, ny, nz][0,size])
+		t.data = s[20, items * 2].unpack("S#{items}")
+		t
+	end
+	attr_accessor(:xsize, :ysize, :zsize, :data)
 end
 
 # Data handling shortcuts
