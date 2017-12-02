@@ -126,6 +126,7 @@
             this.pictureBoxTileset = new System.Windows.Forms.PictureBox();
             this.treeViewMaps = new System.Windows.Forms.TreeView();
             this.panelTilemapContainer = new XPT.MPanel();
+            this.tilemapMap = new XPT.UserControlTilemap();
             this.contextMenuStripMap = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newEventToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
@@ -134,7 +135,6 @@
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.playersStartingPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tilemapMap = new XPT.UserControlTilemap();
             this.mainMenu.SuspendLayout();
             this.toolbar.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -1142,60 +1142,6 @@
             this.panelTilemapContainer.Size = new System.Drawing.Size(922, 603);
             this.panelTilemapContainer.TabIndex = 1;
             // 
-            // contextMenuStripMap
-            // 
-            this.contextMenuStripMap.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newEventToolStripMenuItem,
-            this.toolStripSeparator15,
-            this.toolStripMenuItem1,
-            this.copyToolStripMenuItem,
-            this.pasteToolStripMenuItem,
-            this.toolStripSeparator16,
-            this.playersStartingPositionToolStripMenuItem});
-            this.contextMenuStripMap.Name = "contextMenuStripMap";
-            this.contextMenuStripMap.Size = new System.Drawing.Size(205, 126);
-            // 
-            // newEventToolStripMenuItem
-            // 
-            this.newEventToolStripMenuItem.Name = "newEventToolStripMenuItem";
-            this.newEventToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.newEventToolStripMenuItem.Text = "New Event...";
-            // 
-            // toolStripSeparator15
-            // 
-            this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(201, 6);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(204, 22);
-            this.toolStripMenuItem1.Text = "Cut";
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.copyToolStripMenuItem.Text = "Copy";
-            // 
-            // pasteToolStripMenuItem
-            // 
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.pasteToolStripMenuItem.Text = "Paste";
-            // 
-            // toolStripSeparator16
-            // 
-            this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(201, 6);
-            // 
-            // playersStartingPositionToolStripMenuItem
-            // 
-            this.playersStartingPositionToolStripMenuItem.Name = "playersStartingPositionToolStripMenuItem";
-            this.playersStartingPositionToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.playersStartingPositionToolStripMenuItem.Text = "Player\'s Starting Position";
-            this.playersStartingPositionToolStripMenuItem.Click += new System.EventHandler(this.playersStartingPositionToolStripMenuItem_Click);
-            // 
             // tilemapMap
             // 
             this.tilemapMap.BackColor = System.Drawing.Color.LightGray;
@@ -1207,6 +1153,65 @@
             this.tilemapMap.TabIndex = 0;
             this.tilemapMap.TabStop = false;
             this.tilemapMap.Visible = false;
+            // 
+            // contextMenuStripMap
+            // 
+            this.contextMenuStripMap.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newEventToolStripMenuItem,
+            this.toolStripSeparator15,
+            this.toolStripMenuItem1,
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem,
+            this.toolStripSeparator16,
+            this.playersStartingPositionToolStripMenuItem});
+            this.contextMenuStripMap.Name = "contextMenuStripMap";
+            this.contextMenuStripMap.Size = new System.Drawing.Size(205, 148);
+            // 
+            // newEventToolStripMenuItem
+            // 
+            this.newEventToolStripMenuItem.Enabled = false;
+            this.newEventToolStripMenuItem.Name = "newEventToolStripMenuItem";
+            this.newEventToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.newEventToolStripMenuItem.Text = "New Event...";
+            // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(201, 6);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Enabled = false;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(204, 22);
+            this.toolStripMenuItem1.Text = "Cut";
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Enabled = false;
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Enabled = false;
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.pasteToolStripMenuItem.Text = "Paste";
+            // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(201, 6);
+            // 
+            // playersStartingPositionToolStripMenuItem
+            // 
+            this.playersStartingPositionToolStripMenuItem.Enabled = false;
+            this.playersStartingPositionToolStripMenuItem.Name = "playersStartingPositionToolStripMenuItem";
+            this.playersStartingPositionToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.playersStartingPositionToolStripMenuItem.Text = "Player\'s Starting Position";
+            this.playersStartingPositionToolStripMenuItem.Click += new System.EventHandler(this.playersStartingPositionToolStripMenuItem_Click);
             // 
             // OpenXP
             // 

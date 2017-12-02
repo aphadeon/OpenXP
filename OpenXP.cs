@@ -176,6 +176,19 @@ namespace OpenXP
                 {
                     MapEventSelectLocationX = hoverX;
                     MapEventSelectLocationY = hoverY;
+                    string tt = SelectedMap.Map.GetEventTooltip(hoverX, hoverY);
+                    toolStripStatusEventInfo.Text = tt;
+                    if (String.IsNullOrEmpty(tt))
+                    {
+                        newEventToolStripMenuItem.Enabled = true;
+                        playersStartingPositionToolStripMenuItem.Enabled = true;
+                    }
+                    else
+                    {
+                        //block new event creation on an existing event or player start position
+                        newEventToolStripMenuItem.Enabled = false;
+                        playersStartingPositionToolStripMenuItem.Enabled = false;
+                    }
                     RepaintMap();
                 }
             }
@@ -204,7 +217,11 @@ namespace OpenXP
                 MapEventSelectLocationY = row;
                 toolStripStatusCoord.Text = MapEventSelectLocationX.ToString("d3") + ", " + MapEventSelectLocationY.ToString("d3");
                 tilemapMap.Redraw();
-                if (SelectedMap != null) toolStripStatusEventInfo.Text = SelectedMap.Map.GetEventTooltip(column, row);
+                if (SelectedMap != null)
+                {
+                    string tt = SelectedMap.Map.GetEventTooltip(column, row);
+                    toolStripStatusEventInfo.Text = tt;
+                }
             }
         }
 
@@ -973,6 +990,7 @@ namespace OpenXP
             MapHandler.startMapId = Editor.GetSelectedMapId();
             MapHandler.startMapX = MapEventSelectLocationX;
             MapHandler.startMapY = MapEventSelectLocationY;
+            Editor.Touch();
             RepaintMap();
         }
 

@@ -228,6 +228,20 @@ namespace OpenXP
 
         public static void Playtest()
         {
+            if (Project.Dirty)
+            {
+                DialogResult dr = System.Windows.Forms.MessageBox.Show(Form, "This project has unsaved changes. Would you like to save them now?", "Save Project?", MessageBoxButtons.YesNoCancel);
+                if (dr == DialogResult.Yes)
+                {
+                    Project.Save();
+                    UpdateCaption();
+                }
+                else if (dr == DialogResult.Cancel)
+                {
+                    return;
+                }
+            }
+
             string command = Path.Combine(Project.Directory, @"Game.exe");
             string args = "debug";
 
