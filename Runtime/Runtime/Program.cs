@@ -13,17 +13,17 @@ namespace OpenXP.Runtime
         public static string AppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + Path.DirectorySeparatorChar;
         public static Configuration Configuration;
         public static Parameters Parameters;
+        public static Client Client;
 
         [STAThread]
         static int Main(string[] args)
         {
             try
             {
-                AppDomain.CurrentDomain.UnhandledException += (sender, e)
-                => ForwardFatal(e.ExceptionObject);
+                AppDomain.CurrentDomain.UnhandledException += (sender, e) => ForwardFatal(e.ExceptionObject);
 
                 //make sure to check OpenTK for an unhandledexception or threadexception hook
-
+                
                 //hook exit handler
                 AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
 
@@ -38,15 +38,15 @@ namespace OpenXP.Runtime
                 Configuration.Load();
 
                 Log.Verbose("Starting up...");
+
+                Log.Verbose("Creating client");
+                Client = new Client();
+                Client.Run(40, 60);
             }
             catch (Exception huh)
             {
                 return HandleFatal(huh);
             }
-
-            //todo: remove pause when no longer needed
-            Console.WriteLine("\nExecution finished. Press any key to exit.");
-            Console.ReadKey();
 
             //Exit without error
             return 0;
@@ -80,8 +80,12 @@ namespace OpenXP.Runtime
         //Handles any unexpected fatal errors
         static int HandleFatal(Exception e)
         {
+            Log.FatalE("Fatal error: ", e);
+            int exitCode = 1;
+
             //return the desired error code
-            return -1;
+            Environment.ExitCode = exitCode;
+            return exitCode;
         }
     }
 }

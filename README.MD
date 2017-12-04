@@ -15,12 +15,9 @@ Status
 At this point we are focusing on interoperability and compatibility with RPG Maker XP projects, both 
 via the editor and a runtime implementation.
 
-The editor is the initial focus.  Once the basic functionality is completed, we will change focus to 
-the runtime, which will be based on the previous project OpenGame.exe, but limited to RPG Maker XP 
-support.
-
-Speaking of, the runtime is notably absent for the time being. It is being worked on, and will be 
-merged in at a later time.
+The runtime is partially derived from the previous project OpenGame.exe, but limited to RPG Maker XP 
+support, and focuses on enabling enhancements moreso than absolute perfect emulation (but existing 
+third-party script compatibility will still be taken into consideration when reasonable).
 
 More enhanced features will be added in the future.
 
@@ -71,7 +68,8 @@ Please see the [Contribution Guidelines and Credits List](CONTRIBUTING.MD).  :ey
 Thanks to the [hbgames.org community](http://www.hbgames.org/) for helping me learn the RPG Maker 
 series over the years.  
 
-Thanks to vgvgf for demonstrating how to pack and unpack Table, Color, and Tone classes.  
+Thanks to vgvgf and the HBGames community for demonstrating how to pack and unpack Table, Color, 
+and Tone classes.  
 
 This project is based on [OpenGame.exe](https://github.com/aphadeon/OpenGame.exe). 
 Special thanks to all the contributors of OpenGame.exe for their help.

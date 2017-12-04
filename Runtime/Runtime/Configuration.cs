@@ -25,11 +25,21 @@ namespace OpenXP.Runtime
 
         // - OXP
         public bool UseAppData = false;
-        public string AppDataFolder = "OpenXP";
+        public string AppDataFolder = "OpenXP Runtime";
 
         // - Graphics
         public int GraphicsWidth = 640;
         public int GraphicsHeight = 480;
+        public bool KeepAspectRatio = true;
+        public bool Fullscreen = false;
+        public bool BorderlessFullscreen = true;
+        public bool Borderless = false;
+        public bool AllowResize = false;
+        public int UpdateRate = 40;
+        public int FrameRate = 60;
+        public int BaseScale = 1;
+        public int LocationX = 0;
+        public int LocationY = 0;
 
         //private management stuff
         private bool Dirty = false;
@@ -41,9 +51,9 @@ namespace OpenXP.Runtime
             ReadFile(FindInputIniFile());
             //check if we need to reload from AppData
             //UseAppData and AppDataFolder only read from the local program directory and are ignored in appdata
-            UseAppData = Get<bool>("OXP", "UseAppData", false, true);
-            GameTitle = Get<string>("Game", "Title", "OpenXP Runtime", false);
-            AppDataFolder = Get<string>("OXP", "AppDataFolder", GameTitle, false);
+            UseAppData = Get<bool>("OXP", "UseAppData", UseAppData, true);
+            GameTitle = Get<string>("Game", "Title", GameTitle, false);
+            AppDataFolder = Get<string>("OXP", "AppDataFolder", AppDataFolder, false);
             if (UseAppData) //check if there is an INI in the AppData folder
             {
                 string appdatapath = Program.AppData + AppDataFolder + Path.DirectorySeparatorChar;
@@ -56,33 +66,43 @@ namespace OpenXP.Runtime
                     Contents.Clear();
                     ReadFile(appdatapath + Path.GetFileNameWithoutExtension(Program.Filename) + ".ini");
                     //re-read game title
-                    GameTitle = Get<string>("Game", "Title", "OpenXP Runtime", false);
+                    GameTitle = Get<string>("Game", "Title", GameTitle, false);
                 } else if(File.Exists(appdatapath + "Game.ini"))
                 {
                     Contents.Clear();
                     ReadFile(appdatapath + "Game.ini");
                     //re-read game title
-                    GameTitle = Get<string>("Game", "Title", "OpenXP Runtime", false);
+                    GameTitle = Get<string>("Game", "Title", GameTitle, false);
                 }
             }
 
             //load remaining variables
 
             //Logging
-            LogEnabled = Get<bool>("Logging", "LoggingEnabled", true, true);
-            LogLevel = (LogLevel) Get<int>("Logging", "LogLevel", 0, true);
-            LogCount = Get<int>("Logging", "LogCount", 3, true);
-            LogPath = Get<string>("Logging", "LogPath", Program.Directory, false);
+            LogEnabled = Get<bool>("Logging", "LoggingEnabled", LogEnabled, true);
+            LogLevel = (LogLevel) Get<int>("Logging", "LogLevel", (int)LogLevel, true);
+            LogCount = Get<int>("Logging", "LogCount", LogCount, true);
+            LogPath = Get<string>("Logging", "LogPath", LogPath, false);
 
             //Game
-            ScriptsPath = Get<string>("Game", "Scripts", "Data" + Path.DirectorySeparatorChar + "Scripts.rxdata", false);
-            RTP1 = Get<string>("Game", "RTP1", "Standard", false);
-            RTP2 = Get<string>("Game", "RTP2", "", false);
-            RTP3 = Get<string>("Game", "RTP3", "", false);
+            ScriptsPath = Get<string>("Game", "Scripts", ScriptsPath, false);
+            RTP1 = Get<string>("Game", "RTP1", RTP1, false);
+            RTP2 = Get<string>("Game", "RTP2", RTP2, false);
+            RTP3 = Get<string>("Game", "RTP3", RTP3, false);
 
             //Graphics
-            GraphicsWidth = Get<int>("Graphics", "Width", 640, true);
-            GraphicsHeight = Get<int>("Graphics", "Height", 480, true);
+            GraphicsWidth = Get<int>("Graphics", "Width", GraphicsWidth, false);
+            GraphicsHeight = Get<int>("Graphics", "Height", GraphicsHeight, false);
+            KeepAspectRatio = Get<bool>("Graphics", "KeepAspectRatio", KeepAspectRatio, true);
+            Fullscreen = Get<bool>("Graphics", "Fullscreen", Fullscreen, true);
+            BorderlessFullscreen = Get<bool>("Graphics", "BorderlessFullscreen", BorderlessFullscreen, true);
+            Borderless = Get<bool>("Graphics", "Borderless", Borderless, false);
+            AllowResize = Get<bool>("Graphics", "AllowResize", AllowResize, false);
+            UpdateRate = Get<int>("Graphics", "UpdateRate", UpdateRate, false);
+            FrameRate = Get<int>("Graphics", "FrameRate", FrameRate, false);
+            BaseScale = Get<int>("Graphics", "BaseScale", BaseScale, false);
+            LocationX = Get<int>("Graphics", "LocationX", LocationX, false);
+            LocationY = Get<int>("Graphics", "LocationY", LocationY, false);
         }
 
         //supports bool, int, and string datatypes
@@ -169,9 +189,14 @@ namespace OpenXP.Runtime
             if (!groupExists)
             {
                 Dirty = true;
-                Contents.Add(new IniLine("")); //whitespace
-                Contents.Add(new IniLineGroup("[" + group + "]", group));
-                Contents.Add(new IniLineKV(item + "=" + value, group));
+                var line1 = new IniLine("");
+                line1.dirty = true;
+                Contents.Add(line1); //whitespace
+                var line2 = new IniLineGroup("[" + group + "]", group);
+                line2.dirty = true;
+                Contents.Add(line2);
+                var line3 = new IniLineKV(item + "=" + value, group);
+                Contents.Add(line3);
             } else
             {
                 //otherwise we have to do a little legwork
@@ -206,7 +231,9 @@ namespace OpenXP.Runtime
                     }
                 }
                 Dirty = true;
-                Contents.Insert(ll, new IniLineKV(item + "=" + value, group));
+                var line = new IniLineKV(item + "=" + value, group);
+                line.dirty = true;
+                Contents.Insert(ll, line);
             }
         }
 
