@@ -75,33 +75,7 @@ Special thanks to all the contributors of OpenGame.exe for their help.
 
 License
 -------
-```
-MIT License
-Copyright 2017 aphadeon & Glitchfinder
+OpenXP (editor and runtime) is licensed under the [MIT License](LICENSE.MD). :eyes:
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+There are some exempted files - see [LICENSE.MD](LICENSE.MD) for more information.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-```
-The *Dependencies* subdirectory is exempted from this license entirely, dependencies are subject 
-to their own license, as indicated below.
-
-The *Documentation* subdirectory is exempted from this license entirely. The license terms of the 
-template apply as usual, and any contents are to be considered public domain.
-
-Dependency License Information:
--------------------------------
-
-[IronRuby](http://ironruby.net/) 
-is licensed under [Apache License v2](http://www.apache.org/licenses/LICENSE-2.0).  
-
-[Ionic.Zlib](https://github.com/jstedfast/Ionic.Zlib) 
-is licensed under [ZLIB License](https://github.com/jstedfast/Ionic.Zlib/blob/master/License.zlib.txt).  
-
-[ScintillaNET](https://github.com/jacobslusser/ScintillaNET) 
-is licensed under [MIT License](https://github.com/jacobslusser/ScintillaNET/blob/master/LICENSE).  
-
-[Scintilla](http://www.scintilla.org/) 
-is licensed under [MIT License](http://www.scintilla.org/License.txt).  

@@ -1,3 +1,4 @@
+```
 MIT License
 
 Copyright (c) 2017 aphadeon & Glitchfinder
@@ -19,3 +20,25 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
+Dependencies as described below are exempted from this license entirely,  
+dependencies are subject to their own licenses as indicated.
+
+The *Documentation* subdirectory is exempted from this license entirely. The 
+license terms of the template apply as usual, and any contents are to be 
+considered public domain.
+
+Dependency License Information:
+-------------------------------
+
+[IronRuby](http://ironruby.net/) 
+is licensed under [Apache License v2](http://www.apache.org/licenses/LICENSE-2.0).  
+
+[Ionic.Zlib](https://github.com/jstedfast/Ionic.Zlib) 
+is licensed under [ZLIB License](https://github.com/jstedfast/Ionic.Zlib/blob/master/License.zlib.txt).  
+
+[ScintillaNET](https://github.com/jacobslusser/ScintillaNET) 
+is licensed under [MIT License](https://github.com/jacobslusser/ScintillaNET/blob/master/LICENSE).  
+
+[Scintilla](http://www.scintilla.org/) 
+is licensed under [MIT License](http://www.scintilla.org/License.txt).  
