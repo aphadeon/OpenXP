@@ -107,6 +107,33 @@ namespace OpenXP.Runtime
             return random.NextDouble() >= 0.5;
         }
 
+        //generates a random bit, 0 or 1
+        public static int RandomBit()
+        {
+            if (RandomBool() == true) return 1;
+            return 0;
+        }
+
+        //generates a random nibble, a value from 0-15
+        public static int RandomNibble()
+        {
+            return RandomInt(16);
+        }
+
+        //generates a random byte
+        public static byte RandomByte()
+        {
+            return RandomBytes(1)[0];
+        }
+
+        //generates an array of random bytes of the specified length
+        public static byte[] RandomBytes(int length)
+        {
+            Byte[] b = new Byte[length];
+            random.NextBytes(b);
+            return b;
+        }
+
         //chooses a random entry from an array
         public static T Choose<T>(T[] array)
         {
@@ -154,6 +181,32 @@ namespace OpenXP.Runtime
             T temp = lhs;
             lhs = rhs;
             rhs = temp;
+        }
+
+        //flatten an array into a printable string
+        public static string PrintArray<T>(T[] array)
+        {
+            string result = "[";
+            for(int i = 0; i < array.Count(); i++)
+            {
+                result += array[i].ToString();
+                if (i < array.Count() - 1) result += ", ";
+            }
+            result += "]";
+            return result;
+        }
+
+        //flatten an IList into a printable string
+        public static string PrintList<T>(IList<T> array)
+        {
+            string result = "[";
+            for (int i = 0; i < array.Count(); i++)
+            {
+                result += array[i].ToString();
+                if (i < array.Count() - 1) result += ", ";
+            }
+            result += "]";
+            return result;
         }
     }
 }
