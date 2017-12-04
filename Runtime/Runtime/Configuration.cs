@@ -177,8 +177,8 @@ namespace OpenXP.Runtime
                                 Dirty = true;
                                 ilkv.ItemValue = value;
                                 ilkv.dirty = true;
-                                return;
                             }
+                            return;
                         }
                     }
                 }

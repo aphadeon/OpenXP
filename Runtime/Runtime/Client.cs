@@ -6,6 +6,12 @@ namespace OpenXP.Runtime
 {
     class Client : GameWindow
     {
+        // the actual resolution - i.e. 640x480
+        public System.Drawing.Size BaseResolution { get; set; }
+        // the primary viewport for the centered/letterboxed/scaled surface
+        public System.Drawing.Rectangle RenderRect { get; set; }
+        // the actual viewport for the entire client display, used for screen-wide effects
+        public System.Drawing.Size ClientResolution { get; set; }
 
         //debug graphics for debug builds, otherwise compat
         private static OpenTK.Graphics.GraphicsContextFlags GetInitialGraphicsContextFlags()
@@ -54,8 +60,11 @@ namespace OpenXP.Runtime
             GetInitialGameWindowFlags(), GetInitialDisplayDevice(),
             4, 0, GetInitialGraphicsContextFlags())
         {
+            //setup details from Configuration
             Location = new System.Drawing.Point(Program.Configuration.LocationX, Program.Configuration.LocationY);
-
+            if(Program.Configuration.Borderless) WindowBorder = WindowBorder.Hidden;
+            
+            
             //hook the closing event to store configuration variables
             Closing += Client_Closing;
         }
